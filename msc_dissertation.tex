@@ -1,0 +1,27 @@
+\documentclass{article}
+\input{config.tex}
+
+\begin{document}
+
+% Roman page numbers for preamble
+\pagenumbering{roman}
+
+% Title page
+\input{contents/0-preamble/titlepage.tex}
+\clearpage
+
+\section*{Executive Summary}
+\addcontentsline{toc}{section}{Executive Summary} 
+\clearpage
+\section*{Dedication and Acknowledgments}
+\addcontentsline{toc}{section}{Dedication and Acknowledgments}
+\clearpage
+\section*{Author's Declaration}
+\addcontentsline{toc}{section}{Author's Declaration} 
+\clearpage
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+\input{contents/1-introduction/introduction.tex}
+
+\end{document}

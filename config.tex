@@ -1,0 +1,54 @@
+% Packages
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc} 
+\usepackage{graphicx}
+\usepackage[a4paper, margin=2.5cm]{geometry} % A4 style margin
+\usepackage{lipsum}
+\usepackage{etoolbox} % For patching commands
+\usepackage{titlesec} % For controlling section appearance
+\usepackage{fancyhdr} % For custom headers
+
+% Global variables 
+\newcommand{\myName}{Adam Sidnell} 
+\newcommand{\mySupervisor}{Professor Ruzanna Chitchyan} 
+\newcommand{\mySubmissionMonthYear}{September 2025}
+\newcommand{\myReportTitle}{TODO: add project name} 
+\newcommand{\myReportSubtitle}{TODO: add subtitle} 
+
+% Section title appearance
+\titleformat{\section}
+  {\normalfont\LARGE\bfseries}
+  {\thesection}
+  {1em}
+  {}
+
+% Section spacing: left, before, after
+\titlespacing*{\section}{0pt}{0pt}{0.5cm}
+
+% Header settings
+\pagestyle{fancy}
+\fancyhf{}
+
+% Move section title to RIGHT
+\fancyhead[R]{\rightmark} 
+\fancyhead[L]{}           
+
+\fancyfoot[C]{\thepage}
+
+% Draw the top rule line
+\renewcommand{\headrulewidth}{0.4pt}
+% Put section title above header
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ \MakeUppercase{#1}}}
+
+% Remove header from start of sections
+\fancypagestyle{sectionstart}{
+    \fancyhf{} % Completely empty
+    \renewcommand{\headrulewidth}{0pt} % No top rule
+}
+
+% Automatically clear page and add vertical space before each section
+\makeatletter
+\pretocmd{\section}
+  {\clearpage\vspace*{3cm}\thispagestyle{sectionstart}}{}{}
+\makeatother
+
