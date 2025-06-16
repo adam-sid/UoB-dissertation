@@ -7,13 +7,19 @@
 \usepackage{etoolbox} % For patching commands
 \usepackage{titlesec} % For controlling section appearance
 \usepackage{fancyhdr} % For custom headers
+\usepackage{tocloft} % For table of contents settings
+\usepackage[style=ieee]{biblatex} % For citations
+\usepackage{csquotes} % Package recommended by VSCode warning
+\usepackage{siunitx} % For common SI units
 
 % Global variables 
 \newcommand{\myName}{Adam Sidnell} 
 \newcommand{\mySupervisor}{Professor Ruzanna Chitchyan} 
 \newcommand{\mySubmissionMonthYear}{September 2025}
-\newcommand{\myReportTitle}{TODO: add project name} 
-\newcommand{\myReportSubtitle}{TODO: add subtitle} 
+\newcommand{\myReportTitle}{TBD: Add name of tool here} 
+\newcommand{\myReportSubtitle}{TBD: A tool to study microclimates in an orchard} 
+\newcommand{\wordCount}{TBD} 
+
 
 % Section title appearance
 \titleformat{\section}
@@ -43,6 +49,7 @@
 % Remove header from start of sections
 \fancypagestyle{sectionstart}{
     \fancyhf{} % Completely empty
+    \fancyfoot[C]{\thepage} % Add back page number
     \renewcommand{\headrulewidth}{0pt} % No top rule
 }
 
@@ -51,4 +58,10 @@
 \pretocmd{\section}
   {\clearpage\vspace*{3cm}\thispagestyle{sectionstart}}{}{}
 \makeatother
+
+% Add dots to contents page
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+% Set bibilography name
+\addbibresource{references.bib} 
 

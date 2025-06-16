@@ -6,6 +6,8 @@
 % Roman page numbers for preamble
 \pagenumbering{roman}
 
+%TC:ignore
+
 % Title page
 \input{contents/0-preamble/titlepage.tex}
 \clearpage
@@ -29,12 +31,24 @@
 \tableofcontents
 \clearpage
 
+%TC:endignore
+
+
 % Use arabic numbers for main contents pages
 \pagenumbering{arabic}
 
 % Introduction
 \input{contents/1-introduction/introduction.tex}
 
+% Background
+\input{contents/2-background/background.tex}
 
+%TC:ignore
+
+% References
+\addcontentsline{toc}{section}{References}
+\printbibliography
+
+%TC:endignore
 
 \end{document}
