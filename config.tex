@@ -1,6 +1,6 @@
 % Packages
 \usepackage[english]{babel}
-\usepackage[T1]{fontenc} 
+\usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage[a4paper, margin=2.5cm]{geometry} % A4 style margin
 \usepackage{lipsum}
@@ -13,20 +13,20 @@
 \usepackage{siunitx} % For common SI units
 
 % Global variables 
-\newcommand{\myName}{Adam Sidnell} 
-\newcommand{\mySupervisor}{Professor Ruzanna Chitchyan} 
+\newcommand{\myName}{Adam Sidnell}
+\newcommand{\mySupervisor}{Professor Ruzanna Chitchyan}
 \newcommand{\mySubmissionMonthYear}{September 2025}
-\newcommand{\myReportTitle}{TBD: Add name of tool here} 
-\newcommand{\myReportSubtitle}{TBD: A tool to study microclimates in an orchard} 
-\newcommand{\wordCount}{TBD} 
+\newcommand{\myReportTitle}{TBD: Add name of tool here}
+\newcommand{\myReportSubtitle}{TBD: A tool to study microclimates in an orchard}
+\newcommand{\wordCount}{TBD}
 
 
 % Section title appearance
 \titleformat{\section}
-  {\normalfont\LARGE\bfseries}
-  {\thesection}
-  {1em}
-  {}
+{\normalfont\LARGE\bfseries}
+{\thesection}
+{1em}
+{}
 
 % Section spacing: left, before, after
 \titlespacing*{\section}{0pt}{0pt}{0.5cm}
@@ -36,8 +36,8 @@
 \fancyhf{}
 
 % Move section title to RIGHT
-\fancyhead[R]{\rightmark} 
-\fancyhead[L]{}           
+\fancyhead[R]{\rightmark}
+\fancyhead[L]{}
 
 \fancyfoot[C]{\thepage}
 
@@ -48,20 +48,23 @@
 
 % Remove header from start of sections
 \fancypagestyle{sectionstart}{
-    \fancyhf{} % Completely empty
-    \fancyfoot[C]{\thepage} % Add back page number
-    \renewcommand{\headrulewidth}{0pt} % No top rule
+  \fancyhf{} % Completely empty
+  \fancyfoot[C]{\thepage} % Add back page number
+  \renewcommand{\headrulewidth}{0pt} % No top rule
 }
 
 % Automatically clear page and add vertical space before each section
 \makeatletter
 \pretocmd{\section}
-  {\clearpage\vspace*{3cm}\thispagestyle{sectionstart}}{}{}
+{\clearpage\vspace*{3cm}\thispagestyle{sectionstart}}{}{}
 \makeatother
 
 % Add dots to contents page
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 
 % Set bibilography name
-\addbibresource{references.bib} 
+\addbibresource{references.bib}
+
+% Change name of contents page to table of contents
+\renewcommand{\contentsname}{Table of Contents}
 
