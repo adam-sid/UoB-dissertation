@@ -30,13 +30,13 @@
 % Header/footer setup
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[R]{\leftmark}
+\fancyhead[R]{\small \leftmark}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\sectionmark}[1]{\markboth{\thesection\ \MakeUppercase{#1}}{}}
 
-% Custom section-start page style (no header)
-\fancypagestyle{sectionstart}{
+% Custom plain page style for section-start, part, contents and other pages
+\fancypagestyle{plain}{
   \fancyhf{}
   \fancyfoot[C]{\thepage}
   \renewcommand{\headrulewidth}{0pt}
@@ -44,7 +44,7 @@
 
 % Clear page & vertical space before sections
 \makeatletter
-\pretocmd{\section}{\clearpage\vspace*{3cm}\thispagestyle{sectionstart}}{}{}
+\pretocmd{\section}{\clearpage\vspace*{3cm}\thispagestyle{plain}}{}{}
 \makeatother
 
 % Part page formatting (centred on page, "part" smaller than "name")
@@ -55,16 +55,9 @@
 {\Huge }
 [
   \vfill
-  \thispagestyle{partpage}
+  \thispagestyle{plain}
   \clearpage
 ]
-
-% Custom part page style
-\fancypagestyle{partpage}{
-  \fancyhf{}
-  \fancyfoot[C]{\thepage}
-  \renewcommand{\headrulewidth}{0pt}
-}
 
 % Dotted lines in contents
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
@@ -72,5 +65,7 @@
 % Bibliography file
 \addbibresource{references.bib}
 
-% Contents title
-\addto\captionsenglish{\renewcommand{\contentsname}{Table of Contents}}
+% Contents title and formatting
+\addto\captionsenglish{\renewcommand{\contentsname}{Table of contents}}
+\renewcommand{\cfttoctitlefont}{\LARGE\bfseries}
+\setlength{\cftaftertoctitleskip}{2cm}

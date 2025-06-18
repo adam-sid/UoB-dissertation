@@ -1,46 +1,49 @@
 \begin{titlepage}
     \centering
 
+    \vspace*{2.2cm}
+
     % Top bar
-    \rule{\textwidth}{2pt} \\[-0.4ex]
+    \rule{\textwidth}{2pt} \\[-2ex]
     \rule{\textwidth}{0.5pt} \\[0.7cm]
 
     % Title and description
     {\LARGE\bfseries \myReportTitle} \\[0.3cm]
 
     \parbox{0.89\textwidth}{\centering
-        {\large \myReportSubtitle}
+        {\large \textit{\myReportSubtitle}}
     } \\[0.3cm]
 
     % Bottom bar
-    \rule{\textwidth}{0.5pt} \\[-0.4ex]
-    \rule{\textwidth}{2pt} \\[0.7cm]
+    \rule{\textwidth}{0.5pt} \\[-2ex]
+    \rule{\textwidth}{2pt} \\[0.3cm]
 
     % Author and supervisor
     {\large By} \\[0.3cm]
-    {\large \myName} \\[0.7cm]
-    {\large Supervised by \mySupervisor} \\[1cm]
+    {\large \myName} \\[0.3cm]
+    {\normalsize Supervised by \mySupervisor} \\[1cm]
 
     % Logo 
-    \includegraphics[width=0.25\textwidth]{contents/0-preamble/fig00/uob_logo.png} \\[1cm]
+    \includegraphics[width=0.2\textwidth]{contents/0-preamble/fig00/uob_logo.png} \\[1cm]
 
     % Department and Date
-    \begin{minipage}{0.6\textwidth} % adjust 0.6 to control width
+    \begin{minipage}{0.65\textwidth}
         \centering
         {\Large Department of Computer Science} \\[0.3cm]
-        {\Large UNIVERSITY OF BRISTOL} \\[0.7cm]
-        \begin{flushleft}
-            {\normalsize A dissertation submitted to the University of Bristol
-                in accordance with the requirements of the degree of MASTER OF
-                SCIENCE in the Faculty of Engineering} \\[0.7cm]
-        \end{flushleft}
+        {\Large \textsc{UNIVERSITY OF BRISTOL}} \\[1cm]
+        {\normalsize A dissertation submitted to the University of Bristol
+        in accordance with the requirements of the degree of \textsc{Master of Science}
+        in the Faculty of Engineering} \\[1cm]
         {\large \mySubmissionMonthYear}
     \end{minipage}
-    \vfill
 
-    \vspace{0.5cm}
+    \vspace*{1cm}
+
+
     \begin{flushright}
         Word count: \wordCount
     \end{flushright}
+
+    \vspace*{2.2cm}
 
 \end{titlepage}

@@ -10,26 +10,31 @@
 
 % Title page
 \input{contents/0-preamble/titlepage.tex}
-\clearpage
+
 
 % Executive summary
-\section*{Executive Summary}
-\addcontentsline{toc}{section}{Executive Summary}
-\clearpage
+\section*{Executive summary}
+\addcontentsline{toc}{section}{Executive summary}
+
 
 % Dedication and acknowledgments
-\section*{Dedication and Acknowledgments}
-\addcontentsline{toc}{section}{Dedication and Acknowledgments}
-\clearpage
+\section*{Dedication and acknowledgments}
+\addcontentsline{toc}{section}{Dedication and acknowledgments}
+
 
 % Declaration
-\section*{Author's Declaration}
-\addcontentsline{toc}{section}{Author's Declaration}
-\clearpage
+\section*{Author's declaration}
+\addcontentsline{toc}{section}{Author's declaration}
+
 
 % Contents
+\clearpage
+\begingroup
+\pagestyle{plain}
+\vspace*{3cm}
 \tableofcontents
 \clearpage
+\endgroup
 
 %TC:endignore
 
@@ -48,7 +53,6 @@
 \input{contents/2-microclimates/microclimates.tex}
 
 % Internet of things
-
 \input{contents/3-iot/iot.tex}
 
 
