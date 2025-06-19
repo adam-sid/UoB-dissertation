@@ -5,12 +5,13 @@
             "name": "latexmk",
             "command": "latexmk",
             "args": [
-            "-shell-escape",
-            "-synctex=1",
-            "-halt-on-error",
-            "-file-line-error",
-            "-outdir=%OUTDIR%", // this is the line you need to add
-            "%DOC%"
+                "-pdf",
+                "-shell-escape",
+                "-synctex=1",
+                "-halt-on-error",
+                "-file-line-error",
+                "-outdir=%OUTDIR%", // this is the line you need to add
+                "%DOC%"
             ],
             "env": {}
         },
@@ -20,7 +21,7 @@
             "command": "sh",
             "args": [
                 "-c",
-                "./move_pdf.sh" 
+                "./move_pdf.sh"
             ]
         }
     ],
