@@ -5,3 +5,31 @@
 Long range systems are a way of transmitting data over much longer distances than
 Wi-Fi allows. LoRa has a range 4000 times greater than Wi-Fi.
 
+\subsection{Implementation of LoRa Communication}
+
+In this project, I deployed a low-power, long-range (LoRa) wireless network to
+connect a distributed set of environmental sensors across an apple orchard. The
+primary goal was to establish a reliable Internet-of-Things (IoT) weather
+station capable of transmitting temperature, humidity, soil moisture, and wind
+speed data over distances of up to [insert number of km] without the need for 
+external infrastructure such as with mobile data.
+
+Measurements were sent as compact JSON payloads. We achieved a balance of data
+rate (insert data rate) and sensitivity (insert sensitivity), ensuring packet delivery
+even over hilly terrain. 
+
+On the gateway side, a [insert final device used] served as a base station. It
+received raw payloads and forwarded them over MQTT to a cloud server for storage
+and visualization. Field tests were conducted showing a maximum range of 
+[final range achieved].
+
+\subsection{Early prototyping}
+
+For early prototyping, We chose two Challenger RP2040 LoRa modules. These are
+simple Raspberry Pico based devices with a low powered antenna. With these
+modules I developed an early script that allowed for the sending of JSON packets
+containing all the necessary measurements. 
+
+These modules served only as a proof of concept as my own testing of range for
+these only reported about 100m distance before significant packet loss and
+corruption occurred.
