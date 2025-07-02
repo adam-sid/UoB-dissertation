@@ -1,12 +1,13 @@
 \documentclass[12pt]{article}
+
+%TC:ignore
 \input{config.tex}
+
 
 \begin{document}
 
 % Roman page numbers for preamble
 \pagenumbering{roman}
-
-%TC:ignore
 
 % Title page
 \input{contents/00-preamble/titlepage.tex}
@@ -38,7 +39,6 @@
 
 %TC:endignore
 
-
 % Use arabic numbers for main contents pages
 \pagenumbering{arabic}
 
@@ -54,6 +54,8 @@
 
 % Internet of things
 \input{contents/03-iot/iot.tex}
+
+\input{contents/04-lora/lora.tex}
 
 \newpage
 \part{Hardware development}
@@ -74,14 +76,8 @@
 \newpage
 \part{Evaluation}
 
-
-%TC:ignore
-
 % References
 \addcontentsline{toc}{section}{References}
 \printbibliography
-
-
-% TC:endignore
 
 \end{document}
