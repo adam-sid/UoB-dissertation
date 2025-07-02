@@ -9,7 +9,7 @@
 %TC:ignore
 
 % Title page
-\input{contents/0-preamble/titlepage.tex}
+\input{contents/00-preamble/titlepage.tex}
 
 
 % Executive summary
@@ -43,17 +43,36 @@
 \pagenumbering{arabic}
 
 % Introduction
-\input{contents/1-introduction/introduction.tex}
+\input{contents/01-introduction/introduction.tex}
 \newpage
 
 % Background
 \part{Background}
 
 % Microclimates
-\input{contents/2-microclimates/microclimates.tex}
+\input{contents/02-microclimates/microclimates.tex}
 
 % Internet of things
-\input{contents/3-iot/iot.tex}
+\input{contents/03-iot/iot.tex}
+
+\newpage
+\part{Hardware development}
+
+\input{contents/21-hw-overview/hw-overview.tex}
+
+\input{contents/22-hw-design/hw-design.tex}
+
+\input{contents/23-hw-development/hw-development.tex}
+
+\input{contents/24-hw-deployment/hw-deployment.tex}
+
+\newpage
+\part{Software development}
+
+\input{contents/31-sw-overview/sw-overview.tex}
+
+\newpage
+\part{Evaluation}
 
 
 %TC:ignore
@@ -62,6 +81,7 @@
 \addcontentsline{toc}{section}{References}
 \printbibliography
 
-%TC:endignore
+
+% TC:endignore
 
 \end{document}
