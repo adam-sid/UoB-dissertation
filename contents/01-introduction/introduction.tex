@@ -1,13 +1,16 @@
 \section{Introduction}
 
-In this report I give details of an online tool called \myReportTitle{}, an
-interactive website that collects real time data from \farmName{} in
-\farmLocation{}. The tool aims to give farmers accessible, specific climate data
-to help reveal the existence of microclimates over a small area and inform their
-decision making.
+In this report, I give details of an online tool called \myReportTitle{} which
+was deployed alongside an IoT weather sensor network that I built myself. The
+tool aims to provide farmers with accessible, specific climate data to support
+real-time decision-making.
 
-Three sensor clusters were distributed at three points in the farm. Each
-cluster was powered by a raspberry pico and then a variety of sensors
-were added to these. Data is then sent in real time back to a backend server
-which processes the information and allowed for real time data to be presented
-to farm workers via a website.
+The IoT hardware deployed consisted of four separate custom built components:
+two field nodes capable of reading weather data and transmitting this using
+LoRa; a repeater that boosts received LoRa signals; and an internet-connected
+gateway that uploads weather data to an online database. 
+
+The nodes were placed at two different locations on the farm that the owner had
+identified as having distinct climate characteristics (see section on
+microclimates), meaning wider-area weather forecasts were unrepresentative.
+

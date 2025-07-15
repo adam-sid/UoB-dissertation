@@ -25,7 +25,7 @@ my preferred language for development.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{contents/22-hw-design/22-fig/challenger-rp2040.jpg}
-    \caption{iLabs Challenger RP2040 used in the project. Note the RP2040 chip centre and RF96 LoRa module to the right.}
+    \caption{iLabs Challenger RP2040}
     \label{fig:challenger-rp2040}
 \end{figure}
 
@@ -55,9 +55,16 @@ my use.
     \label{fig:pcb-antenna}
 \end{figure}
 
-To improve overall range I switched to a more capable 170mm whip style antenna
-kit that was made specifically for the Challenger RP2040. The antenna tuned to
+To improve overall range I switched to a more capable omnidirectional whip antenna 
+that was made specifically for the Challenger RP2040. The antenna is tuned to
 perform best at the 868mhz frequency range - which is the range I was using.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{contents/22-hw-design/22-fig/good-antenna.jpg}
+    \caption{iLabs whip style LoRa antenna (868mhz)}
+    \label{fig:good-antenna}
+\end{figure}
 
 \paragraph{Sensor selection}
 
@@ -72,13 +79,27 @@ power and ground pin.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{contents/22-hw-design/22-fig/dht11.jpg}
-    \caption{Waveshare DHT11 Temperature/Humidity sensor}
+    \caption{Waveshare DHT11 temperature/humidity sensor}
     \label{fig:dht11}
 \end{figure}
 
 \subparagraph{Soil moisture sensor}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{contents/22-hw-design/22-fig/soil-sensor.jpg}
+    \caption{The Pi Hut capacitive soil moisture sensor}
+    \label{fig:soil-sensor}
+\end{figure}
+
 \subparagraph{Wind speed sensor}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{contents/22-hw-design/22-fig/wind-sensor.jpg}
+    \caption{DFROBOT wind speed sensor}
+    \label{fig:wind-sensor}
+\end{figure}
 
 \paragraph{Powering the node}
 
@@ -88,6 +109,13 @@ solar panels was too high voltage to directly power the nodes I also installed a
 solar power management module onto the Challengers. This module powers a battery
 that is installed on it using a solar panel. It then is able to power the RP2040
 using this battery, allowing for overnight or overcast usage of the challenger.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{contents/22-hw-design/22-fig/solar-panel-manager.jpg}
+    \caption{Waveshare solar power management module (left), solar panel (right)}
+    \label{fig:solar-module}
+\end{figure}
 
 \paragraph{Weather proofing}
 
@@ -115,9 +143,17 @@ The gateway consisted of a fourth Challenger RP2040 connected to a Raspberry Pi
 then would transfer these to the Raspberry Pi. After receiving data the
 Raspberry pi uploaded this to the internet.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{contents/22-hw-design/22-fig/raspberry-pi.jpg}
+    \caption{Raspberry Pi 5 (8GB)}
+    \label{fig:raspberry-pi}
+\end{figure}
+
 \subsection{LoRa settings}
 
-LoRa has many parameters that must be aligned for two devices to communicate successfully. These include:
+LoRa has many parameters that must be aligned for two devices to communicate
+successfully. These include:
 
 \begin{enumerate}
   \item \textbf{Spreading factor:} 
