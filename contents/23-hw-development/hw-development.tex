@@ -1,7 +1,5 @@
 \section{Development and testing}
 
-\subsection{Hardware assembly}
-
 \subsection{Programming the hardware}
 
 \subsection{Range tests}
@@ -109,24 +107,52 @@ cover during the early evening and morning period.
 To see if the battery solution was sufficient for this environment a test
 was run on a fully charged 18650 battery that was then connected to the solar
 power manager to allow the voltage to be regulated up to the challenger's 5v
-input voltage. The node was then run with it's software and full suite of
-sensors attached.
-
-The node was then ran until the battery would no longer discharge, with the
-final battery life of the node being 19 hours and 17 minutes.
+input voltage.
 
 A digital multimeter was installed between the solar power manager and the
 challenger's usb c input to view the voltage and current in real time as well as
 running a timer for the test and a calculation of the number of watt-hours
-consumed by the node. During the test the node used 80ma at 5V for a wattage of
-0.4W. The meter showed that the node consumed 7.96Wh of power. Considering the
-battery capacity is 9 Wh it may seem that the battery ran out too quickly.
-However, the solar power manager documentation tells us that the battery boost
-efficiency - being the conversion of battery voltage from native 3.7V to 5V
-output - is only 86\%.
+consumed by the node. The node was then run with a full suite of sensors
+attached. During the test the node used 80ma at 5V for a wattage of 0.4W.
 
-With that in mind effective battery capacity is roughly 7.74Wh, which is very
-similar to the actual result.
+The node ran until the battery would no longer discharge, with the final battery
+life of the node being 19 hours and 17 minutes. The meter showed that the node
+consumed 7.96Wh of power. Considering the battery capacity is 9 Wh it may seem
+that the battery ran out too quickly. However, the solar power manager
+documentation tells us that the battery boost efficiency - being the conversion
+of battery voltage from native 3.7V to 5V output - is only 86\%. With that in
+mind effective battery capacity is roughly 7.74Wh, which is very similar to the
+actual result.
 
-\subsection{Solar testing}
+The achieved result of 19 hours should be sufficient for running the node
+continuously for much of the year as this compares to the longest night period
+of 16.4 hours. However, during periods of heavy cloud cover in winter there is a
+chance the node would not be able to charge the battery sufficiently in the day
+to allow the node to run over night.
 
+\subsection{Solar panel testing}
+
+The solar panel is rated for 6W maximum power. This however would only
+realistically be achieved under optimal conditions with a clear sky and full sun
+around midday. This power rating was first verified using a multimeter on such a
+day where a voltage of (INSERT VOLTAGE) and amperage of (INSERT AMPERAGE) was
+measured for a wattage of (INSERT WATTAGE).
+
+As explained in the battery section above, the node consumed about 7.96wH over a
+19 hour and 17 minute period. We can therefore determine that the node requires
+roughly 10wH of energy per day to able to run continuously. It would be tempting
+to then say that the node would need less 2 hours of ideal sunlight to operate
+for an entire day (being 6W * 2h = 12Wh), however we must also account for the energy loss when
+converting from raw solar output to regulated 5V input that challenger accepts.
+
+The solar panel manager rates it's conversion efficiency for solar at 78\%
+meaning for each watt of solar energy received 22\% of this will be wasted as
+heat when converted to the correct voltage. If we adjust for this loss we would
+need effectively 12.8Wh of energy just to power the node for a day, being 2
+hours and 8 minutes of ideal conditions.
+
+An additional 9Wh is needed to charge the battery which if we adjust again for
+solar efficiency factor we get 11.5Wh. This is an additional 1h:55m of ideal
+sun, leaving a total sunlight requirement each day of 4h:03m.
+
+\subsection{Hardware assembly}
