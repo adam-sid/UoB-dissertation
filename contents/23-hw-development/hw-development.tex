@@ -104,10 +104,10 @@ long. Therefore the node must have a battery sufficiently large to power it for
 a minimum of 16.4 hours with some additional charge to account for high cloud
 cover during the early evening and morning period.
 
-To see if the battery solution was sufficient for this environment a test
-was run on a fully charged 18650 battery that was then connected to the solar
-power manager to allow the voltage to be regulated up to the challenger's 5v
-input voltage.
+To see if the battery solution was sufficient for this environment a test was
+run on a fully charged 18650 battery that was then connected to the solar power
+manager to allow the voltage to be regulated up to the challenger's 5v input
+voltage.
 
 A digital multimeter was installed between the solar power manager and the
 challenger's usb c input to view the voltage and current in real time as well as
@@ -142,8 +142,9 @@ As explained in the battery section above, the node consumed about 7.96wH over a
 19 hour and 17 minute period. We can therefore determine that the node requires
 roughly 10wH of energy per day to able to run continuously. It would be tempting
 to then say that the node would need less 2 hours of ideal sunlight to operate
-for an entire day (being 6W * 2h = 12Wh), however we must also account for the energy loss when
-converting from raw solar output to regulated 5V input that challenger accepts.
+for an entire day (being 6W * 2h = 12Wh), however we must also account for the
+energy loss when converting from raw solar output to regulated 5V input that
+challenger accepts.
 
 The solar panel manager rates it's conversion efficiency for solar at 78\%
 meaning for each watt of solar energy received 22\% of this will be wasted as
@@ -155,4 +156,43 @@ An additional 9Wh is needed to charge the battery which if we adjust again for
 solar efficiency factor we get 11.5Wh. This is an additional 1h:55m of ideal
 sun, leaving a total sunlight requirement each day of 4h:03m.
 
-\subsection{Hardware assembly}
+\subsection{Hardware assembly and weatherproofing}
+
+Since most of the hardware in this project contains exposed electronics, the
+final assembled devices needed to be made water and wind resistant to prevent
+failure. However many of the components also would need to be exposed to perform
+their function effectively - e.g. a solar panel must have a clear view of the
+sun throughout the day. The final design therefore needed to balance multiple
+conflicting purposes:
+
+\begin{itemize}
+    \item The core electronics (challenger, solar manager, battery etc) must be
+          kept dry, cool and away from wind which may damage electronics.
+    \item The wind sensor must be exposed to the elements and securely fastened
+          to withstand intense wind, it must also be kept high off the ground
+          for accurate readings. It has no exposed electronics and is water
+          resistant.
+    \item The solar panel must be exposed to the elements and be south facing at
+          at an angle of 30 degrees to optimise solar efficiency. It is water
+          resistant.
+    \item The soil moisture sensor must be inserted into the ground and as it
+          has exposed electronics must be made waterproof.
+    \item The antenna of the challenger must be placed as high as possible (at
+          least 1.5m from the ground). IT is water resistant.
+    \item The temperature/humidity sensor must be exposed to the elements to
+          ensure accurate readings but cannot be exposed to rain due to the
+          exposed electronics on it.
+\end{itemize}
+
+Due to the conflicting nature of some of these needs - particularly with respect
+to altitude. The final device would need to allow for positioning of different
+components at different heights.
+
+Therefore the electronics would be mounted inside a water proof box (rated IP68
+water resistant) with a small cut out for wires at the bottom - which reduces
+the risk of water ingress from rain fall. Then the box was fitted to a wooden
+fence post that could be secured in earth. Components needing to be higher up
+could be secured higher up the pole while soil moisture sensor could be placed
+lower.
+
+
