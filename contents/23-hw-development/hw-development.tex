@@ -1,7 +1,5 @@
 \section{Development and testing}
 
-\subsection{Programming the hardware}
-
 \subsection{Range tests}
 
 One of the most important tests to carry out prior to deployment in the field
@@ -159,40 +157,143 @@ sun, leaving a total sunlight requirement each day of 4h:03m.
 \subsection{Hardware assembly and weatherproofing}
 
 Since most of the hardware in this project contains exposed electronics, the
-final assembled devices needed to be made water and wind resistant to prevent
-failure. However many of the components also would need to be exposed to perform
-their function effectively - e.g. a solar panel must have a clear view of the
-sun throughout the day. The final design therefore needed to balance multiple
-conflicting purposes:
+final assembled devices needed to be made wind and water resistant to prevent
+failure. However the sensors and solar panel would also need to be exposed to
+perform their function effectively - e.g. a solar panel must have a clear view
+of the sun throughout the day. The final design therefore needed to balance
+multiple conflicting purposes:
 
 \begin{itemize}
     \item The core electronics (challenger, solar manager, battery etc) must be
           kept dry, cool and away from wind which may damage electronics.
     \item The wind sensor must be exposed to the elements and securely fastened
           to withstand intense wind, it must also be kept high off the ground
-          for accurate readings. It has no exposed electronics and is water
-          resistant.
+          for more accurate readings.
     \item The solar panel must be exposed to the elements and be south facing at
-          at an angle of 30 degrees to optimise solar efficiency. It is water
-          resistant.
+          at an angle of 30-40 degrees to optimise solar efficiency.
     \item The soil moisture sensor must be inserted into the ground and as it
           has exposed electronics must be made waterproof.
     \item The antenna of the challenger must be placed as high as possible (at
-          least 1.5m from the ground). IT is water resistant.
+          least 1.5m from the ground).
     \item The temperature/humidity sensor must be exposed to the elements to
           ensure accurate readings but cannot be exposed to rain due to the
           exposed electronics on it.
 \end{itemize}
 
-Due to the conflicting nature of some of these needs - particularly with respect
-to altitude. The final device would need to allow for positioning of different
-components at different heights.
+Due to the conflicting nature of some of these needs. The final device would
+need to allow for positioning of different components at different heights.
 
-Therefore the electronics would be mounted inside a water proof box (rated IP68
-water resistant) with a small cut out for wires at the bottom - which reduces
-the risk of water ingress from rain fall. Then the box was fitted to a wooden
-fence post that could be secured in earth. Components needing to be higher up
-could be secured higher up the pole while soil moisture sensor could be placed
-lower.
+The final design therefore was to place most of the sensitive electronics inside
+a waterproof box with cut-outs for the to allow for external component wires.
+This could then be mounted onto a 2m pole to allow for a good antenna signal and
+more accurate wind speed readings.
 
+\subsubsection{Sensitive electronics}
 
+An IP65 waterproof junction box was selected to house the non-sensor portion of
+the electronics. An IP rating measures the Ingress Protection of a devices
+housing against water and dust defined by the International Electrotechnical
+Commission. The first number of an IP code is a measure of dust resistance while
+the second number is a measure of water resistance. An IP code of 65 therefore
+means the box used here has perfect dust resistance and can withstand water jets
+being sprayed at it from multiple directions \cite{wiki-ip}. This level of
+protection should be more than adequate to withstand the heavy rainfall it will
+experience.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{contents/23-hw-development/23-fig/box-internals.jpeg}
+    \caption{Open junction box showing internal wiring}
+    \label{fig:box-internals}
+\end{figure}
+
+The challenger microcontroller was inserted onto a half size breadboard and then
+stuck to one side of the box. The antenna cable was routed to the top right
+corner where a small hole was drilled to allow for the antenna to be mounted
+externally. All the other components were then wired into the breadboard and
+stuck down with double sided sticky pads to prevent damage during transport or
+heavy winds. The bottom of the box then had holes drilled for the anemometer,
+soil moisture sensor, solar panel and temperature/humidity sensor respectively.
+To prevent water ingress into these holes, sealant was deposited over the holes.
+
+The entire box was then attached to a plank of wood measuring roughly 25cm by
+60cm. This board holds all the sensors with the exception of the soil moisture
+sensor which must be able to hang freely.
+
+\subsubsection{Soil moisture sensor}
+
+The sensor that required the most thought into waterproofing and mounting was
+the capacitative moisture sensor. The first challenge was the need for the soil
+moisture sensor to be able to reach ground level while at the same time the
+microcontroller collecting it's readings was secured 2m above it. The solution
+to this was to swap the small included wires with a 2.5m weatherproof cable
+containing three cores (one for power, one for ground and one for data). Each
+cable core was then soldered onto the sensor as in figure
+~\ref{fig:solder-soil}, allowing for the sensor to be inserted into the ground.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{contents/23-hw-development/23-fig/solder-soil.jpeg}
+    \caption{Soldered soil moisture sensor}
+    \label{fig:solder-soil}
+\end{figure}
+
+Waterproofing the sensor was necessary as while the bottom three quarters of the
+board are designed to be inserted into soil, the part above this is made up of
+exposed electronics that cannot contact water (Refer to figure
+~\ref{fig:soil-sensor}). This means this part of the board would be directly
+exposed to the elements unless waterproofing is applied
+
+To waterproof this sensor I followed an online tutorial on a hobbyist website
+\cite{waterproof-sensor}. The method involves painting the electronics using
+nail varnish, while this sounds unconventional, nail varnish is a non-conductive
+compound that can be easily painted over electronics with the included brush. It
+is therefore quite a popular low-cost method for waterproofing electronics.
+After this is applied the portion of the board with the electronics is covered
+in heatshrink to form a tight seal over the board, with a layer of nail polish
+on the edges to reduces the chance of water ingress under the heat shrink's
+plastic.
+
+ADD FIGURE HERE
+
+\subsubsection{Other external components}
+
+The DHT11 sensor was mounted inside a smaller IP55-rated junction box, which
+provides the same resistance against rain as the larger box. To allow for more
+accurate readings, small holes were drilled on the bottom panel of this so the
+air temperature inside the box would better match the external
+temperature/humidity. To further improve the sensor's accuracy, the box was
+painted white to reflect sunlight, and a solar shield made from a cut and
+reshaped aluminium can was mounted to the south facing side. This shield helps
+to prevent direct sunlight exposure to the sensor, reducing temperature
+distortion while still allowing airflow from the sides.
+
+The solar panel was mounted below the main enclosure using the included
+adjustable gimbal mount. It was fixed at an angle of approximately 40° from
+horizontal, which balances solar efficiency throughout the year. This angle is
+steeper than the optimal summer setting but allows for improved performance
+during winter months when the sun is lower in the sky. The gimble allows for
+rotation in all planes which is useful in case the box itself cannot be mounted
+in a perfect south direction. 
+
+The anemometer was secured to a separate length of wood, positioned
+approximately 0.5 metres away from the main unit. This separation reduces
+turbulence caused by the box and pole, leading to more accurate wind speed
+readings. The sensor was screwed directly into the wood and positioned at a
+height of 2m.
+
+ADD final assembled box on a pole with annotations
+
+\subsubsection{Gateway}
+
+The gateway node required less careful engineering as there was no requirement
+for it to be waterproofed or mounted externally. As this would eventually be
+placed inside a persons private home, the aim was therefore to make a minimally
+imposing and so a design similar to an internet router was chosen.
+
+The two devices inside the box would be the raspberry pi used to upload data and
+the challenger which received incoming LoRa packets from the repeater. A plastic
+box was used with cut outs for the pi's outputs and power cable, with an
+additional cut out on the lid for the challenger's antenna. The pi and
+challenger were then secured to the box's base with velcro tape, as both devices
+would potentially need to be removed for any trouble shooting.
