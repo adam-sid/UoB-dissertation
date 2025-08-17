@@ -1,0 +1,57 @@
+\section{Introduction}
+
+In this report, I describe an online tool called \myReportTitle{}, which was
+deployed in an apple orchard alongside an IoT weather sensor network that I
+designed and built. The tool aims to provide farmers with accessible, location
+specific climate data to support decision making and enable microclimate
+specific forecasting. The IoT hardware was built using off-the-shelf components
+and housed in hand made enclosures. The deployed system consisted of four
+components: two field sensor nodes capable of reading weather data and
+transmitting it using a modern radio protocol called LoRa; a repeater that
+boosts received LoRa signals; and an internet connected gateway that uploads the
+weather data to an online database. The sensor nodes were placed at two
+locations on the farm that the owner identified as having distinct microclimatic
+conditions. This allowed for the collection of weather data tailored to specific
+areas of interest, which was then displayed on the Agriscanner web application.
+
+
+\subsection{Aims and contributions}
+
+The main aim of this project was to develop a low-cost, low-maintenance IoT
+solution that helps farmers monitor microclimate conditions and make better
+informed decisions. The final hardware system needed to be physically robust to
+survive outside while the the software needed to present relevant information in
+an intuitive way, ensuring that users can easily make use of the data.
+
+Weather is of critical importance to farmers, as it is an important factor in
+final yield and helps to predict the optimal time to harvest, disease growth and
+irrigation needs. However, weather forecasts are typically based on data from
+distant weather stations and large scale models which fail to capture variations
+that exist within a single farm. These local variations, known as microclimates,
+can differ significantly even across relatively short distances due to
+differences in elevation, tree cover, or soil conditions.
+
+The key contributions of this paper are:
+
+\begin{itemize}
+    \item The development of a low cost, ultra long-range remote weather station
+    system. With superior range and value to current solutions on the market.
+    \item A web application that visualises live data from multiple field
+    locations, designed with accessibility and clarity in mind.
+    \item A method for enabling microclimate forecasting by comparing local
+    sensor data with broader regional weather forecasts.
+\end{itemize}
+
+\subsection{Layout of dissertation}
+
+This dissertation has four parts. Part 1 provides the technical background to
+understand the project, including an overview of the core technologies used and
+a review of related work in the field. Part 2 details the hardware development
+process, covering the rationale behind component selection, the testing of
+hardware, and how the IoT nodes were deployed in the field. Part 3 focuses on
+the software aspect of the project, outlining the design and implementation of
+both the backend infrastructure and the frontend web interface. Finally, Part 4
+offers a critical evaluation of the system, discussing its performance,
+usability, and limitations, as well as highlighting opportunities for future
+development improvements and research.
+

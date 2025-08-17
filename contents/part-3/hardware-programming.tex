@@ -1,0 +1,45 @@
+\section{Programming the hardware}
+
+Section on programming: 1) The nodes, 2) the repeater, 3) The gateway
+
+The challenger boards can be programmed in a few different languages. The most
+common of these are C (including C++) and python. I decided to program the
+boards in python due to the large availability of sensor libraries written in
+this language. Programming in C, while potentially more efficient, would likely
+have meant I would need to write my own libraries and functions to get many of
+the sensors to function properly and therefore was not selected.
+
+The RP2040 processor that the challenger uses relatively low power, so the
+versions of python for the chip tend to be stripped down to accommodate this.
+The two main python versions available are circuit python and micropython. They
+both have extensive libraries and work with all the sensors I have selected.
+With no major difference in their functionality, I settled on circuitpython as
+this was the version recommended by iLabs (the makers of the challenger board)
+and included a library that supports challenger as well as example code.
+
+\subsection{LoRa settings}
+
+The most fundamental part of the program for each of the nodes in the LoRa
+network was that they could communicate with each other. This required the
+careful matching of LoRa configuration settings between them.
+
+    {ADD LoRa settings}
+
+\subsection{Sensor nodes}
+
+\subsection{Repeater}
+
+\subsection{Gateway}
+
+\subsection{Remote diagnostics and error handling}
+
+Since all the sensors would not be accessible easily errors needed to be
+reported remotely to diagnose faults and problems. Unfortunately, while the
+sensor nodes and repeater are technically network connected with LoRa there is
+no easy way to send firmware updates over the air without developing a program
+to accept and create new files over LoRa (FACT CHECK THAT), which was outside
+the scope of a three month dissertation. Therefore instead the nodes would need
+to have robust error handling written into their programs.
+
+Diagnostics on the gateway node was luckily much simpler as this was powered on
+24/7 and network connected. (EXPLANATION OF TAILWIND AND RVC VIEWER)

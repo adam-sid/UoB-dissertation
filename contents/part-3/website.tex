@@ -1,0 +1,33 @@
+\section{Backend: Database and SQL API}
+
+For the database, I chose Render as a good low cost option for hosting the web
+service as it offers a free trial period, constant uptime and backups. The free
+version of web services by Render (render.com), provides a limited set of
+resources at zero cost: 256 MB of RAM; 0.1 share of a CPU and 1 GB of storage.
+There are also limits on outbound bandwidth, build pipeline minutes and instance
+hours. A single instance of a POSTGRES database is available on this service -
+which is free for the first 30 days and then costs \$5 a month. These resources
+should be sufficient for this project as only small amounts of data are
+involved.
+
+The web service is running an API I have written, which will receive data from
+the raspberry pi used as the gateway. The data is sent using a POST request
+with a JSON body which is parsed, processed and added to the database by the
+API. Data can be retrieved for display by the frontend using a GET request.
+
+The database design is very simple with a single table holding all the data so
+the choice of database management system is not crucial. Having said that,
+POSTGRES is a well established and reliable relational database management
+system that complies with ANSI SQL standards and most importantly for this
+project is supported by Render.
+
+The 1 GB storage limitation allows for (x) rows of data with the current
+database design.
+
+This solution should scale well. Additional tables can be added to the POSTGRES
+data base for additional sites. And in the unlikely event that the volumes
+exceed the Render limits it is easy to pay more for additional resources.
+
+\section{Frontend: Agriscanner webapp}
+
+Overview of front-end
