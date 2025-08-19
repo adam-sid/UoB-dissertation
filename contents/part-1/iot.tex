@@ -25,8 +25,8 @@ All IoT relies on the existence of three fundamental network layers
   the application layer. It is the medium and protocols associated with the
   transmission of data and the hardware necessary to interpret this. Following
   the above example this could be the use of WiFi or a mesh protocol such as
-  Zigby to transmit the car's current charge level to a gateway - such as a
-  WiFi router.
+  Zigby to transmit the car's current charge level to a gateway - such as a WiFi
+  router.
   \item Application - This encompasses any software that manipulates, displays
   or otherwise uses data from the perception layer. This could be hosted on the
   cloud or locally. In the example above this could be an app that shows the
@@ -77,4 +77,19 @@ and imaging.
 IoT weather stations like those developed in this project are a growing trend in
 agriculture.
 
-\subsection{Commercial IoT solutions}
+\subsection{Commercial IoT agricultural solutions with LoRa}
+
+While IoT weather station solutions are available commercially there are issues
+with using these. 
+
+Virtually all affordable weather stations rely on WiFi to stay connected which
+is not viable for most farms as there is a large separation between the fields
+they need to be deployed in and buildings with WiFi access. As discussed in
+section~\ref{sec:lora-benefits}, WiFi has just a fraction of the range of LoRa
+so these types of stations are not comparable to my own.
+
+Limiting the search for weather stations with LoRa then there are a handful of
+commercial options. The issue with these is cost, the prices of most models
+(Decentlab Eleven Parameter, Innon WTS506). For a comparison of different
+models see the relevant section in the evaluation.
+

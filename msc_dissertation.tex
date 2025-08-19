@@ -98,10 +98,19 @@
 \printbibliography
 
 \appendix
-
 \newpage
 \part{Appendices}
-\section{Example}
 
+% Override spacing just for appendix
+\makeatletter
+\patchcmd{\section}{\clearpage\vspace*{3cm}\thispagestyle{plain}}{\clearpage\thispagestyle{plain}}{}{}
+\titleformat{\part}[block]
+  {\normalfont\centering\bfseries}
+  {\LARGE \partname\ \thepart}{1em}{\Huge}
+  [\thispagestyle{plain}\clearpage]
+\makeatother
+\newpage
+
+\input{contents/appendix/appendix.tex}
 
 \end{document}
