@@ -11,22 +11,24 @@ should be sufficient for this project as only small amounts of data are
 involved.
 
 The web service is running an API I have written, which will receive data from
-the raspberry pi used as the gateway. The data is sent using a POST request
-with a JSON body which is parsed, processed and added to the database by the
-API. Data can be retrieved for display by the frontend using a GET request.
+the raspberry pi used as the gateway. The data is sent using a POST request with
+a JSON body which is parsed, processed and added to the database by the API.
+Data can be retrieved for display by the frontend using a GET request.
 
-The database design is very simple with a single table holding all the data so
-the choice of database management system is not crucial. Having said that,
-POSTGRES is a well established and reliable relational database management
-system that complies with ANSI SQL standards and most importantly for this
-project is supported by Render.
+The database design is relatively simple  add design here with a single table
+holding all the data so the choice of database management system is not crucial.
+Having said that, POSTGRES is a well established and reliable relational
+database management system that complies with ANSI SQL standards and most
+importantly for this project is supported by Render. 
 
 The 1 GB storage limitation allows for (x) rows of data with the current
 database design.
 
-This solution should scale well. Additional tables can be added to the POSTGRES
-data base for additional sites. And in the unlikely event that the volumes
-exceed the Render limits it is easy to pay more for additional resources.
+This solution should scale well. The database design allows for additional sites
+to be added with very little configuration. And in the unlikely event that the
+volumes exceed the Render limits it is easy to pay more for additional
+resources.
+
 
 \section{Frontend: Agriscanner webapp}
 

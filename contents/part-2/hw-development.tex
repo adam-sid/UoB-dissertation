@@ -84,7 +84,7 @@ lack of signal past this point. Final data below:
 \subsection{Battery tests}
 
 There is no mains electricity available in the apple field so the nodes must be
-able to operate without external power source. Even with the use of a solar
+able to operate without an external power source. Even with the use of a solar
 panel the node must be able to work through the night and during periods of
 dense cloud coverage where the solar panel will not have sufficient power to
 keep the node running. This is where the use of a battery is particularly useful
@@ -95,11 +95,11 @@ for periods of low or no solar radiation.
 However, while daylight will be of little concern during the summer months when
 this dissertation is being written, there will be far fewer days of usable
 sunlight over the winter period. As the UK has very high latitude, there is
-large seasonal variation in the length of a day. For the town of crediton
-(nearest town to \farmName), in the summer there are 16.5 hours of daylight
-while in winter it receives only 7.6 hours; meaning a night that is 16.4 hours
-long. Therefore the node must have a battery sufficiently large to power it for
-a minimum of 16.4 hours with some additional charge to account for high cloud
+large seasonal variation in the length of a day. For the town of Crediton (the
+nearest town to \farmName), in the summer there are 16.5 hours of daylight while
+in winter it receives only 7.6 hours; making one night 16.4 hours long.
+Therefore the node must have a battery sufficiently large to power it for a
+minimum of 16.4 hours with some additional charge to account for high cloud
 cover during the early evening and morning period.
 
 To see if the battery solution was sufficient for this environment a test was
@@ -139,16 +139,16 @@ measured for a wattage of (INSERT WATTAGE).
 As explained in the battery section above, the node consumed about 7.96wH over a
 19 hour and 17 minute period. We can therefore determine that the node requires
 roughly 10wH of energy per day to able to run continuously. It would be tempting
-to then say that the node would need less 2 hours of ideal sunlight to operate
-for an entire day (being 6W * 2h = 12Wh), however we must also account for the
-energy loss when converting from raw solar output to regulated 5V input that
-challenger accepts.
+to then say that the node would need less than 2 hours of ideal sunlight to
+operate for an entire day (being 6W * 2h = 12Wh). However we must also account
+for the energy loss when converting from raw solar output to the regulated 5V
+input that challenger accepts.
 
 The solar panel manager rates it's conversion efficiency for solar at 78\%
 meaning for each watt of solar energy received 22\% of this will be wasted as
 heat when converted to the correct voltage. If we adjust for this loss we would
-need effectively 12.8Wh of energy just to power the node for a day, being 2
-hours and 8 minutes of ideal conditions.
+need effectively 12.8Wh of energy just to power the node for a day, which
+equates to 2 hours and 8 minutes of ideal conditions.
 
 An additional 9Wh is needed to charge the battery which if we adjust again for
 solar efficiency factor we get 11.5Wh. This is an additional 1h:55m of ideal
@@ -158,7 +158,7 @@ sun, leaving a total sunlight requirement each day of 4h:03m.
 
 Since most of the hardware in this project contains exposed electronics, the
 final assembled devices needed to be made wind and water resistant to prevent
-failure. However the sensors and solar panel would also need to be exposed to
+failure. However the sensors and solar panel also needed to be exposed to
 perform their function effectively - e.g. a solar panel must have a clear view
 of the sun throughout the day. The final design therefore needed to balance
 multiple conflicting purposes:
@@ -222,14 +222,14 @@ sensor which must be able to hang freely.
 
 \subsubsection{Soil moisture sensor}
 
-The sensor that required the most thought into waterproofing and mounting was
+The sensor that required the most thought as to waterproofing and mounting was
 the capacitative moisture sensor. The first challenge was the need for the soil
-moisture sensor to be able to reach ground level while at the same time the
-microcontroller collecting it's readings was secured 2m above it. The solution
-to this was to swap the small included wires with a 2.5m weatherproof cable
-containing three cores (one for power, one for ground and one for data). Each
-cable core was then soldered onto the sensor as in figure
-~\ref{fig:solder-soil}, allowing for the sensor to be inserted into the ground.
+moisture sensor to be able to reach ground level while the microcontroller
+collecting its readings was secured 2m above it. The solution to this was to
+swap the small included wires with a 2.5m weatherproof cable containing three
+cores (one for power, one for ground and one for data). Each cable core was then
+soldered onto the sensor as in figure ~\ref{fig:solder-soil}, allowing for the
+sensor to be inserted into the ground.
 
 \begin{figure}[H]
     \centering
@@ -240,19 +240,18 @@ cable core was then soldered onto the sensor as in figure
 
 Waterproofing the sensor was necessary as while the bottom three quarters of the
 board are designed to be inserted into soil, the part above this is made up of
-exposed electronics that cannot contact water (Refer to figure
-~\ref{fig:soil-sensor}). This means this part of the board would be directly
-exposed to the elements unless waterproofing is applied
+exposed electronics that must not come into contact with water (Refer to figure
+~\ref{fig:soil-sensor}). This means it was essential to waterproof this part of
+the board.
 
-To waterproof this sensor I followed an online tutorial on a hobbyist website
-\cite{waterproof-sensor}. The method involves painting the electronics using
-nail varnish, while this sounds unconventional, nail varnish is a non-conductive
-compound that can be easily painted over electronics with the included brush. It
-is therefore quite a popular low-cost method for waterproofing electronics.
-After this is applied the portion of the board with the electronics is covered
-in heatshrink to form a tight seal over the board, with a layer of nail polish
-on the edges to reduces the chance of water ingress under the heat shrink's
-plastic.
+To achieve this I followed an online tutorial on a hobbyist website
+\cite{waterproof-sensor}. and painted the electronics using nail varnish. While
+this sounds unconventional, nail varnish is a non-conductive compound that can
+be easily painted over electronics using the brush included and so is quite a
+popular low-cost method for waterproofing electronics. After this is applied the
+portion of the board with the electronics is covered in heatshrink to form a
+tight seal over the board, with a layer of nail polish on the edges to reduces
+the chance of water ingress under the heat shrink's plastic.
 
 ADD FIGURE HERE
 
@@ -264,8 +263,8 @@ accurate readings, small holes were drilled on the bottom panel of this so the
 air temperature inside the box would better match the external
 temperature/humidity. To further improve the sensor's accuracy, the box was
 painted white to reflect sunlight, and a solar shield made from a cut and
-reshaped aluminium can was mounted to the south facing side. This shield helps
-to prevent direct sunlight exposure to the sensor, reducing temperature
+reshaped aluminium can was mounted to the south facing side. . This shield helps
+to prevent the sensor being exposed to direct sunlight, reducing temperature
 distortion while still allowing airflow from the sides.
 
 The solar panel was mounted below the main enclosure using the included

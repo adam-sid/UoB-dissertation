@@ -4,12 +4,77 @@
 
 The Internet of Things (IoT) refers to the concept of integrating networking
 capability in a range of devices, allowing for cooperation to reach common goals
-\cite{atzori2010}. To this end, IoT is a very broad idea and there has been
-rapid ongoing growth of IoT in both domestic and business settings.
+\cite{atzori2010}. A similar but more colloquial term would be "smart" devices.
 
-IoT often involves the integration of wireless networking into objects which
-traditionally would not have had any such capability. For example the use of
-smart lightbulbs, with the ability to control their status, brightness or colour
-via a smartphone application.
+The number of IoT devices is forecasted to reach 40 billion by 2030 from 16.6
+billion in late 2023 \cite{sinha2024}. IoT devices are already used extensively
+in a multitude of commercial and domestic settings.
+
+\subsection{The layers of IoT}
+
+All IoT relies on the existence of three fundamental network layers
+\cite{burhan2018iot}, working from the bottom to the top there is:
+
+\begin{enumerate}
+  \item Perception - This layer contains sensors that collect information about
+  conditions in the world around them. This layer may perform some
+  transformations on the data it receives (e.g. sorting, formatting) or just
+  transmit raw data. An example of this is a smart car charger collecting data
+  on the charge level of an electric car.
+  \item Network - This layer acts as the bridge between the perception layer and
+  the application layer. It is the medium and protocols associated with the
+  transmission of data and the hardware necessary to interpret this. Following
+  the above example this could be the use of WiFi or a mesh protocol such as
+  Zigby to transmit the car's current charge level to a gateway - such as a
+  WiFi router.
+  \item Application - This encompasses any software that manipulates, displays
+  or otherwise uses data from the perception layer. This could be hosted on the
+  cloud or locally. In the example above this could be an app that shows the
+  current charge status of the car.
+\end{enumerate}
 
 \subsection{IoT enabling technologies}
+
+The surge in IoT for the past few decades has been fuelled by the emergence of
+new technologies. Here I will explore the technologies that have are most
+relevant to the weather stations built for this project.
+
+\begin{enumerate}
+  \item Efficiency improvements in microchips - breakthroughs in microchip
+  fabrication have led to smaller more efficient chips with improved
+  performance.
+  \item Lithium-Ion batteries improvements - continuous improvements in the
+  energy density of lithium-ion batteries has made it possible to power devices
+  for long periods without mains power.
+  \item Low-power long-range radio - new radio communication techniques such as
+  LoRa allow for data transmission over several kilometres using a fraction of
+  the power required by traditional mobile or Wi-Fi technologies.
+  \item Affordability of solar panels - since 1970 the price of solar panels has
+  decreased to 1/500th of its original cost \cite{economist2024} making solar a
+  viable power source for IoT systems.
+  \item Growth of hobbyist embedded systems - since the release of accessible
+  platforms such as Arduino in 2005, the growth of hobby level embedded systems
+  has lowered the barrier to entry to create IoT systems.
+  \item Accessible cloud computing and hosting - Cheap and available web hosting
+  has allowed application level systems to be more easily developed.
+\end{enumerate}
+
+\subsection{Studies using LoRa IoT weather stations in agriculture}
+
+The use of IoT in agriculture has become widespread in recent years as it offers
+the opportunity for farmers to improve yields and cut costs by bringing digital
+solutions that would not have previously been viable without access to power and
+internet connectivity. The use of IoT in agriculture is often wrapped up in the
+moniker of "Smart Farming", which encompasses a range of digital, robotic, and
+internet-enabled approaches to improving efficiency.
+
+A 2019 review by Farooq et al. \cite{farooq2019iot} reveals the scope of IoT
+applications in agriculture. These include precision farming (IoT weather
+monitoring), automated irrigation, pest and disease prediction with machine
+learning, and even the deployment of agricultural drones for spraying, mapping
+and imaging. 
+
+IoT weather stations like those developed in this project are a growing trend in
+agriculture.
+
+\subsection{Commercial IoT solutions}
