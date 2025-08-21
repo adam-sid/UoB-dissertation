@@ -7,9 +7,9 @@
 The first step in the design process was selecting hardware components that
 could operate autonomously without mains power. This required devices that were
 highly power-efficient, while also being capable of transmitting small data
-packets via LoRa. An equally important consideration was ensuring the final
-devices could be fully weatherproofed to protect the sensitive electronics from
-water ingress and environmental damage.
+packets via LoRa. An equally important consideration was weatherproofing the
+final to protect the sensitive electronics from water ingress and environmental
+damage.
 
 \paragraph{Challenger RP2040 LoRa}
 
@@ -35,10 +35,10 @@ just 5cm by 2cm, making it easy to mount in a small enclosure. The onboard Hope
 RF96 LoRa modem is built directly into the board and the U.FL antenna connector
 allows for the swapping of antenna's to different varieties. This board's LoRa
 module is also set to transmit at a frequency of 868mhz which is a standard UK
-frequency for LoRa and gives a good balance between range and bandwidth. 
+frequency for LoRa and gives a good balance between range and bandwidth.
 
 Another useful aspect of the board is the abundance of GPIO pins (20 in total)
-allowing for a large number of sensors to be fitted to the board. 
+allowing for a large number of sensors to be fitted to the board.
 
 \paragraph{Antennae}
 
@@ -46,7 +46,7 @@ The selection of antennae is one of the largest determinants of range and
 reliability in the context of wireless communication systems \cite{khan2016}.
 Initially I used a simple PCB antenna as shown in Figure~\ref{fig:pcb-antenna},
 however as explained in the next chapter, the range of this was insufficient for
-my use. 
+my use.
 
 \begin{figure}[H]
     \centering
@@ -93,7 +93,16 @@ power and ground pin.
     \label{fig:soil-sensor}
 \end{figure}
 
-\subparagraph{Wind speed sensor}
+A capacitative soil moisture sensor was chosen over the alternative resistive
+style. The benefit of capacitative sensors is they are not as prone to corrosion
+of the diodes. In a resistance sensor the diodes must be bare plated metal in
+order for resistance between each diode to be measured. However the disadvantage
+of this is that bare metal corrodes in the presence of water, and corrosion
+affects the accuracy of the sensor. For this reason I went with a capacitive
+sensor as the diodes are covered by a protective layer making them much less
+susceptible to corrosion.
+
+\subparagraph{Wind speed sensor (Anemometer)}
 
 \begin{figure}[H]
     \centering
@@ -102,6 +111,19 @@ power and ground pin.
     \label{fig:wind-sensor}
 \end{figure}
 
+The anemometer chosen was the DFROBOT wind speed sensor. It balances value with
+construction quality as unlike many other cup style sensors this is made of
+metal and rated for outdoor use. At the time of purchase I was unaware that the
+RS485 serial communication protocol that the sensor used was not out of the box
+compatible with the challengers UART protocol. Fortunately, I was able to
+purchase an RS485 to UART serial converter that allowed the devices to
+communicate.
+
+A second issue was that the anemometer needed a 7v-24V input voltage to take
+readings while the maximum voltage the challenger can provide was 5V. To remedy
+this I bought a 9V step up converter to boost the challengers voltage to the
+required level.
+
 \paragraph{Powering the node}
 
 To allow for continuous operation away from power sources, I set up a 6W
@@ -109,7 +131,8 @@ Monocrystalline Silicon Solar Panel to each of the nodes. As the output from the
 solar panels was at too high a voltage to directly power the nodes, and as power
 was required overnight, I also installed a solar power management module onto
 the Challengers. This module uses the solar panel to charge a battery that is
-installed on it which can then power the challenger board.
+installed on it. When solar power dips overnight the battery will discharge to
+power throughout the day.
 
 \begin{figure}[H]
     \centering
@@ -118,31 +141,24 @@ installed on it which can then power the challenger board.
     \label{fig:solar-module}
 \end{figure}
 
-\paragraph{Weather proofing}
-
-I 3D printed a water proof enclosure and a separate Stevenson weather shield for
-the temperature/humidity sensor to allow for accurate outdoor readings.
-
-\subsubsection{Programming the nodes}
-
-On each challenger I flashed the drives with CircuitPython, an open source
-interpreted language similar to Python but simplified for use in
-microcontrollers.
-
 \subsubsection{Repeater node}
 
-To improve range I made one of the four challengers I used act as a repeater.
-This meant it did not require sensors and instead it just had a solar panel and
+To improve range I used one of the challenger boards as a repeater. This meant
+it did not require sensors and instead simply had an antenna, solar panel and
 battery connected up to it. The repeater would receive signals from the two
-nodes before relaying them to the final gateway. This had the effect of
-significantly boosting the range.
+nodes before relaying them to the final gateway. This has the effect of
+essentially doubling range.
 
 \subsection{Gateway}
 
 The gateway consisted of a fourth Challenger RP2040 connected to a Raspberry Pi
-(TBD version). The challenger only received messages from the repeater and then
-would transfer these to the Raspberry Pi. After receiving data the Raspberry pi
-uploaded this to the internet.
+5 with 8GB of memory. This raspberry pi was significantly more powerful than was actually needed
+for the purpose of a gateway and a cheaper alternative would have been
+sufficient however I was able to use a university provided one for the project.
+The challenger receives messages from the repeater and then transfers these to
+the Raspberry Pi. After receiving the challengers output the raspberry pi sends
+an POST response to my API which then inserts the data into a separate SQL
+database.
 
 \begin{figure}[H]
     \centering

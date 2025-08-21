@@ -10,19 +10,19 @@ park in Bristol. Here I tested four different antenna configurations to compare
 how well the signal travelled across an increasing distance. Signal strength can
 be measured using the received signal strength index (RSSI), a measure of the
 difference in signal from the transmitter to the receiver and measured in
-decibels (CHECK THIS).
+decibels.
 
 For the test, two challengers were programmed as transmitters, sending an
-example data packet similar to the data that would eventually be used at the
-farm. One of the transmitters used a simple PCB antenna
-(Figure~\ref{fig:pcb-antenna}) while the other used a higher range whip style
-antenna (Figure~\ref{fig:good-antenna}). Then I programmed two challengers as
-receivers, again one had a low range antenna and the other a long range one.
+example data packet similar to the data that was eventually used once deployed.
+One of the transmitters used a simple PCB antenna (Figure~\ref{fig:pcb-antenna})
+while the other used a higher range whip style antenna
+(Figure~\ref{fig:good-antenna}). Then I programmed two challengers as receivers,
+again one had a low range antenna and the other a long range one.
 
 This meant that four different antenna configurations could be tested
 concurrently, as the receivers could pick up the signal from each transmitter.
-An estimate of their estimated relative performance before testing is shown
-below:
+Before performing the test I estimated that the maximum range of each
+configuration would look like the below:
 
 \begin{enumerate}
     \item Whip antenna to whip antenna (Likely best result)
@@ -31,9 +31,10 @@ below:
     \item PCB antenna to PCB antenna (Likely poorest result)
 \end{enumerate}
 
-The reason PCB transmitter to whip receiver will likely outperform the whip to
-PCB configuration is that generally it is more important that the receiver has
-better "hearing" capabilities than the transmitter can "shout".
+The reason I predicted the PCB transmitter to whip receiver to outperform the
+whip to PCB configuration is that improving receiver sensitivity (i.e. the
+ability of the receiver to 'hear') is more efficient than increasing the
+transmitters effective radiated power (how loud it shouts) \cite{simpulse25}.
 
 Nine different distances from transmitter to receiver were tested, in 200m
 increments starting from 0m as a baseline to a distance of 1600m
@@ -70,9 +71,8 @@ predictions could be made.
 
 At the time of the actual test however a festival was being run between the
 1200m and 1400m mark. The festival had a number of large tents and temporary
-buildings constructed which almost certainly blocked the signal. Therefore tests
-past this point should be heavily caveated. It is likely this contributed to the
-lack of signal past this point. Final data below:
+buildings constructed which very likely negatively affected the signal. Final
+data for the range test is shown below
 
 \begin{figure}[H]
     \centering
@@ -80,6 +80,17 @@ lack of signal past this point. Final data below:
     \caption{Graph to show signal loss from different receiver and transmitter configurations (higher is better)}
     \label{fig:range-test-graph}
 \end{figure}
+
+Unsurprisingly, the results show that the whip to whip antennas had the best
+performance. It was the only configuration that consistently received signal all
+the way to 1200m. In contrast with my prediction, the whip to PCB configuration
+was the second best and even received a signal at 1200m; although this was less
+consistent and had a lower signal strength compared to the whip-whip. I am
+unsure why this was superior to the PCB-whip but clearly the increased effective
+radiative power had a greater bearing on the RSSI than the sensitivity at the
+receiver end. The PCB-whip managed only half the range at 600m and the PCB to
+PCB managed just 200m, demonstrating its inadequacy for application in my
+project.
 
 \subsection{Battery tests}
 
@@ -119,7 +130,7 @@ consumed 7.96Wh of power. Considering the battery capacity is 9 Wh it may seem
 that the battery ran out too quickly. However, the solar power manager
 documentation tells us that the battery boost efficiency - being the conversion
 of battery voltage from native 3.7V to 5V output - is only 86\%. With that in
-mind effective battery capacity is roughly 7.74Wh, which is very similar to the
+mind the predicted effective capacity is 7.74Wh, which is very similar to the
 actual result.
 
 The achieved result of 19 hours should be sufficient for running the node
@@ -132,9 +143,9 @@ to allow the node to run over night.
 
 The solar panel is rated for 6W maximum power. This however would only
 realistically be achieved under optimal conditions with a clear sky and full sun
-around midday. This power rating was first verified using a multimeter on such a
-day where a voltage of (INSERT VOLTAGE) and amperage of (INSERT AMPERAGE) was
-measured for a wattage of (INSERT WATTAGE).
+around midday. This power rating was verified using a multimeter on such a day
+where a voltage of 7.02V and an amperage of 0.87A was measured, giving a final
+power of 6.1W.
 
 As explained in the battery section above, the node consumed about 7.96wH over a
 19 hour and 17 minute period. We can therefore determine that the node requires
@@ -185,7 +196,7 @@ need to allow for positioning of different components at different heights.
 
 The final design therefore was to place most of the sensitive electronics inside
 a waterproof box with cut-outs for the to allow for external component wires.
-This could then be mounted onto a 2m pole to allow for a good antenna signal and
+This was then mounted onto a 2m pole to allow for a good antenna signal and
 more accurate wind speed readings.
 
 \subsubsection{Sensitive electronics}
@@ -273,7 +284,7 @@ horizontal, which balances solar efficiency throughout the year. This angle is
 steeper than the optimal summer setting but allows for improved performance
 during winter months when the sun is lower in the sky. The gimble allows for
 rotation in all planes which is useful in case the box itself cannot be mounted
-in a perfect south direction. 
+in a perfect south direction.
 
 The anemometer was secured to a separate length of wood, positioned
 approximately 0.5 metres away from the main unit. This separation reduces
