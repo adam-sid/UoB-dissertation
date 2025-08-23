@@ -31,15 +31,65 @@ to be added with very little configuration. And in the unlikely event that the
 volumes exceed the Render limits it is easy to pay more for additional
 resources.
 
-\subsection{SQL API web service}
+\subsection{Building a RESTful API}
 
-To perform inserts into the database from the raspberry pi I created an API
-which can interpret HTTP requests and perform a related database operation based
-on these. This system also needed to retrieve current and forecasted weather
-data from a separate weather API and
+With the database configured, I then developed a backend API using TypeScript,
+Node.js, and express. This service is responsible for interpreting incoming HTTP
+requests and performing corresponding database operations. In addition to
+handling sensor data, the service also integrates with an external weather API
+in order to retrieve both current conditions and forecast data, which are then
+stored alongside the locally collected sensor readings as explained above.
+
+The entire api is written using Typescript. Typescript is javascript with added
+syntax that forces strong typing and features to enable error catching earlier
+on. When typescript is compiled it produces a javascript file which contains the
+actual code that is then executed. The main benefit of typescript is that it
+leads to much more robust code with vastly fewer typing errors that vanilla
+javascript can often let slip by. As I needed my API to have constant up time
+and reliably insert and select from my database this made typescript ideal for
+this application.
+
+On top of TypeScript I used Node.js and the Express framework. Node.js allows
+JavaScript to run on the server instead of inside a client browser, which lets
+the project share a single language (i.e. JavaScript) across frontend and
+backend development. It is well suited to creating APIs that handle many
+simultaneous HTTP requests while calling on external APIs. This is because Node
+runs asynchronously: when slow database queries are being executed Node will
+continue listening and processing further requests. This non-blocking behaviour
+means Node can handle large numbers of concurrent requests at the same time.
+Additionally the node packet manager (called with npm) has a large set of useful
+libraries and allows my project to be rapidly set up on new computers without
+having to retrieve required packages from different sources.
+
+Express is a framework specific to Node.js that gives useful tools for creating
+the API endpoints. I used express to write my request-handling functions for
+each URL endpoint. These functions process incoming HTTP requests to the
+endpoint and then execute the SQL query associated with that endpoint. Instead
+of constantly opening new connections with the database I used the pg.Pool
+library to pool requests together on the same connection. This helped to improve
+the speed of SQL lookups and inserts helping requests to be executed faster -
+this in turn improved the perceived performance of the webapp.
+
+Add example express function.
+
+\subsection{Security}
+
+Using parameterised statements to avoid SQL injection, whitelisting tables,
+password thing.
 
 
-\subsection{Weather API}
+\subsection{Weather API integration}
+
+The weather API I settled on using to help build data for the forecasting
+function of the webapp was the One Call API 3.0 by OpenWeather. This API offers
+current weather data at a 10 minute resolution as well as 48 hour ahead hourly
+and 8 day ahead daily weather forecasts. The API permits up to 1000 calls per
+day before separate payment is required. As I would only be requesting weather
+on 10 minute intervals I would only put through 144 requests per day which is
+well within the free limits.
+
+To set up automatic API retrieval from my backend to the weather API I used
+node-cron to set up a 10 minute job on my host server.
 
 \section{Frontend webapp}
 
