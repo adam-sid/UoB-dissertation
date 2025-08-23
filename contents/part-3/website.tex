@@ -1,4 +1,6 @@
-\section{Backend: Database and SQL API}
+\section{Backend}
+
+\subsection{postgreSQL database}
 
 For the database, I chose Render as a good low cost option for hosting the web
 service as it offers a free trial period, constant uptime and backups. The free
@@ -29,8 +31,17 @@ to be added with very little configuration. And in the unlikely event that the
 volumes exceed the Render limits it is easy to pay more for additional
 resources.
 
+\subsection{SQL API web service}
 
-\section{Frontend: Agriscanner webapp}
+To perform inserts into the database from the raspberry pi I created an API
+which can interpret HTTP requests and perform a related database operation based
+on these. This system also needed to retrieve current and forecasted weather
+data from a separate weather API and
+
+
+\subsection{Weather API}
+
+\section{Frontend webapp}
 
 The frontend of my project is written in HTML, CSS and Javascript, which is an
 archetypal web development stack.
