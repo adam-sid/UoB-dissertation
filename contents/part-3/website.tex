@@ -1,4 +1,6 @@
-\section{Backend: Database and SQL API}
+\section{Backend}
+
+\subsection{postgreSQL database}
 
 For the database, I chose Render as a good low cost option for hosting the web
 service as it offers a free trial period, constant uptime and backups. The free
@@ -19,7 +21,7 @@ The database design is relatively simple  add design here with a single table
 holding all the data so the choice of database management system is not crucial.
 Having said that, POSTGRES is a well established and reliable relational
 database management system that complies with ANSI SQL standards and most
-importantly for this project is supported by Render. 
+importantly for this project is supported by Render.
 
 The 1 GB storage limitation allows for (x) rows of data with the current
 database design.
@@ -29,7 +31,114 @@ to be added with very little configuration. And in the unlikely event that the
 volumes exceed the Render limits it is easy to pay more for additional
 resources.
 
+\subsection{Building a RESTful API}
 
-\section{Frontend: Agriscanner webapp}
+With the database configured, I then developed a backend API using TypeScript,
+Node.js, and express. This service is responsible for interpreting incoming HTTP
+requests and performing corresponding database operations. In addition to
+handling sensor data, the service also integrates with an external weather API
+in order to retrieve both current conditions and forecast data, which are then
+stored alongside the locally collected sensor readings as explained above.
 
-Overview of front-end
+The entire api is written using Typescript. Typescript is javascript with added
+syntax that forces strong typing and features to enable error catching earlier
+on. When typescript is compiled it produces a javascript file which contains the
+actual code that is then executed. The main benefit of typescript is that it
+leads to much more robust code with vastly fewer typing errors that vanilla
+javascript can often let slip by. As I needed my API to have constant up time
+and reliably insert and select from my database this made typescript ideal for
+this application.
+
+On top of TypeScript I used Node.js and the Express framework. Node.js allows
+JavaScript to run on the server instead of inside a client browser, which lets
+the project share a single language (i.e. JavaScript) across frontend and
+backend development. It is well suited to creating APIs that handle many
+simultaneous HTTP requests while calling on external APIs. This is because Node
+runs asynchronously: when slow database queries are being executed Node will
+continue listening and processing further requests. This non-blocking behaviour
+means Node can handle large numbers of concurrent requests at the same time.
+Additionally the node packet manager (called with npm) has a large set of useful
+libraries and allows my project to be rapidly set up on new computers without
+having to retrieve required packages from different sources.
+
+Express is a framework specific to Node.js that gives useful tools for creating
+the API endpoints. I used express to write my request-handling functions for
+each URL endpoint. These functions process incoming HTTP requests to the
+endpoint and then execute the SQL query associated with that endpoint. Instead
+of constantly opening new connections with the database I used the pg.Pool
+library to pool requests together on the same connection. This helped to improve
+the speed of SQL lookups and inserts helping requests to be executed faster -
+this in turn improved the perceived performance of the webapp.
+
+Add example express function.
+
+\subsection{Security}
+
+Using parameterised statements to avoid SQL injection, whitelisting tables,
+password thing.
+
+
+\subsection{Weather API integration}
+
+The weather API I settled on using to help build data for the forecasting
+function of the webapp was the One Call API 3.0 by OpenWeather. This API offers
+current weather data at a 10 minute resolution as well as 48 hour ahead hourly
+and 8 day ahead daily weather forecasts. The API permits up to 1000 calls per
+day before separate payment is required. As I would only be requesting weather
+on 10 minute intervals I would only put through 144 requests per day which is
+well within the free limits.
+
+To set up automatic API retrieval from my backend to the weather API I used
+node-cron to set up a 10 minute job on my host server.
+
+\section{Frontend webapp}
+
+The frontend of my project is written in HTML, CSS and Javascript, which is an
+archetypal web development stack.
+
+\subsection{picoCSS}
+
+picoCSS is the library I used for the default styling of my webapp. I liked the
+its minimal and low distraction look which I thought was ideal for presenting
+data. It also had good mobile to desktop scaling which meant my webapp (at least
+the non-chart parts) worked on mobile and desktop with little work needed.
+
+\subsection{Apache echarts}
+
+Apache echarts is a javascript library that I have used to build the charts for
+my webapp. Data for charts is fetched from the backend and then loaded into a
+'series' object. Apache echarts then renders the data series onto a graph with a
+variety of options that can be chosen.
+
+
+\subsection{Making the app mobile friendly}
+
+I wanted the webapp to be accessible for both desktop and mobile users. What
+tends to make this difficult is the fact that scaling on desktop and mobile is
+normally very different. Also with mobile the longest axis is vertical while on
+desktop it tends to be horizontal - so I needed to ensure elements were reactive
+to the screen size of the viewer.
+
+picoCSS comes with much of this as standard with normal HTML elements (selection
+boxes, divs, titles, navigation bars etc). However integrating Echarts was
+difficult as picoCSS styles would not apply to this. I have written a summary
+changes I made to ensure that mobile viewers have a good experience.
+
+\begin{enumerate}
+    \item Dynamic tooltip: The webapp can tell if the viewer is a touch screen
+          and if so it will make the tool tip hover slightly away from the point
+          of touch. While on desktop the user will want to hover over a
+          datapoint and see the tool tip appear where they are hovering, on
+          mobile the digit used to select may cover important tooltip
+          information. By making sure the tooltip hovers slightly away from the
+          selection this is no longer a problem.
+    \item Dynamic chart and font size: Echarts comes with no standard method of
+          resizing chart data depending on the size of the device viewing the
+          chart. Therefore I developed a number of functions to improve
+          readability on mobile devices by dynamically decreasing chart height
+          and font size for mobile screen sizes.
+    \item
+\end{enumerate}
+
+
+
