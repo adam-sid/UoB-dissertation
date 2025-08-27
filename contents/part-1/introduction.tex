@@ -1,48 +1,57 @@
 \section{Introduction}
 
-In this report, I describe an online tool called \myReportTitle{}, which
-collects and displays microclimate data from an IoT weather sensor network that
-I designed and built. The tool aims to enable microclimate specific forecasting
-and provide farmers with accessible, location specific climate data to support
-decision making and enable microclimate specific forecasting. The IoT hardware
-was built using off-the-shelf components and housed in hand made enclosures. The
-deployed system consisted of four components: two field sensor nodes capable of
-reading weather data and transmitting it using a modern radio protocol called
-LoRa; a repeater that boosts received LoRa signals; and an internet connected
-gateway that uploads the weather data to an online database. 
+In this report, I describe an online webapp called \myReportTitle{}, which
+collects and displays microclimate data from an \emph{Internet of things} (IoT)
+weather station network that I designed and built.The webapp can present live,
+historical and forecasted weather data to the user. The live and historical data
+is retrieved from a separate postgreSQL database that collects and stores
+readings from my weather station sensor nodes every minute. These historical
+readings were used to build a machine learning model that can predict future
+microclimate specific weather based on the general forecast.
 
-The weather station was designed for deployment on Small Brook Farm in Devon,
-unfortunately actual deployment at this location was not possible during the
-time frame so the evaluation section of this report is focussed on data
-collected while the weather station was set up in my garden. At the time of
-submission, discussions with the owner of Small Brook Farm were ongoing to
-deploy the system in their orchard as part of a funded university project known
-as DECIDE.
+The weather station network was built using off-the-shelf components and housed
+in hand made enclosures. The deployed system consisted of four components: two
+field sensor nodes capable of reading weather data and transmitting it using a
+modern radio protocol called LoRa; a repeater that boosts received LoRa signals;
+and an internet connected gateway that uploads the weather data to an online
+database. The hardware in this project was designed for deployment on Small
+Brook Farm, an apple orchard who primarily sell their produce to cider makers.
+Unfortunately, actual deployment at this location was not possible during the
+time frame so the evaluation section of this report is focused on data collected
+while the weather station network was set up in my garden. 
 
-\subsection{Motivation}
+At the time of submission, discussions with the owner of Small Brook Farm were
+ongoing to deploy the system in their orchard as part of a funded university
+project known as DECIDE.
+
+\subsection{Motivation and aims}
 
 Weather forecasts are typically based on data from distant weather stations and
 large scale models which fail to capture variations that exist within a single
 farm or even field. These local variations, known as microclimates, can differ
 significantly even across relatively short distances due to differences in
-factors such as elevation, tree cover, or soil conditions. The weather
-conditions on a farm 
+factors such as elevation, tree cover, or soil type. 
 
-One major source of motivation for this project comes a set of interviews with
-the owners of Small Brook Farm (see relevant excerpt in
-~\ref{sec:small-brook-interview} )
+For example, in a set of interviews with the owners of Small Brook Farm
+(Appendix ~\ref{sec:small-brook-interview}) the owners note that the use of
+traditional forecasts on their orchard is not particularly useful for them. As
+weather forecasts tend to cover wide areas and are not always indicative of very
+local conditions. The owners even mentioned that the weather conditions across a
+single field of apple trees was different, with higher winds on one side
+compared to other. 
 
-See excerpt in 
+This uncertainty has real world consequences for farmers, at small brook farm
+for instance wind speed is a key determinant of when the farmers can spray their
+crops with pesticides. Equally, general forecasts are not well equipped to
+predict a spring frost that damages crops or the precise incubation period of
+pests and diseases.
 
+Agriscanner aims to address this need for accessible local weather forecasting
+by giving farmers a weather station platform that can both relay current weather
+information from different sections of their field and predict future weather
+for their specific location.
 
-
-\subsection{Aims and contributions}
-
-The main aim of this project was to develop a low-cost, low-maintenance IoT
-solution that helps farmers monitor microclimate conditions and make better
-informed decisions. The final hardware system needed to be physically robust to
-survive outside while the the software needed to present relevant information in
-an intuitive way, ensuring that users can easily make use of the data.
+\subsection{Contributions}
 
 The key contributions of this paper are:
 
@@ -52,20 +61,29 @@ The key contributions of this paper are:
     the market.
     \item A publicly available web application that visualises live data from
     multiple field locations.
-    \item A method for enabling microclimate forecasting by comparing local
-    sensor data with broader regional weather forecasts.
+    \item A method for enabling microclimate forecasting using a machine
+    learning process that compares local sensor data with broader regional
+    weather forecasts.
 \end{itemize}
 
 \subsection{Layout of dissertation}
 
-This dissertation has four parts. Part 1 provides the technical background to
-understand the project, including an overview of the core technologies used and
-a review of related work in the field. Part 2 details the hardware development
-process, covering the rationale behind component selection, the testing of
-hardware, and how the IoT nodes were deployed in the field. Part 3 focuses on
-the software aspect of the project, outlining the design and implementation of
-both the backend infrastructure and the frontend web interface. Part 4 then
-offers a critical evaluation of the system, discussing its performance,
-usability, and limitations, as well as highlighting opportunities for future
-development improvements and research.
+Part 1 provides the technical background to understand the project, including an
+overview of the core technologies used and a review of related work in the
+field.
+
+Part 2 details the hardware development process, covering the rationale behind
+component selection, the testing of hardware, and how the IoT nodes were
+deployed in the field.
+
+Part 3 focuses on the software aspect of the project, outlining the design and
+implementation of both the backend infrastructure and the frontend web
+interface.
+
+Part 4 then offers a critical evaluation of the system, discussing its
+performance, usability, and limitations, as well as highlighting opportunities
+for future development improvements and research. 
+
+
+  
 

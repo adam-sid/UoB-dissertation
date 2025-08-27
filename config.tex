@@ -41,15 +41,15 @@
 \renewcommand{\sectionmark}[1]{\markboth{\thesection\ \MakeUppercase{#1}}{}}
 
 % Custom plain page style for section-start, part, contents and other pages
-\fancypagestyle{plain}{
-  \fancyhf{}
-  \fancyfoot[C]{\thepage}
-  \renewcommand{\headrulewidth}{0pt}
-}
+%\fancypagestyle{plain}{
+%  \fancyhf{}
+%  \fancyfoot[C]{\thepage}
+%  \renewcommand{\headrulewidth}{0pt}
+%}
 
 % Clear page & vertical space before sections
 \makeatletter
-\pretocmd{\section}{\clearpage\vspace*{3cm}\thispagestyle{plain}}{}{}
+\pretocmd{\section}{\vspace*{1cm}\thispagestyle{plain}}{}{}
 \makeatother
 
 % Part page formatting (centred on page, "part" smaller than "name")
