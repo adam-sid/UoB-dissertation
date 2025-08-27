@@ -1,19 +1,37 @@
 \section{Introduction}
 
 In this report, I describe an online tool called \myReportTitle{}, which
-collects and displays microclimate data from an apple orchard via an IoT weather
-sensor network that I designed and built. The tool aims to enable microclimate
-specific forecasting and provide farmers with accessible, location specific
-climate data to support decision making and enable microclimate specific
-forecasting. The IoT hardware was built using off-the-shelf components and
-housed in hand made enclosures. The deployed system consisted of four
-components: two field sensor nodes capable of reading weather data and
-transmitting it using a modern radio protocol called LoRa; a repeater that
-boosts received LoRa signals; and an internet connected gateway that uploads the
-weather data to an online database. The sensor nodes were placed at two
-locations on the farm that the owner identified as having distinct microclimatic
-conditions. This allowed for the collection of weather data tailored to specific
-areas of interest, which was then displayed on the Agriscanner web application.
+collects and displays microclimate data from an IoT weather sensor network that
+I designed and built. The tool aims to enable microclimate specific forecasting
+and provide farmers with accessible, location specific climate data to support
+decision making and enable microclimate specific forecasting. The IoT hardware
+was built using off-the-shelf components and housed in hand made enclosures. The
+deployed system consisted of four components: two field sensor nodes capable of
+reading weather data and transmitting it using a modern radio protocol called
+LoRa; a repeater that boosts received LoRa signals; and an internet connected
+gateway that uploads the weather data to an online database. 
+
+The weather station was designed for deployment on Small Brook Farm in Devon,
+unfortunately actual deployment at this location was not possible during the
+time frame so the evaluation section of this report is focussed on data
+collected while the weather station was set up in my garden. At the time of
+submission, discussions with the owner of Small Brook Farm were ongoing to
+deploy the system in their orchard as part of a funded university project known
+as DECIDE.
+
+\subsection{Motivation}
+
+Weather forecasts are typically based on data from distant weather stations and
+large scale models which fail to capture variations that exist within a single
+farm or even field. These local variations, known as microclimates, can differ
+significantly even across relatively short distances due to differences in
+factors such as elevation, tree cover, or soil conditions. The weather
+conditions on a farm 
+
+One major source of motivation for this project comes a set of interviews with the owners of Small Brook Farm (see relevant excerpt in ~\ref{sec:small-brook-interview} )
+
+See excerpt in 
+
 
 
 \subsection{Aims and contributions}
@@ -24,19 +42,12 @@ informed decisions. The final hardware system needed to be physically robust to
 survive outside while the the software needed to present relevant information in
 an intuitive way, ensuring that users can easily make use of the data.
 
-Weather is of critical importance to farmers, as it is an important factor in
-final yield and helps to predict the optimal time to harvest, the likelihood of
-disease growth and irrigation needs. However, weather forecasts are typically
-based on data from distant weather stations and large scale models which fail to
-capture variations that exist within a single farm. These local variations,
-known as microclimates, can differ significantly even across relatively short
-distances due to differences in elevation, tree cover, or soil conditions.
-
 The key contributions of this paper are:
 
 \begin{itemize}
     \item The development of a low cost, ultra long-range remote weather station
-    system with superior range and value to current solutions on the market.
+    system with superior range and reduced cost compared to current solutions on
+    the market.
     \item A publicly available web application that visualises live data from
     multiple field locations.
     \item A method for enabling microclimate forecasting by comparing local
