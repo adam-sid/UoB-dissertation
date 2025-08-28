@@ -1,8 +1,71 @@
 \section{Hardware evaluation}
 
-Discussion of strengths and areas of improvement with hardware overall
+\subsection{Qualitative discussion of weather station performance}
 
-\subsection{Comparison with commercial alternatives}
+\subsubsection{Battery life, solar power and outages}
+
+The nodes have had significantly more downtime than expected based on the energy
+budgets in Sections~\ref{sec:battery-tests} and~\ref{sec:solar-tests}, despite
+doubling the battery capacity during deployment. The primary cause is site
+placement, with both nodes in a north-facing garden bounded by 2.5\,m fencing
+and a two-storey house immediately to the south. As a result, they receive no
+direct sunlight until 09:00, and Node 1 is shaded again by 15:00 due to the
+shadow of a nearby garage. This leaves only \(\approx\)5\,h of direct sunlight,
+which is far below the amount assumed in the design of the nodes.
+
+Outages seem to only affect the sensor nodes; the repeater has had zero downtime
+since installation. This is consistent with its much lower energy budget from a
+lack of any peripheral sensors, which reduces average energy draw.
+
+The limitations of the current location, plausibly explain the observed outages.
+Because these shading conditions are unlikely in an open field, these outages
+are not of primary concern for the intended deployment. However, it highlights
+the system's sensitivity to late sunrise and early sunsets from terrain. For
+example if the actual deploy site was shaded by a hill or some tall trees late
+in the day, which I had not properly considered in the design phase.
+
+\subsubsection{Weatherproofing}
+
+The summer of 2025 is set to be one of the hottest and driest on record with
+August specifically receiving roughly half its average rainfall
+\cite{uor2025summer}. Consequently, from the 15th of August to the 28th of
+August the weather stations saw only short spells of rain, making an analysis of
+their weather proofing hard to review up to this point. 
+
+Fortunately, from the 28th August to the 2nd September Chipping Sodbury - where
+the nodes are currently placed - received roughly 3.4cm of rain according to
+weather forecasts. Throughout this period there has been no evidence of water
+ingress.
+
+Beyond ingress testing, the nodes experienced elevated ambient temperatures
+(exceeding \SI{32}{\degreeCelsius}) and showed no signs of overheating. These
+results are encouraging, although longer-term deployment that includes colder
+weather and sustained heavy rain is needed to comment conclusively on their
+overall robustness.
+
+\subsubsection{Range}
+
+As reported in section ~\ref{sec:range-tests} the challengers and antennas used
+in this configuration are able to reach at least 1200m of range in non-ideal
+circumstances.
+
+\subsubsection{Reset behaviour}
+
+As covered briefly in Chapter~\ref{sec:deployment}, the reset behaviour of the
+challenger is inconsistent after a brownout or complete power outage.
+Essentially if the power of the sensor nodes is cut off at night then it is not
+guaranteed that the node will restart the code.py program in the morning. This
+is in spite of the fact that I modified the safemode.py behaviour of
+circuitpython with the recommended code for remote solar power applications. As
+this is ultimately appears to be a firmware issue there is not an obvious or
+easy solution for this. 
+
+With enough time I would probably rewrite all of the challenger software in
+Micropython and see if that firmware behaves in a more useful way on power
+outage. Unfortunately the issue was picked up fairly late in development and it
+was unrealistic to perform a refactor of this scale with the time left.
+
+\subsection{Quantitative comparison with commercial alternatives}
 
 Section will compare my node to others in a table and conclude on strengths and
 weaknesses of each
