@@ -4,7 +4,7 @@ This Chapter will evaluate the usability of the Agriscanner webapp using results
 from a System Usability Scale (SUS) survey that was carried out via online form
 in late August.
 
-\subsection{Procedure and test subjects}
+\subsection{Procedure}
 
 Before the main section of the survey, participants were asked to consent to
 standard University of Bristol privacy wording (see
@@ -39,10 +39,7 @@ task responses, I could also compare them to the correct answers, providing an
 additional objective metric (task success) to complement the SUS.
 
 In total, 15 participants completed the survey. Participants were recruited
-mainly from friends, family and other students on my course. Clearly, this small
-and non-random sample limits the generalisability of the results, so any
-interpretation of the following sections should be treated more as an indication
-of the webapp's usability rather than conclusive evidence.
+mainly from friends, family and other students on my course.
 
 \subsection{Hypotheses}
 
@@ -119,10 +116,10 @@ Table~\ref{tab:raw-sus} in the Appendix for data per participant.
   \end{minipage}
 \end{table} 
 
-The chart in Figure~\ref{fig:box-whisker} shows the tight distribution of values
-between the first and third quartiles, with most participants giving favourable
-ratings. There were also a smaller number of lower ratings shown as outliers,
-with a minimum score 67.5.
+Figure~\ref{fig:box-whisker} shows a tight distribution of values between the
+first and third quartiles, with most participants giving favourable ratings.
+There were also a smaller number of lower ratings shown as outliers, with a
+minimum score 67.5.
 
 Table~\ref{tab:sus-metrics} shows the key metrics from the survey. The mean
 score of 87.7 is well above the benchmark of 68 and indicates a high perception
@@ -131,12 +128,10 @@ confirmed that the median SUS score was significantly greater than 68
 (\(p=0.0004\)), allowing for the rejection of the first null hypothesis \(H_0\).
 
 Table~\ref{tab:sus-by-device} indicates that participants using mobile devices
-gave slightly higher usability ratings (90.6) than those on desktop (84.3). To
-confirm whether this difference was significant, a two-sample Mann-Whitney U
-test was conducted. The test found no significant difference between the two
-groups with (U=13.5,cv = 10, p=0.105). Therefore, the second null hypothesis
-\(H_0\) could not be rejected at the 5\% significance level. Based on this there
-is no significant difference between the two scores.
+gave slightly higher usability ratings (90.6) than those on desktop (84.3).
+However, a two-sample Mann-Whitney U test revealed no statistically significant
+difference between the two groups. (\(p=0.105\)). Therefore, the second null
+hypothesis \(H_0\) could not be rejected at the 5\% significance level.
 
 
 \begin{table}[H]
@@ -150,7 +145,7 @@ is no significant difference between the two scores.
     3 & 1 & 7\% \\
     4 & 0 & 0\% \\
     \hline
-    \multicolumn{2}{r}{Overall percentage correct} & 92\% \\
+    \multicolumn{2}{r}{Overall percentage incorrect} & 8\% \\
     \hline
   \end{tabular}
   \caption{Number of incorrect answers for task quiz}
@@ -158,53 +153,70 @@ is no significant difference between the two scores.
 \end{table}
 
 Performance in the assigned tasks was generally good
-(Table~\ref{tab:correct-metrics}), with participants on average answering
-correctly 92\% of the time. Questions 2, 3 and 4 were answered correctly by
-almost all participants, with only one participant failing on 2 and 3. The first
-question proved the most difficult to perform accurately with 3 candidates
-failing. I decided to plot the SUS score given against the percentage of correct
-answers (see~\ref{app:correlation-sus}) however with an $R^2$ value of 0.0066
-there was effectively zero correlation between the two; even if there was some
-correlation the small sample size and ceiling effect from so many respondents
-getting perfect scores would make this difficult to detect.
+(Table~\ref{tab:correct-metrics}), with participants answering incorrectly only
+8\% of the time. Questions 2, 3 and 4 were answered correctly by almost all
+participants, with only one participant failing on 2 and 3. The first question
+proved the most difficult to perform accurately with 3 candidates failing. I
+decided to plot the SUS score given against the percentage of correct answers
+(see~\ref{app:correlation-sus}) however with an $R^2$ value of 0.0066 there was
+effectively zero correlation between the two; even if there was some correlation
+the small sample size and ceiling effect from so many respondents getting
+perfect scores would make this difficult to detect.
 
 \subsection{Discussion and limitations of results}
 
 With a very high mean (87.7) and median (90) SUS score, the results here suggest
-a very high degree of usability. Additionally, the high task completion rate
-adds further quantitative evidence that users could use the website's functions
-without explicit guidance.
+a high degree of usability. A one-sample Wilcoxon signed-rank test helps confirm
+that the median score of my sample is significantly greater than the benchmark
+of 68 and cannot be attributed to randomness with \(p<0.001\). This provides
+quantitative evidence that the frontend development choices I have taken
+(Chapter \ref{sec:front-end}) have given my webapp excellent perceived
+usability. This point is further reinforced by the very high task completion
+rate (92\%). The fact that users could not only perceive the system as easy to
+use but could also operate it efficiently with minimal guidance validates the
+chosen design approach—particularly the emphasis on a minimal, low-distraction
+interface.
 
-With that said there a number of important limitations to these findings. As
-already mentioned, the sample is small and non-random so the results are not
-necessarily representative of the wider population. Because I knew many
-participants personally, social-desirability bias is likely to have inflated
-ratings. Likewise, a high proportion of computer-science students in the sample
-means these participants may have been more familiar with web interfaces than
-the general public, which could also have contributed to the higher SUS scores.
+Additionally, the data suggest that usability on mobile devices is no different
+to that on desktop devices. A two-sample Mann-Whitney U test revealed no
+statistically significant difference in usability ratings between mobile and
+desktop users with \(p>0.05\).
 
 Not all the data were positive however: Two participants gave scores close to
-the benchmark level used to indicate good usability and one respondent gave a
-score below this point. With such small sample it is important not to dismiss
-these as outliers. 
-
-Fortunately, the three lower scoring participants left useful comments
-(Figure~\ref{fig:low-sus-feedback}) that point to the usability issues they
-encountered. Additional comments from other participants are shown in
-Figure~\ref{fig:high-sus-feedback} and recurring themes are summarised in
+the benchmark level of 68 and one respondent gave a score below this point. With
+such a small sample it is important not to dismiss these as outliers.
+Fortunately, many participants left detailed feedback on usability issues they
+encountered (Figure~\ref{fig:high-sus-feedback})- including all three who gave
+lower scores (Figure~\ref{fig:low-sus-feedback}). These comments provided useful
+insight into specific usability issues, such as the difficulty with date
+selection which directly explains the 20\% failure rate on the first task. This
+qualitative feedback was then used to generate the feature requests compiled in
 Table~\ref{tab:feature-requests}.
 
-The most frequently mentioned issue was frustration with the (calendar and
-date-range selection, and finer time selection on the chart), discoverability of
-the compare feature, and clearer presentation of soil-moisture readings. Other
-suggestions include data export, quicker switching between measurement types,
-and minor layout/responsiveness fixes for chart axes. These categories provide
-useful guidance for the next development cycle.
+There are a number of important limitations to these findings. The sample was small
+and non-random so the results are not necessarily representative of the wider
+population. Because I knew many participants personally, social-desirability
+bias was likely to have inflated ratings. Likewise, a high proportion of
+computer-science students in the sample means these participants may have been
+more familiar with web interfaces than the general public, which could also have
+contributed to the higher SUS scores. While I measured the completion rate for
+the user tasks I did not measure the time taken to do this. Even if users
+successfully completed the tasks it may have taken a long time to do so, which
+would have been a valuable metric to include here.
+
+In conclusion, while the limitations of the sample mean the results cannot be
+broadly generalised, they still provide a strong, positive indication of the
+webapp's usability. An exceptionally high SUS score and a high task completion
+rate demonstrate that the core design of the application succeeded in its aims.
+Further, the evaluation has successfully identified specific feedback from
+users, which provides a clear path to improving usability further.
 
 \subsection{User stories from SUS survey} \label{sec:user-story}
 
-A number of user stories came out of the survey that can be used as future
-requirements:
+Based on the qualitative feedback, several key themes emerged. The most
+frequently mentioned issues have been summarised in
+Table~\ref{tab:feature-requests} and translated into user stories to guide
+future development.
 
 \begin{table}[H]
   \centering

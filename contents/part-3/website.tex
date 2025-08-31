@@ -20,7 +20,7 @@ the cost to \pounds10.
 
 \section{Backend}
 
-\subsection{postgreSQL database}
+\subsection{postgreSQL database}\label{sec:database}
 
 \begin{figure}[H]
     \centering
@@ -54,7 +54,8 @@ requests and performing corresponding database operations - it is essentially
 the bridge between the gateway hardware and the database. In addition to
 handling sensor data, the service also integrates with an external weather API
 in order to retrieve both current conditions and forecast data, which are then
-stored alongside the locally collected sensor readings as explained above.
+stored alongside the locally collected sensor readings as explained in Section
+\ref{sec:database}.
 
 The API inserts data into the database when it receives a POST request. The body
 of the POST request contains a JSON body which is parsed, processed and added to
@@ -101,8 +102,8 @@ contents.
 
 The first step I took was to use environment variables inside Render to hide
 sensitive information such as API keys and passwords. These variables are hidden
-from any source documents served to the browser and are injected separately at
-deploy time. This prevents the information from leaking into the public domain.
+from any source documents and are injected separately at deploy time. This
+prevents the information from leaking into the public domain.
 
 Then I needed to prevent any unauthorised machine attempting to perform API
 calls on my backend. The approach I took to this was to follow guidelines set
@@ -128,24 +129,25 @@ Expecting the \verb|httpBody| to contain a JSON with \texttt{column = "*"} and
 \texttt{table\_name = "node\_data"}, for instance. 
 
 However, if someone were to name their column as \texttt{"*"} and their
-table\_name as \texttt{"node\_data; DROP TABLE node\_data;"} the effective command
-would change to:
+table\_name as \texttt{"node\_data; DROP TABLE node\_data;"} the effective
+command would change to:
 
 \verb|SELECT * FROM node_data; DROP TABLE node_data;|
 
 This command would then select the data as intended before completely destroying
 the table and all of its data. To prevent this from happening I whitelisted
-valid table\_names like so (psuedo-code for clarity);
+valid inputs like so (psuedo-code for clarity);
 
 \begin{verbatim}
+const white_listed_columns = new Set('*');
+
 const white_listed_tables = new Set('node_data');
 
-if (!white_listed_tables.has(httpBody.table_name)) {
+if (!white_listed_tables.has(httpBody.table_name) 
+    or !white_listed_columns.has(httpBody.column)) {
     return 404 error;
 }
 \end{verbatim}
-
-
 
 \subsection{Weather API integration}
 
@@ -206,13 +208,31 @@ summarised below:
           selection this is no longer a problem.
     \item Dynamic chart and font size: Echarts comes with no standard method of
           resizing chart data depending on the size of the device viewing the
-          chart. Therefore I developed a number of functions to improve
-          readability on mobile devices by dynamically decreasing chart height
-          and font size for mobile screen sizes.
-    \item
+          chart. So I ensured that the size of the chart (including its font)
+          would be drawn smaller on mobile devices and recalculated if the
+          viewing size changes (i.e. if a desktop user shrinks the window size)
+    \item Dynamic X axis: The interval between X axis ticks on mobile is 6 hours
+        vs 3 hours on desktop, so that on mobile the view is less crowded.
+    \item Dropdown menu for chart selection:
 \end{enumerate}
 
-\subsection{ Walkthrough of features}
+\section{Design choices}
+
+The principle UX design was informed by the nine usability heuristics developed
+by Nielsen \cite{nielsen1990heuristic}, which is discussed in more depth in
+Section \ref{sec:walkthrough}. Before creating the frontend I collected a
+handful of website designs used to display weather or other types of data (met
+office, BBC, apple weather etc) and informally discussed preferred designs with
+peers.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{contents/part-3/fig3/paper-prototype.png}
+    \caption{Initial paper prototype for webapp with live information show in clickable boxes}
+    \label{fig:paper-prototype}
+\end{figure}
+
+\subsection{ Walkthrough of features}\label{sec:walkthrough}
 
 Walkthrough of main features with images and 
 
