@@ -1,35 +1,44 @@
-\section{Future work}
+\section{Future work}\label{sec:future-work}
 
-Ultimately the objective of this work is to deploy the system in an apple farm
-to assist the farmers with the management of their orchards. Before the system
-can be deployed, the Challenger's firmware must be able to reliably restart
-after a power outage.  As suggested in section \ref{sec:reset-behaviour} I would
-first recommend experimenting with MicroPython to see if this can provide a more
-robust solution to coping with this scenario. The worst case scenario would be
-to have to use an alternative embedded processor that can handle power
-fluctuations.
+Ultimately the main objective of this work is to deploy the system in an apple
+farm to assist the farmers with the management of their orchard. Before the
+system can be deployed, the Challenger's firmware must be able to reliably
+restart after a power outage.  As suggested in section \ref{sec:reset-behaviour}
+I would first recommend experimenting with MicroPython to see if this can
+provide a more robust solution to coping with this scenario. The worst case
+scenario would be to have to use an alternative embedded processor that can
+handle power fluctuations.
 
 Additionally, it may be of value to add more sensor to the nodes as this is a
-noticeable weakness of the current system architecture compared to existing alternatives.
-Additional sensors would result in increased power requirements, and I believe
-it would be inadvisable to add any more load to the system until its performance
-in the target setting can be assessed.
+noticeable weakness of the current system architecture compared to existing
+alternatives. Considering the addition of sensors would result in increased
+power requirements I believe it would be inadvisable to add any more for time
+being. Once the system has been deployed for an extended period and shows that
+it can operate with minimal outages then the adding sensors would be a
+worthwhile improvement to the current design.
 
-Once the reliability issue has been resolved, the next stage would be to deploy
-the system into a farm.  The siting of the sensor nodes and repeater will need
-careful consideration so a thorough site survey should be undertaken. It would
-be advisable to allow a few days for the installation, so there is someone on
-hand to deal with any issues that might arise once the nodes have been installed
-and to make sure the farmers are comfortable with using the webapp.
+Once the reliability issue has been resolved, the next stage will be to deploy
+the system onto a farm.  The siting of the sensor nodes and repeater will need
+careful consideration, so a thorough site survey should be undertaken prior to
+this. It would be advisable to allow a few days for the installation, so there
+is someone on hand to deal with any issues that might arise once the nodes have
+been installed and to make sure the farmers are comfortable with using the
+webapp.
 
-I would recommend that the forecasting feature is turned off, or heavily
-caveated initially as the predictive models need to be retrained with data from
-the new site over a good number of weeks.  Once a more substantial data set is
-available, the machine learning training process will need to be repeated and
-deployed.  It will then be possible to repeat the analysis of how the predictive
-models perform when trained on more representative data.
+I would recommend that the forecasting feature continues to be developed using
+machine learning. Furthermore instead of training the model offline and manually
+inserting models into the webapp, future work could focus on moving model
+training online. This would allow the model to continually update and improve as
+new data from the nodes is produced. After a few months of data is collected
+then a repeated comparison should be performed to 
 
 
 \section{Closing remarks}
 
-Brief conclusion
+This dissertation has shown the process of building a hardware based weather
+station network from the ground up and integrating this into a modern and usable
+web application. 
+
+On the hardware side a weather station network has been successfully built and
+deployed externally. Despite heavy rain the devices have continued to operate
+and require no mains power supply relying soley on the sun.

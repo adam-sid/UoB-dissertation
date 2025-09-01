@@ -32,17 +32,18 @@ to remove this ongoing cost.
 The database has four tables:
 
 \begin{itemize}
-    \item farms: this holds a list of where the nodes are (or have been) deployed.
-          The longitude and latitude of the farm is then used in API calls to
-          OpenWeather (more on this below) which is used to fetch current and
-          forecasted weather data.
-    \item node\_deployment - This holds the precise longitude and latitude of each
-          node as well as information on when the deployment started and ended. If
-          the nodes are moved then this table is updated with new information.
+    \item farms: this holds a list of where the nodes are (or have been)
+          deployed. The longitude and latitude of the farm is then used in API
+          calls to OpenWeather (more on this below) which is used to fetch
+          current and forecasted weather data.
+    \item node\_deployment - This holds the precise longitude and latitude of
+          each node as well as information on when the deployment started and
+          ended. If the nodes are moved then this table is updated with new
+          information.
     \item node\_data - Holds the full set of readings from each node.
     \item farm\_weather\_current - Holds current weather information from API
-          calls to OpenWeather taken every 10 minutes and is only used to
-          train the machine model explained in the machine learning section.
+          calls to OpenWeather taken every 10 minutes and is only used to train
+          the machine model explained in the machine learning section.
 \end{itemize}
 
 
@@ -96,22 +97,23 @@ In total my api has five endpoints:
 
 \begin{itemize}
     \item POST '/api/database/insert-node-data' - This endpoint is used by the
-          gateway to fill the database with sensor data. When a valid HTTP request
-          posts to this endpoint the JSON in the body of the request is parsed and
-          inserted into the node\_data table. This endpoint has been included in
-          \ref{app:api-endpoint} as an example.
+          gateway to fill the database with sensor data. When a valid HTTP
+          request posts to this endpoint the JSON in the body of the request is
+          parsed and inserted into the node\_data table. This endpoint has been
+          included in Appendix \ref{app:api-endpoint} as an example.
     \item POST '/api/database/insert-weather-data' - This endpoint is used to
           insert general weather data from the OpenWeather API into the relevant
           table. The backend calls this every 10 minutes to collect the latest
           general weather data.
     \item GET '/api/database/select-latest' - This endpoint sends the latest
-          sensor data from the node\_data table to the computer that sent the GET
-          request. It is used by the front end to display current weather data.
+          sensor data from the node\_data table to the computer that sent the
+          GET request. It is used by the front end to display current weather
+          data.
     \item GET '/api/database/select-node-range' - This endpoint sends back the
           range of sensor data that is specified in the request body. It is used
           by the front end to build chart data.
-    \item GET '/api/database/forecast' - This endpoint is used by the frontend to
-          retrieve the latest forecast model data from the backend.
+    \item GET '/api/database/forecast' - This endpoint is used by the frontend
+          to retrieve the latest forecast model data from the backend.
 \end{itemize}
 
 \subsection{Security}
@@ -187,8 +189,8 @@ requests per day which is well within the free limits.
 
 To set up automatic API retrieval from my backend to the weather API I used the
 node-cron library \cite{node-cron} to set up a 10 minute job on my host server.
-This then called related functions to get both current and forecasted data for
-use with my machine learning model.
+Node-cron would call the POST '/api/database/insert-weather-data' endpoint as
+explained in Section \ref{{sec:building-api}}
 
 \section{Frontend webapp}\label{sec:front-end}
 
@@ -341,26 +343,26 @@ this. I therefore took actions to improve the usability for mobile users, as
 summarised below:
 
 \begin{enumerate}
-    \item Dynamic tooltip: The webapp can tell if the viewer is a touch screen and
-          if so it will make the tool tip hover slightly away from the point of
-          touch. While on desktop the user will want to hover over a datapoint and
-          see the tool tip appear where they are hovering, on mobile the digit
-          used to select may cover important tooltip information. By making sure
-          the tooltip hovers slightly away from the selection this is no longer a
-          problem.
+    \item Dynamic tooltip: The webapp can tell if the viewer is a touch screen
+          and if so it will make the tool tip hover slightly away from the point
+          of touch. While on desktop the user will want to hover over a
+          datapoint and see the tool tip appear where they are hovering, on
+          mobile the digit used to select may cover important tooltip
+          information. By making sure the tooltip hovers slightly away from the
+          selection this is no longer a problem.
     \item Dynamic chart and font size: Echarts comes with no standard method of
           resizing chart data depending on the size of the device viewing the
           chart. So I ensured that the size of the chart (including its font)
-          would be drawn smaller on mobile devices and recalculated if the viewing
-          size changes (i.e. if a desktop user shrinks the window size)
+          would be drawn smaller on mobile devices and recalculated if the
+          viewing size changes (i.e. if a desktop user shrinks the window size)
     \item Dynamic X axis: The interval between X axis ticks on mobile is 6 hours
           vs 3 hours on desktop, so that on mobiles the view is less crowded.
     \item Dropdown menu for chart selection: I initially used a radio design for
           the chart type selection (like a multiple choice question) but quickly
-          realised this was not a mobile friendly design choice as the scaled down
-          buttons were very hard to click. I instead opted to use a drop down box
-          as this was much easier to select on a mobile setting while still a well
-          known element that users should be familiar with.
+          realised this was not a mobile friendly design choice as the scaled
+          down buttons were very hard to click. I instead opted to use a drop
+          down box as this was much easier to select on a mobile setting while
+          still a well known element that users should be familiar with.
 \end{enumerate}
 
 One of the hardest pages to format well for mobile users was the wind sensor

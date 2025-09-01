@@ -31,7 +31,7 @@ whatever else, its very localised. But you know you if you then go on that side
 of the valley, it doesn't rain on this side. So like to be actually useful,
 yeah, [weather monitoring] sort of has to be [based on] the farm.
 
-Source: Transcript no.28 of site visit (9 May 2025)
+Source: Transcript no.28 of site visit from DECIDE sharepoint (9 May 2025)
 
 \section{Battery cost assumptions}\label{app:battery-assumptions}
 \begin{itemize}
@@ -118,7 +118,7 @@ List of tasks for users:
     \begin{quote}
     ``I found it annoying having to click to get to the required date. Also I
     don't understand from the website alone what the project is about or where
-    the data is from - maybe an about page would be nice : )''
+    the data is from - maybe an about page would be nice :)''
     \end{quote}
  \vspace{8pt}
     \begin{quote}
@@ -207,20 +207,20 @@ List of tasks for users:
   \label{fig:appendix-note-1}
 \end{figure}
 
-\section{Nielsen's nine usability heuristics
-\cite{nielsen1990heuristic}}\label{app:usability-heuristics}
+% \section{Nielsen's nine usability heuristics
+% \cite{nielsen1990heuristic}}\label{app:usability-heuristics}
 
-\begin{itemize}
-  \item Simple and natural dialogue
-  \item Speak the user's language
-  \item Minimize user memory load
-  \item Be consistent
-  \item Provide feedback
-  \item Provide clearly marked exits
-  \item Provide shortcuts
-  \item Good error messages
-  \item Prevent errors
-\end{itemize}
+% \begin{itemize}
+%   \item Simple and natural dialogue
+%   \item Speak the user's language
+%   \item Minimize user memory load
+%   \item Be consistent
+%   \item Provide feedback
+%   \item Provide clearly marked exits
+%   \item Provide shortcuts
+%   \item Good error messages
+%   \item Prevent errors
+% \end{itemize}
 
 
 \section{How LoRa works}\label{app:lora-explained}
@@ -644,14 +644,15 @@ forecast comparison}\label{app:ml-stats}
     \label{fig:rel-mae-rmse}
 \end{figure}
 
-\section{Alternative model data}
+\section{Alternative model data}\label{app:alt-data}
 
 The below figure was used to produce the alternative model by applying these
-adjustments to the general OpenWeather forecast.
+adjustments to the general OpenWeather forecast. A positive reading means sensor
+data was higher than forecast.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{contents/appendix/fig5/rel-mae-rmse.png}
+    \includegraphics[width=1\textwidth]{contents/appendix/fig5/average-difference.png}
     \caption{Spreadsheet snippet showing average difference between general forecast and sensor readings between (15-27 August)}
-    \label{fig:alt-data}
-\end{figure}
+    \label{fig:alt-data-ig}
+\end{figure} 
