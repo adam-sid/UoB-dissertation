@@ -500,7 +500,8 @@ while True:
 \end{lstlisting}
 \end{multicols}
 
-\section{Typescript API endpoint code for node data insert}\label{app:api-endpoint}
+\section{Typescript API endpoint code for node data
+insert}\label{app:api-endpoint}
 \begin{multicols}{2}
 \begin{lstlisting}
 app.post('/api/database/insert-node-data', async (req: Request, res: Response) => {
@@ -625,3 +626,32 @@ with open(f'{TARGET}{NODE_ID}.js', 'w') as f:
 
     \end{lstlisting}
 \end{multicols}
+
+\section{Mean absolute error (MAE) and root mean squared error (RMSE) from
+forecast comparison}\label{app:ml-stats}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{contents/appendix/fig5/mae-rmse.png}
+    \caption{General forecast is OpenWeather, Machine learning refers to my models, alternative refers to a mean adjusted general forecast model}
+    \label{fig:mae-rmse}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{contents/appendix/fig5/rel-mae-rmse.png}
+    \caption{Table with relative MAE and RMSE averaged across node 1 and 2}
+    \label{fig:rel-mae-rmse}
+\end{figure}
+
+\section{Alternative model data}
+
+The below figure was used to produce the alternative model by applying these
+adjustments to the general OpenWeather forecast.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{contents/appendix/fig5/rel-mae-rmse.png}
+    \caption{Spreadsheet snippet showing average difference between general forecast and sensor readings between (15-27 August)}
+    \label{fig:alt-data}
+\end{figure}
