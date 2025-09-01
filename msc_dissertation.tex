@@ -15,16 +15,72 @@
 
 % Executive summary
 \section*{Executive summary}
+This project aimed to design a system that would provide farmers with much more
+accurate current weather information and forecast predictions for their specific
+locality than is possible from general weather forecasts. It was an ambitious
+project for the timescales involving the design and construction of four
+hardware devices suitable for use in an agricultural setting in addition to the
+development of backend and frontend software to capture the data from the
+devices and provide an easy to use application for farmers to see the
+information.  The system also included the development of machine learning
+models which were trained using historic general weather data and the data
+collected from the hardware devices.  The models were deployed to try and
+provide more accurate localised forecasting.
+\begin{itemize}
+  \item I designed weather proofed, solar powered hardware devices which used
+        low powered long range radio transmitters for data transmission.  Sensor
+        nodes were equipped with temperature, humidity, wind speed and soil
+        sensors and the system included a repeater node which doubled the
+        effective range of the system. I also designed a gateway device which
+        operated inside a WiFi enabled building to transmit the sensor data to
+        the cloud
+  \item I used a variety of language to develop backend software which received
+        and processed the data from the gateway
+  \item I developed a web app which displayed data to the end user and did a
+        usability assessment of this app
+  \item	I captured historical data from an online weather API to train machine
+        learning models and deployed these models to provide local weather
+        forecasts
+  \item I reviewed studies where machine learning has been applied to the
+        problem of forecasting for microclimates
+  \item I compared the features and costs of my system to those of existing
+        commercial systems
+\end{itemize}
+
 \addcontentsline{toc}{section}{Executive summary}
 
 
 % Dedication and acknowledgments
+\newpage
 \section*{Dedication and acknowledgments}
+I would like to thank my parents for the use of their garden and generally being
+brilliant.
+
+\paragraph{}I would like to thank my partner for helping with range testing the
+antenna by walking the length of the Downs with two boxes of electronics
+
+\paragraph{}I would like to thank my supervisor
+
+\paragraph{}I would like to thank friends and family who filled in a usability
+survey
+
 \addcontentsline{toc}{section}{Dedication and acknowledgments}
 
 
 % Declaration
+\newpage
 \section*{Author's declaration}
+I declare that the work in this dissertation was carried out in accordance with
+the requirements of the University's Regulations and Code of Practice for
+Research Degree Programmes and that it has not been submitted for any other
+academic award. Except where indicated by specific reference in the text, the
+work is the candidate's own work. Work done in collaboration with, or with the
+assistance of, others, is indicated as such. Any views expressed in the
+dissertation are those of the author.
+
+
+SIGNED:\qquad Adam Sidnell \qquad \qquad \qquad DATE:\qquad    2nd September
+2025
 \addcontentsline{toc}{section}{Author's declaration}
 
 
@@ -109,9 +165,8 @@
 \makeatletter
 \patchcmd{\section}{\clearpage\vspace*{3cm}\thispagestyle{plain}}{\clearpage\thispagestyle{plain}}{}{}
 \titleformat{\part}[block]
-  {\normalfont\centering\bfseries}
-  {\LARGE \partname\ \thepart}{1em}{\Huge}
-  [\thispagestyle{plain}\clearpage]
+{\normalfont\centering\bfseries} {\LARGE \partname\ \thepart}{1em}{\Huge}
+[\thispagestyle{plain}\clearpage]
 \makeatother
 \newpage
 
@@ -119,4 +174,4 @@
 \input{contents/appendix/appendix.tex}
 %TC:endignore
 
-\end{document} 
+\end{document}

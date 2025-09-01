@@ -1,6 +1,34 @@
 \section{Future work}
 
-Future improvements for weather station and app
+Ultimately the objective of this work is to deploy the system in an apple farm
+to assist the farmers with the management of their orchards. Before the system
+can be deployed, the Challenger's firmware must be able to reliably restart
+after a power outage.  As suggested in section \ref{sec:reset-behaviour} I would
+first recommend experimenting with MicroPython to see if this can provide a more
+robust solution to coping with this scenario. The worst case scenario would be
+to have to use an alternative embedded processor that can handle power
+fluctuations.
+
+Additionally, it may be of value to add more sensor to the nodes as this is a
+noticeable weakness of the current system architecture compared to existing alternatives.
+Additional sensors would result in increased power requirements, and I believe
+it would be inadvisable to add any more load to the system until its performance
+in the target setting can be assessed.
+
+Once the reliability issue has been resolved, the next stage would be to deploy
+the system into a farm.  The siting of the sensor nodes and repeater will need
+careful consideration so a thorough site survey should be undertaken. It would
+be advisable to allow a few days for the installation, so there is someone on
+hand to deal with any issues that might arise once the nodes have been installed
+and to make sure the farmers are comfortable with using the webapp.
+
+I would recommend that the forecasting feature is turned off, or heavily
+caveated initially as the predictive models need to be retrained with data from
+the new site over a good number of weeks.  Once a more substantial data set is
+available, the machine learning training process will need to be repeated and
+deployed.  It will then be possible to repeat the analysis of how the predictive
+models perform when trained on more representative data.
+
 
 \section{Closing remarks}
 

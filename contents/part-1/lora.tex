@@ -14,7 +14,7 @@ networks. LoRa has a range over 4000 times greater than WiFi \cite{spiess2019},
 a range that it can achieve with remarkably little power (Table
 \ref{tab:lora-stats}). This makes LoRa the preferred technology choice for
 the remote, off-grid application in this project.
- 
+
 For a brief overview of the principles behind LoRa I have written the
 supplementary section "How LoRa works" in Appendix \ref{app:lora-explained}.
 However, to summarise, the most important principle that separates LoRa from
@@ -26,7 +26,7 @@ more efficiently.
 The benefits from the ability of the LoRa receiver to demodulate signals more
 efficiently is two-fold. First it reduces the power needs on transmitter and
 receiver: the transmitter sends less powerful signals because the receiver can
-more easily distinguish signals; in turn the receiver can also demodulate with a
+more easily distinguish signals; in turn the receiver can demodulate with a
 lower power budget because of the easier correlation process with LoRa chirps.
 
 The second related benefit is the ability for the receiver to demodulate signals
@@ -34,25 +34,25 @@ which are below the noise floor (the sum of all interfering signals).
 Essentially, even when background noise is 'louder' than the LoRa signal, the
 receiver is still able to distinguish and process the data in the signal. This
 helps LoRa transmitters to broadcast signals with a far greater effective range
-despite it's low power. 
+despite its low power.
 
-\begin{table}[ht] 
+\begin{table}[ht]
   \centering
   \begin{tabular}{|l|l|p{4.5cm}|r|}
     \hline
-\textbf{Technology} & \textbf{Wireless Communication} & \textbf{Range} &
-\textbf{Tx Power} \\
+    \textbf{Technology} & \textbf{Wireless Communication} & \textbf{Range}                    &
+    \textbf{Tx Power}                                                                                   \\
     \hline
-    Bluetooth & Short range & 10 m & 2.5 mW \\
+    Bluetooth           & Short range                     & 10 m                              & 2.5 mW  \\
     \hline
-    WiFi & Short range & 50 m & 80 mW \\
+    WiFi                & Short range                     & 50 m                              & 80 mW   \\
     \hline
-    3G/4G & Mobile network & 5,000m & 5000 mW \\
+    3G/4G               & Mobile network                  & 5,000m                            & 5000 mW \\
     \hline
-    LoRa & LPWAN & \parbox[t]{4.5cm}{2,000--15,000m} & 20 mW \\
+    LoRa                & LPWAN                           & \parbox[t]{4.5cm}{2,000--15,000m} & 20 mW   \\
     \hline
   \end{tabular}
-    \caption{Comparison of wireless technologies (Source:
-  \cite{lie_lora_readthedocs})}
+  \caption{Comparison of wireless technologies (Source:
+    \cite{lie_lora_readthedocs})}
   \label{tab:lora-stats}
 \end{table}

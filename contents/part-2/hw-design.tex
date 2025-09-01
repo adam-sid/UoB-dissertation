@@ -1,22 +1,19 @@
 \section{Design}
 
-\subsection{Nodes}
+\subsection{Node Components}
 
-\subsubsection{Components}
+As the sensor nodes and the repeater are situated outside and rely on solar
+power, they required components that were highly power-efficient, while also
+being capable of transmitting small data packets via LoRa. An equally important
+consideration for the design was how to weatherproof the final enclosure to
+protect the sensitive electronics from water ingress and environmental damage.
 
-The first step in the design process was selecting hardware components that
-could operate autonomously without mains power. This required devices that were
-highly power-efficient, while also being capable of transmitting small data
-packets via LoRa. An equally important consideration was weatherproofing the
-final enclosure to protect the sensitive electronics from water ingress and
-environmental damage.
-
-\paragraph{Challenger RP2040 LoRa}
+\subsubsection{Challenger RP2040 LoRa}
 
 The iLabs Challenger RP2040 LoRa (Figure~\ref{fig:challenger-rp2040} )is an
 embedded computer that uses the Raspberry Pi RP2040 chip that was released in
-2021. The RP2040 itself is a low-cost and power-efficient processor with ample
-power to perform the data encoding and transmission in my use case.
+2021. The RP2040 itself is a low-cost and power-efficient processor easily
+capable of performing the data encoding and transmission in my use case.
 Additionally, the chip is extremely popular with over 10 million units being
 produced in the first two years of release \cite{pounder2023}. This popularity
 means there is ample documentation for developing with this processor.
@@ -39,7 +36,7 @@ frequency for LoRa and gives a good balance between range and bandwidth.
 Another useful aspect of the board is the abundance of GPIO pins (20 in total)
 allowing for a large number of sensors to be fitted to the board.
 
-\paragraph{Antennae}
+\subsubsection{Antennae}
 
 The selection of antennae is one of the largest determinants of range and
 reliability in the context of wireless communication systems \cite{khan2016}.
@@ -66,15 +63,32 @@ using.
     \label{fig:good-antenna}
 \end{figure}
 
-\paragraph{Sensor selection} \label{sec:sensor-selection}
+\subsubsection{Powering the node}
 
-\subparagraph{Temperature and humidity sensor}
+To allow for continuous operation away from power sources, I attached a 6W
+Monocrystalline Silicon Solar Panel (Figure~\ref{fig:solar-module})to each of
+the nodes. I also installed a solar power management module
+(Figure~\ref{fig:solar-module}) onto the Challengers. This module moderates the
+output from the solar panels which is at too high a voltage to directly power
+the nodes. It also incorporates a battery that charges from the solar panel
+output and provides power to the nodes when the solar power is not available.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{contents/part-2/fig2/solar-panel-manager.jpg}
+    \caption{Waveshare solar power management module (left), solar panel (right)}
+    \label{fig:solar-module}
+\end{figure}
+
+\subsubsection{Sensor selection} \label{sec:sensor-selection}
+
+\paragraph{Temperature and humidity sensor}
 
 I used a DHT11 temperature/humidity sensor (Figure~\ref{fig:dht11}) for each
-node to provide basic readings. It was chosen for it's low cost, availability
-and compatibility with both the RP2040 Challenger and CircuitPython (via
-libraries). The sensor can be connected to the microcontroller using a single
-GPIO pin as well as the usual power and ground pin.
+sensor node to provide basic readings. It was chosen for it's low cost,
+availability and compatibility with both the RP2040 Challenger and CircuitPython
+(via libraries). The sensor can be connected to the microcontroller using a
+single GPIO pin as well as the usual power and ground pin.
 
 \begin{figure}[H]
     \centering
@@ -83,16 +97,17 @@ GPIO pin as well as the usual power and ground pin.
     \label{fig:dht11}
 \end{figure}
 
-\subparagraph{Soil moisture sensor}
+\paragraph{Soil moisture sensor}
 
-A capacitative soil moisture sensor (Figure~\ref{fig:soil-sensor}) was chosen
-over the alternative resistive style. The benefit of capacitative sensors is
-they are not as prone to corrosion of the diodes. In a resistance sensor the
-diodes must be bare plated metal in order for resistance between each diode to
-be measured. However the disadvantage of this is that bare metal corrodes in the
-presence of water, and corrosion affects the accuracy of the sensor. For this
-reason I went with a capacitive sensor as the diodes are covered by a protective
-layer making them much less susceptible to corrosion.
+The main choice between soil moisture sensors is whether to use a capacitative
+or resistive style sensor. In a resistance sensor the diodes must be bare plated
+metal in order for resistance between each diode to be measured. However the
+disadvantage of this is that bare metal corrodes in the presence of water, and
+corrosion affects the accuracy of the sensor.  The benefit of capacitative
+sensors is that the diodes are covered by a protective layer making them much
+less susceptible to corrosion. For this reason I chose a capacitive sensor
+(Figure~\ref{fig:soil-sensor}).
+
 
 \begin{figure}[H]
     \centering
@@ -101,15 +116,12 @@ layer making them much less susceptible to corrosion.
     \label{fig:soil-sensor}
 \end{figure}
 
-
-\subparagraph{Wind speed sensor (Anemometer)}\label{sec:anemometer}
-
-
+\paragraph{Wind speed sensor (Anemometer)}\label{sec:anemometer}
 
 The anemometer chosen (Figure~\ref{fig:wind-sensor}) was the DFROBOT wind speed
 sensor. It balances value with construction quality as unlike many other cup
-style sensors this is made of metal and rated for outdoor use. At the time of
-purchase I was unaware that the RS485 serial communication protocol that the
+style sensors this is made of metal and rated for outdoor use. When I chose this
+component I was unaware that the RS485 serial communication protocol that the
 sensor used was not compatible with the Challengers UART protocol. Fortunately,
 I was able to purchase an RS485 to UART serial converter that allowed the
 devices to communicate.
@@ -121,47 +133,21 @@ devices to communicate.
     \label{fig:wind-sensor}
 \end{figure}
 
-A second issue was that the anemometer needed a 7v-24V input voltage to take
+A second issue was that the anemometer needed a 7V-24V input voltage to take
 readings while the maximum voltage the Challenger can provide was 5V. To remedy
-this I bought a 9V step up converter to boost the Challengers voltage to the
+this I bought a 9V step up converter to boost the Challenger's voltage to the
 required level.
-
-\paragraph{Powering the node}
-
-To allow for continuous operation away from power sources, I set up a 6W
-Monocrystalline Silicon Solar Panel (Figure~\ref{fig:solar-module})to each of
-the nodes. As the output from the solar panels was at too high a voltage to
-directly power the nodes, and as power was required overnight, I also installed
-a solar power management module (Figure~\ref{fig:solar-module}) onto the
-Challengers. This module uses the solar panel to charge a battery that is
-installed on it. When solar power dips overnight the battery will discharge to
-power throughout the day.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\textwidth]{contents/part-2/fig2/solar-panel-manager.jpg}
-    \caption{Waveshare solar power management module (left), solar panel (right)}
-    \label{fig:solar-module}
-\end{figure}
-
-\subsubsection{Repeater node}
-
-To improve range I used one of the Challenger boards as a repeater. This meant
-it did not require sensors and instead simply had an antenna, solar panel and
-battery connected up to it. The repeater would receive signals from the two
-nodes before relaying them to the final gateway. This has the effect of
-essentially doubling range.
 
 \subsection{Gateway}
 
-The gateway consisted of a fourth Challenger RP2040 connected to a Raspberry Pi
-5 with 8GB of memory (Figure~\ref{fig:raspberry-pi}). This Raspberry Pi was
-significantly more powerful than was actually needed for the purpose of a
-gateway and a cheaper alternative would have been sufficient however I was able
-to use a university provided one for the project. The Challenger receives
-messages from the repeater and then transfers these to the Raspberry Pi. After
-receiving the Challengers output the Raspberry Pi sends a POST response to my
-backend API which then inserts the data into a separate SQL database.
+The components of the gateway consisted of a Challenger RP2040 with a whip
+antenna. The board was connected to a Raspberry Pi 5 with 8GB of memory and an
+onboard Wi-Fi radio. (Figure~\ref{fig:raspberry-pi}). This Raspberry Pi was
+significantly more powerful than was needed but it was already available from
+the university for use for this project. The Challenger receives and decodes
+messages from the repeater. The Raspberry Pi reads the decoded LoRa message from
+the serial output and then sends a POST response to the backend API which
+inserts the data into a SQL database.
 
 \begin{figure}[H]
     \centering

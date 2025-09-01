@@ -4,13 +4,13 @@ In this report, I describe an online webapp called \myReportTitle{}, which
 collects and displays microclimate data from an \emph{Internet of things} (IoT)
 weather station network that I designed and built.The webapp can present live,
 historical and forecasted weather data to the user. The live and historical data
-is retrieved from a separate postgreSQL database that collects and stores
-readings from my weather station sensor nodes every minute. These historical
-readings were used to build a machine learning model that can predict future
-microclimate specific weather based on the general forecast.
+is retrieved from a postgreSQL database that collects and stores readings from
+my weather station sensor nodes every minute. The historical readings were used
+to build a machine learning model that can predict future microclimate specific
+weather based on the general forecast.
 
 The weather station network was built using off-the-shelf components and housed
-in hand made enclosures. The deployed system consisted of four components: two
+in hand made enclosures. The deployed system consists of four components: two
 field sensor nodes capable of reading weather data and transmitting it using a
 modern radio protocol called LoRa; a repeater that boosts received LoRa signals;
 and an internet connected gateway that uploads the weather data to an online
@@ -21,29 +21,30 @@ this was not possible within the submission deadline.
 \subsection{Motivation and aims}
 
 Weather forecasts are typically based on data from distant weather stations and
-large scale models which fail to capture variations that exist within a single
-farm or even field. These local variations, known as microclimates, can differ
+large scale models which fail to capture variations that exist within a farm or
+even a single field. These local variations, known as microclimates, can differ
 significantly even across relatively short distances due to differences in
-factors such as elevation, tree cover, or soil type. 
+factors such as elevation, tree cover, or soil type.
 
 For example, in a set of interviews with the owners of Small Brook Farm
 (Appendix ~\ref{sec:small-brook-interview}) the owners note that the use of
-traditional forecasts on their orchard is not particularly useful for them. As
+traditional forecasts for their orchard is not particularly useful for them as
 weather forecasts tend to cover wide areas and are not always indicative of very
-local conditions. The owners even mentioned that the weather conditions across a
+local conditions. The owners mentioned that the weather conditions across a
 single field of apple trees was different, with higher winds on one side
-compared to other. 
+compared to other.
 
-This uncertainty has real world consequences for farmers, at Small Brook Farm
-for instance wind speed is a key determinant of when the farmers can spray their
-crops with pesticides. Equally, general forecasts are not well equipped to
-predict a spring frost that damages crops or the precise incubation period of
-pests and diseases.
+This uncertainty regarding weather conditions has real world consequences for
+farmers. For instance, at Small Brook Farm wind speed is a key determinant of
+when the farmers can spray their crops with pesticides. Equally, general
+forecasts are do not provide accurate enough information to enable farmers to
+predict a spring frost that damages crops or to assess the likely incubation
+period of pests and diseases.
 
 Agriscanner aims to address this need for accessible local weather forecasting
 by giving farmers a weather station platform that can both relay current weather
 information from different sections of their field and predict future weather
-for their specific location. 
+for their specific location.
 
 \subsection{Contributions}
 
@@ -51,18 +52,19 @@ The key contributions of this paper are:
 
 \begin{itemize}
     \item The development of a low cost, long-range remote weather station
-    system with superior range and reduced cost compared to current solutions on
-    the market. The long range allows for readings from the field to be
-    communicated to the cloud without a need for internet access in the field.
+          system with superior range and reduced cost compared to current
+          solutions on the market. The long range allows for readings from the
+          field to be communicated to the cloud without a need for internet
+          access in the field.
     \item A publicly available web application for visualising live data from
-    multiple field locations, that demonstrates a high degree of usability
-    across both mobile and desktop platforms, as confirmed by quantitative
-    System Usability Scale (SUS) evaluation.
+          multiple field locations, that demonstrates a high degree of usability
+          across both mobile and desktop platforms, as confirmed by quantitative
+          System Usability Scale (SUS) evaluation.
     \item A method for enabling microclimate forecasting using a machine
-    learning process that compares local sensor data with broader regional
-    weather forecasts. This allows farmers to get a hyper-local forecast of
-    future weather conditions that is specific to their field and optimise
-    agricultural tasks such as spraying.
+          learning process that compares local sensor data with broader regional
+          weather forecasts. This allows farmers to get a hyper-local forecast
+          of future weather conditions that is specific to their field and
+          optimise agricultural tasks such as spraying.
 \end{itemize}
 
 \subsection{Project schematic and layout}
@@ -71,8 +73,8 @@ The key contributions of this paper are:
     \centering
     \includegraphics[width=1\textwidth]{contents/part-1/fig1/project-schema.png}
     \par\vspace{1pt} \noindent\begin{minipage}{0.95\textwidth}
-    \centering\footnotesize\textsuperscript{*} Training the machine learning
-    models is not pictured on this graph.
+        \centering\footnotesize\textsuperscript{*} Training the machine learning
+        models is not pictured on this graph.
     \end{minipage}
     \par\vspace{1pt}
     \caption{Schematic of entire project showing data paths}
@@ -88,8 +90,8 @@ the overview of its respective part (see hardware overview in Chapter
 
 Part 1 provides the technical background to understand the project, including an
 overview of the core technologies used and a review of related work in the
-field. 
+field.
 
 Part 4 then offers a critical evaluation of the system, discussing its
 performance, usability, and limitations, as well as highlighting opportunities
-for future development improvements and research. 
+for future development improvements and research.
