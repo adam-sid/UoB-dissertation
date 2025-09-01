@@ -1,11 +1,9 @@
 \section{Forecasting with machine learning}\label{sec:machine-learning}
 
-With the webapp and database operational I moved on to attempting to forecast
-the microclimate with machine learning. The idea for this model would be that I
-could give it future general weather forecast data and then it would return
-adjusted microclimate datapoints based on this.
-
-
+Once the webapp and database were operational I moved on to developing machine
+learning models that would attempt to forecast the microclimate datapoints for
+the following 48 hours based on the general weather forecast data for the
+region.
 \subsection{LightGBM}
 
 LightGBM is a popular machine learning algorithm developed by Microsoft. I chose
@@ -19,72 +17,84 @@ accurate model. These models are excellent for tabular data (such as my node and
 forecast data) and regularly beat out competing learning algorithms
 \cite{tuychiev2023}. LightGBM is also compatible with the m2cgen library that
 allows the final model to be converted to javascript format, allowing it to work
-within my webapp. All these factors made LightGBM a good algorthim for my use
+within my webapp. All these factors made LightGBM a good algorithm for my use
 case.
 
-To perform the training I installed python with the lightGBM  and m2cgen
-libraries as described above. I then also installed pandas for data handling
-purposes.
+To train the machine learning models I installed Python with the LightGBM and
+m2cgen libraries as described above on my personal laptop. I then also installed
+pandas for data handling purposes.
 
 \subsection{Machine learning process}
 
-I aimed to create eight separate machine learning models, one for each node
-(node 1 and node 2) and one for each sensor type per node (temperature,
-humidity, wind speed and soil moisture). Training the model would require
-"features" which are essentially the inputs to the model that it then uses to
-estimate a "target" (i.e. the output).
+I aimed to create ten separate machine learning models, one for each node (node
+1 and node 2) and sensor type (temperature, humidity, wind speed, gust speed and
+soil moisture).
 
-The final models would take a 48 hour general future forecast as their input and
-then output a predicted microclimate specific sensor reading (e.g. predicted
-node 1 temperature). The models would be trained using historic current weather
-collected from the same api and trained against actual sensor readings to create
-an accurate prediction. The following diagram shows a process map this training
-process:
+Training machine learning models requires inputs (referred to as “features”) and
+outputs (referred to as “targets”).  For my models, the training features came
+from the OpenWeather past \textbf{actual} weather data and the training targets
+came from the node sensor readings. Figure \ref{fig:machine_diagram} below
+illustrates steps in the training process.
+
+Once trained, the final models were uploaded to the backend and the inputs then
+came from the OpenWeather \textbf{forecasted} weather data for the next 48 hours
+as explained in the following section.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{contents/part-3/fig3/machine_learning_diagram.png}
+    \includegraphics[width=1\textwidth]{contents/part-3/fig3/machine-learning-diagram2.jpg}
     \caption{Infographic showing steps for training with LightGBM. This uses the temperature target for illustration.}
     \label{fig:machine_diagram}
 \end{figure}
 
+The following steps were followed to train each of the ten models.
+
 \begin{enumerate}
-    \item Preparing the dataset: A single cleaned dataset was created with
-    timestamps between the api weather data and node data matched. As API
-    readings are taken every 10 minutes and node readings every 1 minute, 9/10
-    node readings were discarded. The final dataset was roughly 1,400 rows.
-    \item Define the feature set and target data:  
-    The feature set (weather API) and target (node data) were defined, and
-    unnecessary columns discarded. The Unix timestamp used for database purposes
-    was transformed into sine and cosine representations of day and year. This
-    is necessary when training a time-series data set as the algorithm must be
-    able to understand the cyclical nature of time.  
-    For example, using raw timestamps would incorrectly suggest to the algorithm
-    that the times of 23:00 on day 1 and 00:00 on day 2 are 23 hours apart.
-    \item Split the dataset into training (80\%) and validation (20\%): This
-    step is necessary so that s
-    \item
-        \begin{enumerate}
-            \item Run iterative training model: A model is trained against the
-            feature set. It uses the target as supervision to get the best
-            possible model.
-            \item Remove target data from feature set: The validation data is
-            split into feature set and target. This is so the final model can be
-            tested without access to the actual data.
-            \item Produce a trained model: When the model training has iterated
-            at least 50 times with no improvements a final model is generated.
-        \end{enumerate}
-    \item Use validation feature set in final model and compare predicted data
-    with actual: This step then compares how the model performs on the
-    validation data compared to its performance during training. In most
-    instances the model will be less accurate on validation data as it has never
-    seen this before.
+    \item Prepare the dataset: A single cleaned dataset was created by matching
+          timestamps between the api weather data and the node data. As API
+          readings are taken every 10 minutes and node readings every 1 minute,
+          this meant that 9/10 node readings were discarded. The final dataset
+          was roughly 1,400 rows.
+    \item Define the feature set and target data: The feature set from the
+          weather API and targets from the node data were defined, and
+          unnecessary columns discarded. The database timestamp field was
+          transformed into sine and cosine representations of day and year. This
+          is necessary when training on a time-series data set as the algorithm
+          must be able to understand the cyclical nature of time. For example,
+          using raw timestamps would incorrectly suggest to the algorithm that
+          the times of 23:00 on day 1 and 00:00 on day 2 are 23 hours apart
+          rather than just 1 hour.
+    \item Split the dataset into training data (80\%) and validation data
+          (20\%): The data is split by time so the training data consists of the
+          first 80\% of the rows and the validation data the last 20\%.  This
+          data is then supplied to the model.
+    \item Run the iterative training model: For each iteration, the model looks
+          at the inputs (training features) and the correct answers (training
+          target) of the training rows, and determines where it is getting
+          incorrect outputs. It builds a small decision tree that specifically
+          aims to correct those mistakes on the training rows and adds that tree
+          into itself so its predictions change a little. It then applies the
+          updated model to the validation inputs (validation features) and
+          compares those predictions to the validation answers (validation
+          target) —to see how well the model would do on new data. The
+          validation data are never used to build the tree; they are only used
+          to check the accuracy of the model. If the validation check shows no
+          improvement after a number of iterations, the training stops and the
+          model keeps the version that did best on validation.  The process will
+          perform a minimum of 50 iterations. I set the maximum number of
+          iterations to 250 to prevent the models getting too large, as each
+          iteration increases the model size.
 \end{enumerate}
 
-With the eight models created they were then placed into the backend of the
-webapp and fed new forecast data every 10 minutes to create regularly updated
-predictions. The front end requests the predicted data from the backend and
-displays this as a chart line.
+\subsection{Machine learning deployment}
+
+Once the ten models had been trained, they were uploaded to the web server.  I
+wrote an automated function on my backend that provides the models with
+datapoints from the OpenWeather \textbf{forecast} data for the next 48
+hours, and updates this data every ten minutes to adjust the predictions as the
+forecast changes. The outputs from the models are recorded as hourly predictions
+for each datapoint in a JSON file, which is requested by the frontend software
+and used to display a line graph of predicted values for the next 48 hours.
 
 \begin{figure}[H]
     \centering

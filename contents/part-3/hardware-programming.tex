@@ -1,19 +1,19 @@
 \section{Programming the hardware}
 
 The Challenger boards can be programmed in a few different languages. The most
-common of these are C (including C++) and python. I decided to program the
-boards in python due to the large availability of sensor libraries written in
+common of these are C (including C++) and Python. I decided to program the
+boards in Python due to the large availability of sensor libraries written in
 this language. Programming in C, while potentially more efficient, would likely
 have meant I would need to write my own libraries and functions to get many of
 the sensors to function properly and therefore was not selected.
 
 The RP2040 processor of the Challenger uses relatively low power, so the
-versions of python for the chip tend to be stripped down to accommodate this.
-The two main python versions available are CircuitPython and Micropython. They
+versions of Python for the chip tend to be stripped down to accommodate this.
+The two main Python versions available are CircuitPython and MicroPython. They
 both have extensive libraries and work with all the sensors I have selected.
 With no major difference in their functionality, I settled on CircuitPython as
 this was the version recommended by iLabs (the makers of the Challenger board)
-and included a library that supports Challenger as well as example code.
+and included a library that supports the Challenger as well as example code.
 
 The development process for the sensor nodes, repeaters, and gateway was
 similar, so the rest of this section will briefly summarise how the sensor nodes
@@ -31,7 +31,7 @@ except the anemometer.
 The anemometer used a communication protocol not natively supported by
 CircuitPython, which meant I had to build the function
 \texttt{get\_wind\_speed()} based on the developer's documentation
-\cite{dfrobotGuide}to acquire readings. Getting this function to work with the
+\cite{dfrobotGuide} to acquire readings. Getting this function to work with the
 wind speed sensor was quite time consuming and this software issue was in
 addition to needing two additional modules to power and connect the device
 (Section \ref{sec:anemometer}). This made the anemometer one of the most
@@ -49,22 +49,23 @@ Appendix \ref{app:sensor-code} for full settings). A description of the most
 impactful LoRa parameters are shown below:
 
 \begin{enumerate}
-  \item \textbf{Spreading factor:} Determines how much the signal is spread out
-  over the air, higher rates increase range at the cost of a lower data rate and
-  increased transmission time (which affects battery life of transmitter).
-  \item \textbf{Frequency:} Must match across devices - this project uses
-        868\,MHz, the UK LoRa ISM band.
-  \item \textbf{Bandwidth:} Determines how wide the signal is, I am using
-        125\,kHz.
-  \item \textbf{Transmit power:} Affects the power and therefore range. This
-        must be set within legal limits (e.g., 14\,dBm in the UK).
+      \item \textbf{Spreading factor:} Determines how much the signal is spread
+            out over the air, higher rates increase range at the cost of a lower
+            data rate and increased transmission time (which affects battery
+            life of transmitter).
+      \item \textbf{Frequency:} Must match across devices - this project uses
+            868\,MHz, the UK LoRa ISM band.
+      \item \textbf{Bandwidth:} Determines how wide the signal is, I am using
+            125\,kHz.
+      \item \textbf{Transmit power:} Affects the power and therefore range. This
+            must be set within legal limits (e.g., 14\,dBm in the UK).
 \end{enumerate}
 
 \subsubsection{Compliance with regulatory limits on radio
-power}\label{sec:lora-limit}
+      power}\label{sec:lora-limit}
 
 The UK has strict regulations on the usage of radio transmitters under the Ofcom
-ISM band rules. For the 868mhz band, the maximum effective radiated power that
+ISM band rules. For the 868 Mhz band, the maximum effective radiated power that
 can be used is 25mW. This corresponds to a transmit power of roughly 14dB.
 
 Additionally, the UK has rules on duty cycle rates. This is essentially how long
@@ -78,19 +79,19 @@ well within this limit.
 
 \subsection{Remote diagnostics and error handling}
 
-Since all the sensors would not be accessible easily errors needed to be
-reported remotely to diagnose faults and problems. Unfortunately, while the
-sensor nodes and repeater are LoRa enabled, there is no simple way to send
-software updates to them other than manually. Therefore I developed my code (see
-Appendix \ref{app:sensor-code})with \texttt{try/exception} blocks in python so
-that if a sensor became disconnected or failed, the exception is caught and the
-program continues running. Then before the packet is sent out my
-\texttt{find\_err()} function scans the payload for errors (which would show as
-None from the error catching above) and if an error is found then the string
-\texttt{ERR} is sent with the packet.
+Since the sensors would not be accessible easily errors needed to be reported
+remotely to diagnose faults and problems. Unfortunately, while the sensor nodes
+and repeater are LoRa enabled, there is no simple way to send software updates
+to them other than manually. Therefore I developed my code (see Appendix
+\ref{app:sensor-code})with \texttt{try/exception} blocks in Python so that if a
+sensor became disconnected or failed, the exception is caught and the program
+continues running. Then before the packet is sent out my \texttt{find\_err()}
+function scans the payload for errors (which would show as None from the error
+catching above) and if an error is found then the string \texttt{ERR} is sent
+with the packet.
 
 Diagnostics on the gateway node was luckily much simpler as this was powered on
-24/7 and network connected. I therefore could remotely access it with the
-gateway was added to a Tailscale virtual private network (VPN)
-\cite{tailscale_2025}. This created a secure connection, allowing diagnostics
-from any location without complex firewall configuration.
+24/7 and network connected. I therefore could remotely access it using Tailscale
+virtual private network (VPN) \cite{tailscale_2025}. This created a secure
+connection, allowing diagnostics from any location without complex firewall
+configuration.
