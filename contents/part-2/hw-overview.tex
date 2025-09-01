@@ -1,4 +1,4 @@
-\section{Overview of hardware}
+\section{Overview of hardware}\label{sec:hardware-overview}
 
 The design for the final IoT system involved three distinct module types: Sensor
 node, repeater and gateway. The system involves two separate sensor nodes that
@@ -24,7 +24,7 @@ cloud.
           application layer. The repeater is reads and decodes received LoRa
           signals from the sensor nodes. It then adds signal strength
           information to the string and re-emits the LoRa signal. The repeater
-          has no sensors but is otherwise
+          has no sensors but is otherwise identical to the nodes.
     \item Gateway: The final part of the hardware system is the gateway - which
           is also part of the network layer. The gateway consists of a
           challenger to receive LoRa signals connected to a raspberry pi which

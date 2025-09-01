@@ -53,19 +53,113 @@ more precise monitoring and development of effective early warning systems.
 \subsection{Microclimate prediction using machine learning}
 
 There have been a number of recent studies where machine learning has been used
-to help predict micro climate conditions. A 2021 study by Kumar et al developed
-a machine learning framework that is able to predict a variety of climatic
-variables such as soil moisture, wind speed and temperature. They were able to
-get up to 90\% accuracy with a 12-120 hour forecast range.
+to help predict micro climate conditions in agricultural settings. General
+weather models operate at magnitudes between 1 and 10 km and microclimate
+predictions require models that operate at scales of roughly 100m or less. Using
+current numerical weather prediction models for micro-scale predictions is
+computationally expensive \cite{blunn2024machine}, and these models have lower
+accuracy rates than predictions using ML due to the inherent complexity and
+non-linear nature of microclimates.
 
-[MUST EXTEND THIS]
+A number of the studies described here focus on comparing the accuracy achieved
+by different types of Machine Learning, and highlighted a distinction between
+Machine Learning (ML) and Deep Learning (DL).  They are both systems that learn
+from data and make decisions based on datasets provided when the systems are
+trained.  Machine Learning techniques include decision trees, regression and
+neural networks.  Deep Learning systems are a type of Machine Learning that uses
+neural networks with many layers and is used to model more complex patterns with
+larger datasets. The table below provides a summary of the studies included in
+this section
 
-can include this for e.g.:
 
-https://ijece.iaescore.com/index.php/IJECE/article/view/36633/18157
+\begin{table}[ht]
+  \centering
+  \scriptsize
+  \setlength{\tabcolsep}{6pt}
+  \renewcommand{\arraystretch}{0.98}
+  \caption{Selected summary of machine learning studies}
+  \label{tab:forecast-studies}
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|>{\centering\arraybackslash}m{2.2cm}
+                    |>{\centering\arraybackslash}m{3.2cm}
+                    |>{\centering\arraybackslash}m{1.8cm}
+                    |>{\centering\arraybackslash}m{3.2cm}
+                    |>{\centering\arraybackslash}m{3.0cm}
+                    |>{\centering\arraybackslash}m{3.0cm}|}
+      \hline
+      \textbf{Study} & \textbf{Location} & \textbf{Type of learning} &
+      \textbf{Learning framework} & \textbf{Source of forecast data} &
+      \textbf{Source of training target data} \\
+      \hline
+      Agriscanner (This work) & Outside rural - South Gloucestershire, UK & ML &
+        LightGBM & OpenWeather & Sensor readings \\
+      \hline
+      Kumar et al.\ (2021)\cite{kumar2021} & Various & DL & LSTM & Not specified
+        & Sensor readings\\
+      \hline
+      Zanchi et al.\ (2023)\cite{zanchi2023harnessing} & Outside rural; Italy,
+        Lombardy & DL & Feed-forward neural network  & \makecell[c]{ERA5 \\ ARPA
+        } & Sensor readings\\
+      \hline
+      Blunn et al.\ (2024)\cite{blunn2024machine} & Outside urban; London, UK &
+        ML \& DL & \makecell[c]{Multilayer Perceptron \\ Random Forest \\
+        XGBoost} & UKV weather data & Citizen weather stations \\
+      \hline
+      Abdelmadjid (2025)\cite{abdelmadjid2025enhancing} & Greenhouse - Unknown &
+        ML \& DL & \makecell[c]{CNN-LSTM \\ LSTM (DL) \\ SVM-RBF \\ Prophet \\
+        LightGBM \\
+        XGBoost} & Public kaggle dataset & Public kaggle dataset\\
+      \hline
+    \end{tabular}%
+  }
+\end{table}
 
+A 2021 study by Kumar et al \cite{kumar2021} developed a machine learning
+framework called DeepMC as a part of a Microsoft Research initiative. Their
+model is able to predict a variety of climatic variables such as soil moisture,
+wind speed and temperature using inputs from weather station forecasts and IoT
+sensors. They were able to get up to 90\% accuracy with a 12-120 hour forecast
+range. 
 
-https://rmets.onlinelibrary.wiley.com/doi/10.1002/met.2200
+Zanchi et al \cite{zanchi2023harnessing} used physical modelling of local
+terrain combined with deep learning to forecast the microclimate in the
+foothills of Lombardy. The objective was to predict the local conditions at the
+meter-scale as opposed to the 10km+ scale of regional and global weather
+forecasts. The initial model combined data about the morphology of the local
+terrain and weather forecast data to provide the input data for two feed-forward
+neural networks. These neural networks were trained to predict the local weather
+variables using data from 25 sensors deployed in the region being studied.  The
+study demonstrated that local predictions were more accurate when using forecast
+data from local weather stations (ARPA) as opposed to global climate datasets
+(ERA5), but accuracy was still good either.
 
-below is very close to mine.
-https://www.nature.com/articles/s41598-023-48028-1
+This study is of particular interest for this dissertation as it used IoT
+sensors to generate the training targets for the neural networks and in this
+regard is the most similar to my design. The paper also includes a discussion of
+problems with reliability of the sensors - only 4 out of 25 units ran with
+failure over the period of the study - and the need to clean the data to ensure
+these failures were excluded from the training data.
+
+Blunn et al \cite{blunn2024machine} ran a study focussed on predicting
+temperatures in urban environments during heatwaves, using data from eight
+heatwaves in London, UK. They used data from the UKV - a high-resolution weather
+forecasting model - and from citizen weather stations (CWS), made available via
+the Weather Observations Website - a cloud platform where individuals can upload
+data from their personal weather stations. The study tested a variety of ML
+models including one DL model. The authors used a similar model training design
+to that used in this dissertation. The models were trained on UKV variables and
+CWS variables to bias correct the UKV readings and create a forecast prediction
+model that could predict the CWS readings accurately (mean average error:
+0.12\(^\circ\)C) compared with the general weather readings from UKV (mean
+average error: 0.64\(^\circ\)C).
+
+A very recent paper from Abdelmadjid 2025 et al used online datasets from Kaggle
+to develop an ML tool to predict changes in temperature and humidity within
+greenhouses in response to changes to external weather conditions.  They used
+this data to test 3 ML models and 3 DL models and selected the LightGBM ML model
+and the LSTM DL model as the best performing models for prediction. The overall
+system design consisted of 4 LSTM models feeding into the LightGBM model. This
+design resulted in 98.45\% accuracy for temperature predictions and 99.61\%
+accuracy for humidity predictions. This study informed my decision to use the
+LightGBM model for my system as they found it  to be reliable and effective in
+capturing underlying data patterns.

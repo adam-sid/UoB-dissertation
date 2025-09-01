@@ -7,15 +7,20 @@ the 15th of August.
 
 \subsection{Challenges and solutions from test deployment}
 
-One of the first challenges from the test deployment was the fact the batteries
-on the nodes were not quite sufficient to allow 24/7 readings. On the fourth day
-of the run, after an overcast evening the night before, one of the nodes stopped
-transmitting at around 6am - just before sunrise. To remedy this another battery
-was fitted to each of the end nodes (but not the repeater as this had much lower
-battery consumption from the lack of any sensors). This doubling of battery
-capacity made loss of power during the night much less likely. The fact the
-solar panels could charge the battery fully by mid-morning pointed to the fact
-that solar capacity was sufficient but battery capacity was not.
+An initial challenge identified during the test deployment was that the battery
+capacity on the sensor nodes was insufficient for continuous 24/7 operation.
+This became evident on the fourth day of the deployment when, following an
+overcast evening, one node ceased transmitting at approximately 6:00 AM due to
+power depletion.
+
+To resolve this, the battery capacity on each sensor node was doubled by adding
+a second battery. The repeater node did not require this upgrade due to its
+lower power consumption. Post-upgrade, monitoring of the battery voltage
+confirmed that the existing solar panels were sufficient to fully recharge both
+batteries by early afternoon each day. This modification proved largely
+effective, although there were two more losses of power during the night even
+after the upgrade. Performance of batteries is explored more in Section
+\ref{sec:hardware-evaluation-power}.
 
 A related problem was that when the node died it did not start repeating again
 after this despite solar power returning and the battery getting recharged. I
@@ -33,7 +38,7 @@ still be a high chance of this occurring on particularly dark days during
 winter, where continuous uptime could not be guaranteed.
 
 To remedy this, I modified the safemode.py file using a template I found in the
-circuitpython documentation \cite{halbert2023safemode}. This version of the
+CircuitPython documentation \cite{halbert2023safemode}. This version of the
 safemode.py file was made specifically for the case I was using i.e. remote
 solar powered projects where manual reset of the board could not be achieved
 easily. Instead of entering an infinite loop this safemode is designed to enter
@@ -41,7 +46,8 @@ a low power mode for a short period and then try to cycle power back on.
 
 Disappointingly, the addition of this new safemode was not reliable and
 occasionally the device would enter a state where a hard manual reset was
-necessary. This problem is discussed further in the evaluation.
+necessary. This problem is discussed further in Section
+\ref{sec:reset-behaviour}.
 
 A seperate issue was the behaviour of the temperature-humidity sensor when
 exposed to direct sunlight. While the junction box used to encase the sensor was
@@ -51,10 +57,5 @@ sensor readings and local air temperature readings that could not be explained
 with the existence of a microclimate.
 
 To reduce this effect an additional solar shield was made to surround the
-sensor. Consisting a wooden frame and aluminium shield to block light falling on
-the junction box. While this method did help to reduce the delta at midday to
-around 3 celsius there was still clearly quite a pronounced effect. So to
-further reduce any warming the solar panel was mounted to the rear of the node.
-This would allow the temperature sensor to face north instead of south which in
-the northern hemisphere would result in much reduced solar warming to the
-sensors box as the sun tracks over the southern area of the sky in the UK.
+sensor. Consisting of a wooden frame and aluminium shield to block light falling
+directly on the junction box. This reduced the delta to a negligible amount.

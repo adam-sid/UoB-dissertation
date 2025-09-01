@@ -1,8 +1,9 @@
-\section{Hardware evaluation}
+\section{Hardware evaluation}\label{hardware-evaluation}
 
 \subsection{Qualitative discussion of weather station performance}
 
-\subsubsection{Battery life, solar power and outages}
+\subsubsection{Battery life, solar power and
+outages}\label{sec:hardware-evaluation-power}
 
 The nodes have had significantly more downtime than expected based on the energy
 budgets in Sections~\ref{sec:battery-tests} and~\ref{sec:solar-tests}, despite
@@ -28,13 +29,12 @@ in the day, which I had not properly considered in the design phase.
 
 The summer of 2025 is set to be one of the hottest and driest on record with
 August specifically receiving roughly half its average rainfall
-\cite{uor2025summer}. Consequently, from the 15th of August to the 28th of
+\cite{uor2025summer}. Consequently, from the 15th of August to the 26th of
 August the weather stations saw only short spells of rain, making an analysis of
 their weather proofing hard to review up to this point. 
 
-Fortunately, from the 28th August to the 2nd September Chipping Sodbury - where
-the nodes are currently placed - received roughly 3.4cm of rain according to
-weather forecasts. Throughout this period there has been no evidence of water
+Fortunately, from the 27th August onwards the nodes were exposed to fairly heavy
+sustained rainfall. Throughout this period there has been no evidence of water
 ingress.
 
 Beyond ingress testing, the nodes experienced elevated ambient temperatures
@@ -102,8 +102,8 @@ was unrealistic to perform a refactor of this scale with the time left.
 \subsection{Quantitative comparison with commercial alternatives}
 
 I will now compare the performance of my LoRa weather station to prebuilt
-options available to purchase. A breakdown of costs for Agriscanner is
-included in Appendix~\ref{app:cost-nodes}.
+options available to purchase. A breakdown of costs for Agriscanner is included
+in Appendix~\ref{app:cost-nodes}.
 
 \begin{table}[H]
 \centering

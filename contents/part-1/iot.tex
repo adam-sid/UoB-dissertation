@@ -6,9 +6,12 @@ The Internet of Things (IoT) refers to the concept of integrating networking
 capability in a range of devices, allowing for cooperation to reach common goals
 \cite{atzori2010}. A similar but more colloquial term would be "smart" devices.
 
-The number of IoT devices is forecasted to reach 40 billion by 2030 from 16.6
-billion in late 2023 \cite{sinha2024}. IoT devices are already used extensively
-in a multitude of commercial and domestic settings.
+IoT has become increasingly common in recent years as a number of technological
+breakthroughs has made deploying these networks more practical. These advances,
+which I are referred to as "enabling technologies", provide the foundation for
+modern IoT systems. LoRa is a key example described in Chapter \ref{sec:lora}, a
+further list of enabling technologies is available as a supplement in Appendix
+\ref{app:enabling-tech}.
 
 \subsection{The layers of IoT}
 
@@ -33,31 +36,8 @@ All IoT relies on the existence of three fundamental network layers
   current charge status of the car.
 \end{enumerate}
 
-\subsection{IoT enabling technologies}
-
-The surge in IoT for the past few decades has been fuelled by the emergence of
-new technologies. Here I will explore the technologies that have are most
-relevant to the weather stations built for this project.
-
-\begin{enumerate}
-  \item Efficiency improvements in microchips - breakthroughs in microchip
-  fabrication have led to smaller more efficient chips with improved
-  performance.
-  \item Lithium-Ion batteries improvements - continuous improvements in the
-  energy density of lithium-ion batteries has made it possible to power devices
-  for long periods without mains power.
-  \item Low-power long-range radio - new radio communication techniques such as
-  LoRa allow for data transmission over several kilometres using a fraction of
-  the power required by traditional mobile or Wi-Fi technologies.
-  \item Affordability of solar panels - since 1970 the price of solar panels has
-  decreased to 1/500th of its original cost \cite{economist2024} making solar a
-  viable power source for IoT systems.
-  \item Growth of hobbyist embedded systems - since the release of accessible
-  platforms such as Arduino in 2005, the growth of hobby level embedded systems
-  has lowered the barrier to entry to create IoT systems.
-  \item Accessible cloud computing and hosting - Cheap and available web hosting
-  has allowed application level systems to be more easily developed.
-\end{enumerate}
+The hardware overview in Chapter \ref{sec:hardware-overview} presents the
+components of my IoT solution in the context of these layers.
 
 \subsection{Studies using LoRa IoT weather stations in agriculture}
 
@@ -66,16 +46,38 @@ the opportunity for farmers to improve yields and cut costs by bringing digital
 solutions that would not have previously been viable without access to power and
 internet connectivity. The use of IoT in agriculture is often wrapped up in the
 moniker of "Smart Farming", which encompasses a range of digital, robotic, and
-internet-enabled approaches to improving efficiency.
+internet-enabled approaches to improving efficiency. A 2019 review by Farooq et
+al. \cite{farooq2019iot} reveals the scope of IoT applications in agriculture.
+These include precision farming (IoT weather monitoring), automated irrigation,
+pest and disease prediction with machine learning, and even the deployment of
+agricultural drones for spraying, mapping and imaging. 
 
-A 2019 review by Farooq et al. \cite{farooq2019iot} reveals the scope of IoT
-applications in agriculture. These include precision farming (IoT weather
-monitoring), automated irrigation, pest and disease prediction with machine
-learning, and even the deployment of agricultural drones for spraying, mapping
-and imaging. 
+There have been a few studies around the use of LoRa in smart farming
+applications. In \cite{edgeAiGiaEtAl} LoRa was used in an edge computing
+exercise - a procedure to compress data from multiple LoRa sensor nodes is
+created and analysed. However, a criticism of this study is that they only
+implement a single sensor and all results are drawn from a computer generated
+sample. Additionally the range used for this single sensor to the gateway is
+only 200m, which is not a realistic distance for most agricultural purposes
+which the study is explicitly targeting for.
 
-IoT weather stations like those developed in this project are a growing trend in
-agriculture.
+The study in \cite{smartFarmKodaliEtAl} implements a LoRa based weather station
+prototype in India. The authors create a fairly simple node with two sensor
+types. After this the data from the nodes viewed using an OLED screen on the
+receiver.
+
+However, a significant criticism of this work is that it fails to specify the
+range at which the LoRa communication was tested, which is a critical parameter
+given that the technology was chosen specifically for its long-range
+capabilities. Additionally, while the paper suggests the model is suitable for
+large-scale deployment in a farm field , the experimental setup only consists of
+a single transmitter node and gives no details on whether had any weather
+proofing put on it.
+
+This project aims to contribute to this literature by producing a more complete
+weather station prototype that is weatherproofed for outdoor deployment using
+multiple nodes and validated over more realistic distances.
+
 
 \subsection{Commercial IoT agricultural solutions with LoRa}
 
@@ -86,8 +88,5 @@ Virtually all affordable weather stations rely on WiFi to stay connected which
 is not viable for most farms as there is a large separation between the fields
 they need to be deployed in and buildings with WiFi access. As discussed in
 section~\ref{sec:lora-benefits}, WiFi has just a fraction of the range of LoRa
-so these types of stations are not comparable to my own.
-
-For a detailed comparison of different models compared to my own see the
-relevant section in the evaluation.
-
+so these types of stations are not comparable to my own. This is explored in
+greater depth in the evaluation (see Chapter \ref{hardware-evaluation}).

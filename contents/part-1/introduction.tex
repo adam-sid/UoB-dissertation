@@ -14,15 +14,9 @@ in hand made enclosures. The deployed system consisted of four components: two
 field sensor nodes capable of reading weather data and transmitting it using a
 modern radio protocol called LoRa; a repeater that boosts received LoRa signals;
 and an internet connected gateway that uploads the weather data to an online
-database. The hardware in this project was designed for deployment on Small
-Brook Farm, an apple orchard who primarily sell their produce to cider makers.
-Unfortunately, actual deployment at this location was not possible during the
-time frame so the evaluation section of this report is focused on data collected
-while the weather station network was set up in my garden. 
-
-At the time of submission, discussions with the owner of Small Brook Farm were
-ongoing to deploy the system in their orchard as part of a funded university
-project known as DECIDE.
+database. The hardware in this project was tested in a private garden with
+deployment to Small Brook Farm in Exeter planned in future. Due to the timeframe
+this was not possible within the submission deadline.
 
 \subsection{Motivation and aims}
 
@@ -40,7 +34,7 @@ local conditions. The owners even mentioned that the weather conditions across a
 single field of apple trees was different, with higher winds on one side
 compared to other. 
 
-This uncertainty has real world consequences for farmers, at small brook farm
+This uncertainty has real world consequences for farmers, at Small Brook Farm
 for instance wind speed is a key determinant of when the farmers can spray their
 crops with pesticides. Equally, general forecasts are not well equipped to
 predict a spring frost that damages crops or the precise incubation period of
@@ -58,29 +52,43 @@ The key contributions of this paper are:
 \begin{itemize}
     \item The development of a low cost, long-range remote weather station
     system with superior range and reduced cost compared to current solutions on
-    the market.
+    the market. The long range allows for readings from the field to be
+    communicated to the cloud without a need for internet access in the field.
     \item A publicly available web application for visualising live data from
     multiple field locations, that demonstrates a high degree of usability
     across both mobile and desktop platforms, as confirmed by quantitative
     System Usability Scale (SUS) evaluation.
-    \item A novel method for enabling microclimate forecasting using a machine
+    \item A method for enabling microclimate forecasting using a machine
     learning process that compares local sensor data with broader regional
-    weather forecasts.
+    weather forecasts. This allows farmers to get a hyper-local forecast of
+    future weather conditions that is specific to their field and optimise
+    agricultural tasks such as spraying.
 \end{itemize}
 
-\subsection{Layout of dissertation}
+\subsection{Project schematic and layout}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{contents/part-1/fig1/project-schema.png}
+    \par\vspace{1pt} \noindent\begin{minipage}{0.95\textwidth}
+    \centering\footnotesize\textsuperscript{*} Training the machine learning
+    models is not pictured on this graph.
+    \end{minipage}
+    \par\vspace{1pt}
+    \caption{Schematic of entire project showing data paths}
+    \label{fig:project-schema}
+\end{figure}
+
+Figure \ref{fig:project-schema} shows the design of the my entire project, which
+has been split into hardware and software categories that correspond to parts 2
+and 3 of this dissertation.  A zoomed in version of each category is shown on
+the overview of its respective part (see hardware overview in Chapter
+\ref{sec:hardware-overview} , and software overview in Chapter
+\ref{sec:software-overview}).
 
 Part 1 provides the technical background to understand the project, including an
 overview of the core technologies used and a review of related work in the
-field.
-
-Part 2 details the hardware development process, covering the rationale behind
-component selection, the testing of hardware, and how the IoT nodes were
-deployed in the field.
-
-Part 3 focuses on the software aspect of the project, outlining the design and
-implementation of both the backend infrastructure and the frontend web
-interface.
+field. 
 
 Part 4 then offers a critical evaluation of the system, discussing its
 performance, usability, and limitations, as well as highlighting opportunities

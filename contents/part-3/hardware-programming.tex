@@ -1,78 +1,96 @@
 \section{Programming the hardware}
 
-The challenger boards can be programmed in a few different languages. The most
+The Challenger boards can be programmed in a few different languages. The most
 common of these are C (including C++) and python. I decided to program the
 boards in python due to the large availability of sensor libraries written in
 this language. Programming in C, while potentially more efficient, would likely
 have meant I would need to write my own libraries and functions to get many of
 the sensors to function properly and therefore was not selected.
 
-The RP2040 processor of the challenger uses relatively low power, so the
+The RP2040 processor of the Challenger uses relatively low power, so the
 versions of python for the chip tend to be stripped down to accommodate this.
-The two main python versions available are circuit python and micropython. They
+The two main python versions available are CircuitPython and Micropython. They
 both have extensive libraries and work with all the sensors I have selected.
-With no major difference in their functionality, I settled on circuitpython as
-this was the version recommended by iLabs (the makers of the challenger board)
-and included a library that supports challenger as well as example code.
+With no major difference in their functionality, I settled on CircuitPython as
+this was the version recommended by iLabs (the makers of the Challenger board)
+and included a library that supports Challenger as well as example code.
 
-\subsubsection{The nodes}
+The development process for the sensor nodes, repeaters, and gateway was
+similar, so the rest of this section will briefly summarise how the sensor nodes
+were programmed for, as they presented the greatest challenge. The full code for
+sensor node 1 is available in Appendix \ref{app:sensor-code}.
 
-\subsubsection{The repeater}
+I began with the example code that comes as standard on each of the Challengers
+\cite{needell_challenger-rp2040_2025}, this was a simple "ping/pong" test
+program but the LoRa radio initialisation code was very helpful here. I then
+adapted this program for the sensors outlined in Section
+\ref{sec:sensor-selection}, adding the necessary Python libraries for each
+component. Acquiring readings was relatively straightforward for all sensors
+except the anemometer.
 
-\subsubsection{The gateway}
+The anemometer used a communication protocol not natively supported by
+CircuitPython, which meant I had to build the function
+\texttt{get\_wind\_speed()} based on the developer's documentation
+\cite{dfrobotGuide}to acquire readings. Getting this function to work with the
+wind speed sensor was quite time consuming and this software issue was in
+addition to needing two additional modules to power and connect the device
+(Section \ref{sec:anemometer}). This made the anemometer one of the most
+difficult hardware and software challenges of the project.
+
+Once this issue was resolved, the readings were converted to CSV format, and the
+sensor nodes began transmitting successfully.
 
 \subsection{LoRa settings configuration}
 
 The most fundamental part of the program for each of the nodes in the LoRa
 network was that they could communicate with each other. This required the
-careful matching of LoRa configuration settings between them.
-
-  {ADD LoRa settings}
-
-LoRa has many parameters that must be aligned for two devices to communicate
-successfully. These include:
+careful matching of LoRa configuration settings between them (see top of
+Appendix \ref{app:sensor-code} for full settings). A description of the most
+impactful LoRa parameters are shown below:
 
 \begin{enumerate}
-  \item \textbf{Spreading factor:}
-  \item \textbf{Frequency:} Must match across devices; this project uses
+  \item \textbf{Spreading factor:} Determines how much the signal is spread out
+  over the air, higher rates increase range at the cost of a lower data rate and
+  increased transmission time (which affects battery life of transmitter).
+  \item \textbf{Frequency:} Must match across devices - this project uses
         868\,MHz, the UK LoRa ISM band.
   \item \textbf{Bandwidth:} Determines how wide the signal is, I am using
         125\,kHz.
-  \item \textbf{Coding rate:}
   \item \textbf{Transmit power:} Affects the power and therefore range. This
         must be set within legal limits (e.g., 14\,dBm in the UK).
 \end{enumerate}
 
-\subsubsection{Compliance with regulatory limits on radio power}\label{sec:lora-limit}
+\subsubsection{Compliance with regulatory limits on radio
+power}\label{sec:lora-limit}
 
 The UK has strict regulations on the usage of radio transmitters under the Ofcom
 ISM band rules. For the 868mhz band, the maximum effective radiated power that
 can be used is 25mW. This corresponds to a transmit power of roughly 14dB.
 
 Additionally, the UK has rules on duty cycle rates. This is essentially how long
-radio signals are permitted to be on air. For example at a spreading factor of
-12 a message may take approximately 1 second to send. The duty cycle limit in
-the UK is 1\%, meaning you may only transmit for 1\% of the time on a given day.
-1\% of a day is 864 seconds. This means to stay in line with UK regulations only
-864 messages could be sent on a given day - or roughly 1 message every 2
-minutes.
-
-
-\subsection{Sensor nodes}
-
-\subsection{Repeater}
-
-\subsection{Gateway}
+radio signals are permitted to be on air. For example at a spreading factor of 7
+a 20 byte message takes approximately 1/15th of a second to send. The duty cycle
+limit in the UK is 1\%, meaning you may only transmit for 1\% of the time on a
+given day. 1\% of a day is 864 seconds. This means to stay in line with UK
+regulations only 864*15 = 12960 messages can be sent on a given day - or roughly
+1 message every 6 seconds. My nodes send a new LoRa packet every minute so are
+well within this limit.
 
 \subsection{Remote diagnostics and error handling}
 
 Since all the sensors would not be accessible easily errors needed to be
 reported remotely to diagnose faults and problems. Unfortunately, while the
-sensor nodes and repeater are technically network connected with LoRa there is
-no easy way to send firmware updates over the air without developing a program
-to accept and create new files over LoRa (FACT CHECK THAT), which was outside
-the scope of a three month dissertation. Therefore instead the nodes would need
-to have robust error handling written into their programs.
+sensor nodes and repeater are LoRa enabled, there is no simple way to send
+software updates to them other than manually. Therefore I developed my code (see
+Appendix \ref{app:sensor-code})with \texttt{try/exception} blocks in python so
+that if a sensor became disconnected or failed, the exception is caught and the
+program continues running. Then before the packet is sent out my
+\texttt{find\_err()} function scans the payload for errors (which would show as
+None from the error catching above) and if an error is found then the string
+\texttt{ERR} is sent with the packet.
 
 Diagnostics on the gateway node was luckily much simpler as this was powered on
-24/7 and network connected. (EXPLANATION OF TAILWIND AND RVC VIEWER)
+24/7 and network connected. I therefore could remotely access it with the
+gateway was added to a Tailscale virtual private network (VPN)
+\cite{tailscale_2025}. This created a secure connection, allowing diagnostics
+from any location without complex firewall configuration.

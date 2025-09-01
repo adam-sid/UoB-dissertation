@@ -19,7 +19,16 @@
 \usepackage{tabularx,ragged2e,array,float}
 \usepackage[hidelinks]{hyperref}
 \usepackage{amsmath}
-
+\usepackage{graphicx} % for \resizebox
+\usepackage{booktabs}
+\usepackage{ragged2e}
+\usepackage{makecell}
+\usepackage{graphicx}   % for \resizebox
+\usepackage{makecell}   % for multi-line cells
+\usepackage{array}   
+\usepackage{multicol}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily\scriptsize,breaklines=true}
 
 % Global variables
 \newcommand{\myName}{Adam Sidnell}
@@ -57,16 +66,16 @@
 \makeatother
 
 % Part page formatting (centred on page, "part" smaller than "name")
-\titleformat{\part}[display]
-{\normalfont\centering\bfseries}
-{\vfill \LARGE \partname\ \thepart}
-{1em}
-{\Huge }
-[
-  \vfill
-  \thispagestyle{plain}
-  \clearpage
-]
+% \titleformat{\part}[display]
+% {\normalfont\centering\bfseries}
+% {\vfill \LARGE \partname\ \thepart}
+% {1em}
+% {\Huge }
+% [
+%   \vfill
+%   \thispagestyle{plain}
+%   \clearpage
+% ]
 
 % Dotted lines in contents
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}

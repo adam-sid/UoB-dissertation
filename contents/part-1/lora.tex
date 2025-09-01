@@ -1,4 +1,4 @@
-\section{LoRa}
+\section{LoRa}\label{sec:lora}
 
 Before analysing IoT systems more generally, I will explain the most critical
 hardware enabling technology for this project which is the radio communication
@@ -10,97 +10,16 @@ LoRa stands for \textbf{Lo}ng \textbf{Ra}nge and it is a radio modulation
 technique invented in 2014 that allows for the transmission of data over very
 long distances. It is one of several competing low power wide area networks
 (LPWAN) but the hardware to use it is much more widespread than these other
-networks. Compared to WiFi, LoRa has a range over 4000 times greater
-\cite{spiess2019}. The world record distance for a LoRa signal is 1336km
-\cite{ttn2023}. This was achieved under abnormal conditions: a fishing boat near
-Portugal with a LoRa transmitter had one of its packets received on the high
-altitude Canary islands. This exceptional range is also achieved with remarkably
-little power.
-
-\subsection{How LoRa works}
-
-As this paper is not a technical study of radio communication I will opt for a
-brief summary of the principles behind LoRa. With this in mind I have based much
-of the information from the excellent video lecture in \cite{visualelectric2021}
-that itself draws upon the paper in \cite{vangelista2017}.
-
-The reason LoRa modulation is different to traditional modulation techniques is
-the use of a "chirp" as the key to transmitting packets. A more traditional
-technique might involve a frequency shift key; that is a single frequency
-represents several bits. These unique frequencies are called symbols as they
-represent data, like letters in the alphabet. In the below graph we see three
-simplified symbols that represent binary values, the combination of these
-symbols makes a packet:
-
-\begin{figure}[H]
-  \centering
-  % left image
-  \begin{minipage}{0.48\textwidth}
-    \centering
-    \includegraphics[width=0.4\linewidth]{contents/part-1/fig1/frequencysymbols.png}
-    \\[4pt]
-    {\small (a) Frequency shift symbols} \end{minipage}\hfill
-  % right image
-  \begin{minipage}{0.48\textwidth}
-    \centering
-    \includegraphics[width=1\linewidth]{contents/part-1/fig1/packet.png}
-    \\[4pt]
-    {\small (b) Packet}
-  \end{minipage}
-  \caption{ Traditional radio modulation with frequency symbols}
-  \label{fig:freq-and-packet}
-\end{figure}
-
-In traditional modulation, symbols always have flat unchanging frequency (as can
-be seen from the fact the wave separation never changes). LoRa symbols instead
-have changing frequencies that have a waveform like the below.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.15\textwidth]{contents/part-1/fig1/lorawavelength.png}
-    \caption{LoRa symbol showing changing frequency ("Up-chirp")}
-    \label{fig:lora-wave}
-\end{figure}
-
-This change in frequency is what gives the wave form the name "chirp". If
-traditional frequency symbols were thought of a sound they would be similar to
-morse code beeps while LoRa would be more similar to siren or \textit{chirp}ing
-bird. LoRa has both rising and falling chirps (up-chirps and down-chirps).
-
-Different LoRa symbols are then distinguished by the point in time of a
-discontinuity. LoRa symbols are always delivered over a known length of time, so
-different symbols include a reset back to the starting frequency at a different
-point in time.
-
-A way to graphically show this discontinuity in LoRa and compare it to frequency
-shift modulation is by using instantaneous frequency graphs:
-
-\begin{figure}[H]
-  \centering
-  % left image
-  \begin{minipage}{0.48\textwidth}
-    \centering
-    \includegraphics[width=0.9\linewidth]{contents/part-1/fig1/traditional-wavechart.png}
-    \\[4pt]
-    {\small (a) Frequency shift symbols} \end{minipage}\hfill
-  % right image
-  \begin{minipage}{0.48\textwidth}
-    \centering
-    \includegraphics[width=0.9\linewidth]{contents/part-1/fig1/lora-wavechart.png}
-    \\[4pt]
-    {\small (b) LoRa symbols, note shifting discontinuity}
-  \end{minipage}
-  \caption{ Comparison of frequency shift and LoRa modulation }
-  \label{fig:freq-vs-lora}
-\end{figure}
-
-Once these symbols hit the receiver, the receiver must work out which symbol it
-was. In frequency shift modulation this is achieved by performing a correlation
-test against every symbol received. However this is computationally difficult
-and requires a low signal-to-noise ratio to work effectively. The benefit of
-chirps is that due to a mathematical transformation that will not be further
-discussed (Fast Fourier transform), the correlation can be computed much more
-easily and with less powerful hardware.
+networks. LoRa has a range over 4000 times greater than WiFi \cite{spiess2019},
+a range that it can achieve with remarkably little power (Table
+\ref{tab:lora-stats}). This makes LoRa the preferred technology choice for
+the remote, off-grid application in this project.
+ 
+For a brief overview of the principles behind LoRa I have written the
+supplementary section "How LoRa works" in Appendix \ref{app:lora-explained}.
+However, to summarise, the most important principle that separates LoRa from
+traditional radio modulation is the fact that it can demodulate incoming signals
+more efficiently.
 
 \subsection{Benefits and limitations}\label{sec:lora-benefits}
 
@@ -117,7 +36,7 @@ receiver is still able to distinguish and process the data in the signal. This
 helps LoRa transmitters to broadcast signals with a far greater effective range
 despite it's low power. 
 
-\begin{table}[ht]
+\begin{table}[ht] 
   \centering
   \begin{tabular}{|l|l|p{4.5cm}|r|}
     \hline
@@ -135,4 +54,5 @@ despite it's low power.
   \end{tabular}
     \caption{Comparison of wireless technologies (Source:
   \cite{lie_lora_readthedocs})}
+  \label{tab:lora-stats}
 \end{table}

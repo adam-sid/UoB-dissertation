@@ -8,28 +8,27 @@ The first step in the design process was selecting hardware components that
 could operate autonomously without mains power. This required devices that were
 highly power-efficient, while also being capable of transmitting small data
 packets via LoRa. An equally important consideration was weatherproofing the
-final to protect the sensitive electronics from water ingress and environmental
-damage.
+final enclosure to protect the sensitive electronics from water ingress and
+environmental damage.
 
 \paragraph{Challenger RP2040 LoRa}
 
-The iLabs Challenger RP2040 LoRa is an embedded computer that uses the Raspberry
-Pi RP2040 chip that was released in 2021. The RP2040 itself is a low-cost and
-power-efficient processor with ample power to perform the data encoding and
-transmission in my use case. Additionally, the chip is extremely popular with
-over 10 million units being produced in the first two years of release
-\cite{pounder2023}. This popularity means there is ample documentation for
-developing with this processor and it is compatible with circuit python which
-was my preferred language for development.
+The iLabs Challenger RP2040 LoRa (Figure~\ref{fig:challenger-rp2040} )is an
+embedded computer that uses the Raspberry Pi RP2040 chip that was released in
+2021. The RP2040 itself is a low-cost and power-efficient processor with ample
+power to perform the data encoding and transmission in my use case.
+Additionally, the chip is extremely popular with over 10 million units being
+produced in the first two years of release \cite{pounder2023}. This popularity
+means there is ample documentation for developing with this processor.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{contents/part-2/fig2/challenger-rp2040.jpg}
+    \includegraphics[width=0.8\textwidth]{contents/part-2/fig2/challenger-rp2040.jpg}
     \caption{iLabs Challenger RP2040}
     \label{fig:challenger-rp2040}
 \end{figure}
 
-The challenger board itself is well suited for this project for several reasons.
+The Challenger board itself is well suited for this project for several reasons.
 It uses the compact Adafruit feather form factor, giving a board dimension of
 just 5cm by 2cm, making it easy to mount in a small enclosure. The onboard Hope
 RF96 LoRa modem is built directly into the board and the U.FL antenna connector
@@ -50,7 +49,7 @@ my use.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{contents/part-2/fig2/basic-antenna.jpg}
+    \includegraphics[width=0.8\textwidth]{contents/part-2/fig2/basic-antenna.jpg}
     \caption{Low range PCB antenna}
     \label{fig:pcb-antenna}
 \end{figure}
@@ -62,88 +61,92 @@ using.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{contents/part-2/fig2/good-antenna.jpg}
+    \includegraphics[width=0.8\textwidth]{contents/part-2/fig2/good-antenna.jpg}
     \caption{iLabs whip style LoRa antenna (868mhz)}
     \label{fig:good-antenna}
 \end{figure}
 
-\paragraph{Sensor selection}
+\paragraph{Sensor selection} \label{sec:sensor-selection}
 
 \subparagraph{Temperature and humidity sensor}
 
-I used a DHT11 temperature/humidity sensor for each node to provide basic
-readings. It was chosen for it's low cost, availability and compatibility with
-both the RP2040 Challenger and CircuitPython (via libraries). The sensor can be
-connected to the microcontroller using a single GPIO pin as well as the usual
-power and ground pin.
+I used a DHT11 temperature/humidity sensor (Figure~\ref{fig:dht11}) for each
+node to provide basic readings. It was chosen for it's low cost, availability
+and compatibility with both the RP2040 Challenger and CircuitPython (via
+libraries). The sensor can be connected to the microcontroller using a single
+GPIO pin as well as the usual power and ground pin.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{contents/part-2/fig2/dht11.jpg}
+    \includegraphics[width=0.7\textwidth]{contents/part-2/fig2/dht11.jpg}
     \caption{Waveshare DHT11 temperature/humidity sensor}
     \label{fig:dht11}
 \end{figure}
 
 \subparagraph{Soil moisture sensor}
 
+A capacitative soil moisture sensor (Figure~\ref{fig:soil-sensor}) was chosen
+over the alternative resistive style. The benefit of capacitative sensors is
+they are not as prone to corrosion of the diodes. In a resistance sensor the
+diodes must be bare plated metal in order for resistance between each diode to
+be measured. However the disadvantage of this is that bare metal corrodes in the
+presence of water, and corrosion affects the accuracy of the sensor. For this
+reason I went with a capacitive sensor as the diodes are covered by a protective
+layer making them much less susceptible to corrosion.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{contents/part-2/fig2/soil-sensor.jpg}
+    \includegraphics[width=0.7\textwidth]{contents/part-2/fig2/soil-sensor.jpg}
     \caption{The Pi Hut capacitive soil moisture sensor}
     \label{fig:soil-sensor}
 \end{figure}
 
-A capacitative soil moisture sensor was chosen over the alternative resistive
-style. The benefit of capacitative sensors is they are not as prone to corrosion
-of the diodes. In a resistance sensor the diodes must be bare plated metal in
-order for resistance between each diode to be measured. However the disadvantage
-of this is that bare metal corrodes in the presence of water, and corrosion
-affects the accuracy of the sensor. For this reason I went with a capacitive
-sensor as the diodes are covered by a protective layer making them much less
-susceptible to corrosion.
 
-\subparagraph{Wind speed sensor (Anemometer)}
+\subparagraph{Wind speed sensor (Anemometer)}\label{sec:anemometer}
+
+
+
+The anemometer chosen (Figure~\ref{fig:wind-sensor}) was the DFROBOT wind speed
+sensor. It balances value with construction quality as unlike many other cup
+style sensors this is made of metal and rated for outdoor use. At the time of
+purchase I was unaware that the RS485 serial communication protocol that the
+sensor used was not compatible with the Challengers UART protocol. Fortunately,
+I was able to purchase an RS485 to UART serial converter that allowed the
+devices to communicate.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{contents/part-2/fig2/wind-sensor.jpg}
+    \includegraphics[width=0.5\textwidth]{contents/part-2/fig2/wind-sensor.jpg}
     \caption{DFROBOT wind speed sensor}
     \label{fig:wind-sensor}
 \end{figure}
 
-The anemometer chosen was the DFROBOT wind speed sensor. It balances value with
-construction quality as unlike many other cup style sensors this is made of
-metal and rated for outdoor use. At the time of purchase I was unaware that the
-RS485 serial communication protocol that the sensor used was not out of the box
-compatible with the challengers UART protocol. Fortunately, I was able to
-purchase an RS485 to UART serial converter that allowed the devices to
-communicate.
-
 A second issue was that the anemometer needed a 7v-24V input voltage to take
-readings while the maximum voltage the challenger can provide was 5V. To remedy
-this I bought a 9V step up converter to boost the challengers voltage to the
+readings while the maximum voltage the Challenger can provide was 5V. To remedy
+this I bought a 9V step up converter to boost the Challengers voltage to the
 required level.
 
 \paragraph{Powering the node}
 
 To allow for continuous operation away from power sources, I set up a 6W
-Monocrystalline Silicon Solar Panel to each of the nodes. As the output from the
-solar panels was at too high a voltage to directly power the nodes, and as power
-was required overnight, I also installed a solar power management module onto
-the Challengers. This module uses the solar panel to charge a battery that is
+Monocrystalline Silicon Solar Panel (Figure~\ref{fig:solar-module})to each of
+the nodes. As the output from the solar panels was at too high a voltage to
+directly power the nodes, and as power was required overnight, I also installed
+a solar power management module (Figure~\ref{fig:solar-module}) onto the
+Challengers. This module uses the solar panel to charge a battery that is
 installed on it. When solar power dips overnight the battery will discharge to
 power throughout the day.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{contents/part-2/fig2/solar-panel-manager.jpg}
+    \includegraphics[width=0.5\textwidth]{contents/part-2/fig2/solar-panel-manager.jpg}
     \caption{Waveshare solar power management module (left), solar panel (right)}
     \label{fig:solar-module}
 \end{figure}
 
 \subsubsection{Repeater node}
 
-To improve range I used one of the challenger boards as a repeater. This meant
+To improve range I used one of the Challenger boards as a repeater. This meant
 it did not require sensors and instead simply had an antenna, solar panel and
 battery connected up to it. The repeater would receive signals from the two
 nodes before relaying them to the final gateway. This has the effect of
@@ -152,17 +155,17 @@ essentially doubling range.
 \subsection{Gateway}
 
 The gateway consisted of a fourth Challenger RP2040 connected to a Raspberry Pi
-5 with 8GB of memory. This raspberry pi was significantly more powerful than was actually needed
-for the purpose of a gateway and a cheaper alternative would have been
-sufficient however I was able to use a university provided one for the project.
-The challenger receives messages from the repeater and then transfers these to
-the Raspberry Pi. After receiving the challengers output the raspberry pi sends
-an POST response to my API which then inserts the data into a separate SQL
-database.
+5 with 8GB of memory (Figure~\ref{fig:raspberry-pi}). This Raspberry Pi was
+significantly more powerful than was actually needed for the purpose of a
+gateway and a cheaper alternative would have been sufficient however I was able
+to use a university provided one for the project. The Challenger receives
+messages from the repeater and then transfers these to the Raspberry Pi. After
+receiving the Challengers output the Raspberry Pi sends a POST response to my
+backend API which then inserts the data into a separate SQL database.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{contents/part-2/fig2/raspberry-pi.jpg}
+    \includegraphics[width=0.4\textwidth]{contents/part-2/fig2/raspberry-pi.jpg}
     \caption{Raspberry Pi 5 (8GB)}
     \label{fig:raspberry-pi}
 \end{figure}

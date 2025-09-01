@@ -5,18 +5,18 @@
 One of the most important tests to carry out prior to deployment in the field
 was testing the range of the devices.
 
-In this experiment I took four challenger RP2040s to The Downs, a large public
+In this experiment I took four Challenger RP2040s to The Downs, a large public
 park in Bristol. Here I tested four different antenna configurations to compare
 how well the signal travelled across an increasing distance. Signal strength can
 be measured using the received signal strength index (RSSI), a measure of the
 difference in signal from the transmitter to the receiver and measured in
 decibels.
 
-For the test, two challengers were programmed as transmitters, sending an
+For the test, two Challengers were programmed as transmitters, sending an
 example data packet similar to the data that was eventually used once deployed.
 One of the transmitters used a simple PCB antenna (Figure~\ref{fig:pcb-antenna})
 while the other used a higher range whip style antenna
-(Figure~\ref{fig:good-antenna}). Then I programmed two challengers as receivers,
+(Figure~\ref{fig:good-antenna}). Then I programmed two Challengers as receivers,
 again one had a low range antenna and the other a long range one.
 
 This meant that four different antenna configurations could be tested
@@ -115,11 +115,11 @@ cover during the early evening and morning period.
 
 To see if the battery solution was sufficient for this environment a test was
 run on a fully charged 18650 battery that was then connected to the solar power
-manager to allow the voltage to be regulated up to the challenger's 5v input
+manager to allow the voltage to be regulated up to the Challenger's 5V input
 voltage.
 
 A digital multimeter was installed between the solar power manager and the
-challenger's usb c input to view the voltage and current in real time as well as
+Challenger's usb c input to view the voltage and current in real time as well as
 running a timer for the test and a calculation of the number of watt-hours
 consumed by the node. The node was then run with a full suite of sensors
 attached. During the test the node used 80ma at 5V for a wattage of 0.4W.
@@ -153,7 +153,7 @@ roughly 10wH of energy per day to able to run continuously. It would be tempting
 to then say that the node would need less than 2 hours of ideal sunlight to
 operate for an entire day (being 6W * 2h = 12Wh). However we must also account
 for the energy loss when converting from raw solar output to the regulated 5V
-input that challenger accepts.
+input that Challenger accepts.
 
 The solar panel manager rates it's conversion efficiency for solar at 78\%
 meaning for each watt of solar energy received 22\% of this will be wasted as
@@ -175,7 +175,7 @@ of the sun throughout the day. The final design therefore needed to balance
 multiple conflicting purposes:
 
 \begin{itemize}
-    \item The core electronics (challenger, solar manager, battery etc) must be
+    \item The core electronics (Challenger, solar manager, battery etc) must be
           kept dry, cool and away from wind which may damage electronics.
     \item The wind sensor must be exposed to the elements and securely fastened
           to withstand intense wind, it must also be kept high off the ground
@@ -184,7 +184,7 @@ multiple conflicting purposes:
           at an angle of 30-40 degrees to optimise solar efficiency.
     \item The soil moisture sensor must be inserted into the ground and as it
           has exposed electronics must be made waterproof.
-    \item The antenna of the challenger must be placed as high as possible (at
+    \item The antenna of the Challenger must be placed as high as possible (at
           least 1.5m from the ground).
     \item The temperature/humidity sensor must be exposed to the elements to
           ensure accurate readings but cannot be exposed to rain due to the
@@ -196,20 +196,20 @@ need to allow for positioning of different components at different heights.
 
 The final design therefore was to place most of the sensitive electronics inside
 a waterproof box with cut-outs for the to allow for external component wires.
-This was then mounted onto a 2m pole to allow for a good antenna signal and
-more accurate wind speed readings.
+This was then mounted onto a 2m pole to allow for a good antenna signal and more
+accurate wind speed readings.
 
 \subsubsection{Sensitive electronics}
 
-An IP65 waterproof junction box was selected to house the non-sensor portion of
-the electronics. An IP rating measures the Ingress Protection of a devices
-housing against water and dust defined by the International Electrotechnical
-Commission. The first number of an IP code is a measure of dust resistance while
-the second number is a measure of water resistance. An IP code of 65 therefore
-means the box used here has perfect dust resistance and can withstand water jets
-being sprayed at it from multiple directions \cite{wiki-ip}. This level of
-protection should be more than adequate to withstand the heavy rainfall it will
-experience.
+An IP65 waterproof junction box (Figure \ref{fig:box-internals}) was selected to
+house the non-sensor portion of the electronics. An IP rating measures the
+Ingress Protection of a devices housing against water and dust defined by the
+International Electrotechnical Commission. The first number of an IP code is a
+measure of dust resistance while the second number is a measure of water
+resistance. An IP code of 65 therefore means the box used here has perfect dust
+resistance and can withstand water jets being sprayed at it from multiple
+directions \cite{wiki-ip}. This level of protection should be more than adequate
+to withstand the heavy rainfall it will experience.
 
 \begin{figure}[H]
     \centering
@@ -218,7 +218,7 @@ experience.
     \label{fig:box-internals}
 \end{figure}
 
-The challenger microcontroller was inserted onto a half size breadboard and then
+The Challenger microcontroller was inserted onto a half size breadboard and then
 stuck to one side of the box. The antenna cable was routed to the top right
 corner where a small hole was drilled to allow for the antenna to be mounted
 externally. All the other components were then wired into the breadboard and
@@ -244,7 +244,7 @@ sensor to be inserted into the ground.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.3\textwidth]{contents/part-2/fig2/solder-soil.jpeg}
+    \includegraphics[width=0.25\textwidth]{contents/part-2/fig2/solder-soil.jpeg}
     \caption{Soldered soil moisture sensor}
     \label{fig:solder-soil}
 \end{figure}
@@ -272,17 +272,19 @@ accurate readings, small holes were drilled on the bottom panel of this so the
 air temperature inside the box would better match the external
 temperature/humidity. To further improve the sensor's accuracy, the box was
 painted white to reflect sunlight, and a solar shield made from a cut and
-reshaped aluminium can was mounted to the south facing side. . This shield helps
-to prevent the sensor being exposed to direct sunlight, reducing temperature
-distortion while still allowing airflow from the sides.
+reshaped aluminium can was mounted to the south facing side. This shield (see
+red box in Figure \ref{fig:solder-soil})helps to prevent the sensor being
+exposed to direct sunlight, reducing temperature distortion while still allowing
+airflow from the sides.
 
 The solar panel was mounted below the main enclosure using the included
 adjustable gimbal mount. It was fixed at an angle of approximately 40° from
-horizontal, which balances solar efficiency throughout the year. This angle is
-steeper than the optimal summer setting but allows for improved performance
-during winter months when the sun is lower in the sky. The gimble allows for
-rotation in all planes which is useful in case the box itself cannot be mounted
-in a perfect south direction.
+horizontal, which balances solar efficiency throughout the year
+\cite{cathcart_best-solar-panel_2025}. This angle is steeper than the optimal
+summer setting but allows for improved performance during winter months when the
+sun is lower in the sky. The gimble allows for rotation in all planes which is
+useful in case the box itself cannot be mounted in a perfect southerly
+direction.
 
 The anemometer was secured to a separate length of wood, positioned
 approximately 0.5 metres away from the main unit. This separation reduces
@@ -290,18 +292,39 @@ turbulence caused by the box and pole, leading to more accurate wind speed
 readings. The sensor was screwed directly into the wood and positioned at a
 height of 2m.
 
-ADD final assembled box on a pole with annotations
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{contents/part-2/fig2/annotated-node.jpg}
+    \caption{Final node design}
+    \label{fig:assembled-node}
+\end{figure}
+
+Figure \ref{fig:assembled-node} shows the final assembled node. From top to
+bottom, the purple box shows the antenna, the blue box shows the anemometer on
+its separate arm, the green box contains the electronics, the red box is the
+solar shield that surrounds the temperature/humidity sensor and the orange box
+shows the solar panel. Not pictured is the 2m wooden post that extends the
+height of the node. 
 
 \subsubsection{Gateway}
 
-The gateway node required less careful engineering as there was no requirement
-for it to be waterproofed or mounted externally. As this would eventually be
-placed inside a persons private home, the aim was therefore to make a minimally
-imposing and so a design similar to an internet router was chosen.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{contents/part-2/fig2/gateway.jpeg}
+    \caption{Completed gateway}
+    \label{fig:gateway-final}
+\end{figure}
+
+The gateway node (Figure \ref{fig:gateway-final}) required less careful
+engineering as there was no requirement for it to be waterproofed or mounted
+externally. As this would eventually be placed inside a persons private home,
+the aim was therefore to make a minimally imposing and so a design similar to an
+internet router was chosen.
 
 The two devices inside the box would be the raspberry pi used to upload data and
-the challenger which received incoming LoRa packets from the repeater. A plastic
+the Challenger which received incoming LoRa packets from the repeater. A plastic
 box was used with cut outs for the pi's outputs and power cable, with an
-additional cut out on the lid for the challenger's antenna. The pi and
-challenger were then secured to the box's base with velcro tape, as both devices
+additional cut out on the lid for the Challenger's antenna. The pi and
+Challenger were then secured to the box's base with velcro tape, as both devices
 would potentially need to be removed for any trouble shooting.
