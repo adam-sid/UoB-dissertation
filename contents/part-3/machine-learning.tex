@@ -11,14 +11,13 @@ LightGBM as it offers a good balance between performance and training efficiency
 compared to similar models such as XGBoost \cite{saha2025}.
 
 Both LightGBM and XGBoost are known as 'Gradient Boosted Machines'. This is a
-relatively new technique in machine learning that effectively combines many
-weaker machine learning models (called weak learners) to create a single highly
-accurate model. These models are excellent for tabular data (such as my node and
-forecast data) and regularly beat out competing learning algorithms
-\cite{tuychiev2023}. LightGBM is also compatible with the m2cgen library that
-allows the final model to be converted to javascript format, allowing it to work
-within my webapp. All these factors made LightGBM a good algorithm for my use
-case.
+technique in machine learning that effectively combines many weaker machine
+learning models (called weak learners) to create a single highly accurate model.
+These models are excellent for tabular data (such as my node and forecast data)
+and regularly beat out competing learning algorithms \cite{tuychiev2023}.
+LightGBM is also compatible with the m2cgen library that allows the final model
+to be converted to JavaScript format, allowing it to work within my webapp. All
+these factors made LightGBM a good algorithm for my use case.
 
 To train the machine learning models I installed Python with the LightGBM and
 m2cgen libraries as described above on my personal laptop. I then also installed
@@ -27,23 +26,20 @@ pandas for data handling purposes.
 \subsection{Machine learning process}
 
 I aimed to create ten separate machine learning models, one for each node (node
-1 and node 2) and sensor type (temperature, humidity, wind speed, gust speed and
-soil moisture).
+1 and node 2) and sensor reading (temperature, humidity, wind speed, gust speed
+and soil moisture).
 
 Training machine learning models requires inputs (referred to as “features”) and
-outputs (referred to as “targets”).  For my models, the training features came
-from the OpenWeather past \textbf{actual} weather data and the training targets
-came from the node sensor readings. Figure \ref{fig:machine_diagram} below
-illustrates steps in the training process.
-
-Once trained, the final models were uploaded to the backend and the inputs then
-came from the OpenWeather \textbf{forecasted} weather data for the next 48 hours
-as explained in the following section.
+outputs (referred to as “targets”).  For my models, the features came from the
+OpenWeather past \textbf{actual} weather data and the targets came from the node
+sensor readings. While training, the ML model can "see" both features and
+targets. Figure \ref{fig:machine_diagram} below illustrates steps in the
+training process.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{contents/part-3/fig3/machine-learning-diagram2.jpg}
-    \caption{Infographic showing steps for training with LightGBM. This uses the temperature target for illustration.}
+    \caption{Infographic showing steps for training with LightGBM. This uses the temperature target for illustration, for other sensor readings the target was changed to that reading}
     \label{fig:machine_diagram}
 \end{figure}
 
@@ -51,10 +47,10 @@ The following steps were followed to train each of the ten models.
 
 \begin{enumerate}
     \item Prepare the dataset: A single cleaned dataset was created by matching
-          timestamps between the api weather data and the node data. As API
-          readings are taken every 10 minutes and node readings every 1 minute,
-          this meant that 9/10 node readings were discarded. The final dataset
-          was roughly 1,400 rows.
+          timestamps between the api weather data and the sensor node data. As
+          API readings are taken every 10 minutes and node readings every 1
+          minute, this meant that 9/10 node readings were discarded. The final
+          dataset was roughly 1,400 rows.
     \item Define the feature set and target data: The feature set from the
           weather API and targets from the node data were defined, and
           unnecessary columns discarded. The database timestamp field was
@@ -76,22 +72,28 @@ The following steps were followed to train each of the ten models.
           into itself so its predictions change a little. It then applies the
           updated model to the validation inputs (validation features) and
           compares those predictions to the validation answers (validation
-          target) —to see how well the model would do on new data. The
+          target) —to see how well the model would do on new "unseen" data. The
           validation data are never used to build the tree; they are only used
           to check the accuracy of the model. If the validation check shows no
           improvement after a number of iterations, the training stops and the
-          model keeps the version that did best on validation.  The process will
-          perform a minimum of 50 iterations. I set the maximum number of
-          iterations to 250 to prevent the models getting too large, as each
-          iteration increases the model size.
+          model keeps the version that performed best on validation.  The
+          process will perform a minimum of 50 iterations. I set the maximum
+          number of iterations to 250 to prevent the models getting too large,
+          as each iteration increases the model size substantially (The humidity
+          model is over 40,000 lines long in JavaScript format for example).
 \end{enumerate}
+
+Once trained, the final models were uploaded to the backend and the inputs then
+came from the OpenWeather \textbf{forecasted} weather data for the next 48 hours
+as explained in the following section.
+
 
 \subsection{Machine learning deployment}
 
 Once the ten models had been trained, they were uploaded to the web server.  I
 wrote an automated function on my backend that provides the models with
-datapoints from the OpenWeather \textbf{forecast} data for the next 48
-hours, and updates this data every ten minutes to adjust the predictions as the
+datapoints from the OpenWeather \textbf{forecast} data for the next 48 hours,
+and updates this data every ten minutes to adjust the predictions as the
 forecast changes. The outputs from the models are recorded as hourly predictions
 for each datapoint in a JSON file, which is requested by the frontend software
 and used to display a line graph of predicted values for the next 48 hours.

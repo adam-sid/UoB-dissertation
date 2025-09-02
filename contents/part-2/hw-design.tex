@@ -41,8 +41,8 @@ allowing for a large number of sensors to be fitted to the board.
 The selection of antennae is one of the largest determinants of range and
 reliability in the context of wireless communication systems \cite{khan2016}.
 Initially I used a simple PCB antenna as shown in Figure~\ref{fig:pcb-antenna},
-however as explained in the next chapter, the range of this was insufficient for
-my use.
+however as explained in Section \ref{sec:range-tests}, the range of this was
+insufficient for my use.
 
 \begin{figure}[H]
     \centering
@@ -70,8 +70,9 @@ Monocrystalline Silicon Solar Panel (Figure~\ref{fig:solar-module})to each of
 the nodes. I also installed a solar power management module
 (Figure~\ref{fig:solar-module}) onto the Challengers. This module moderates the
 output from the solar panels which is at too high a voltage to directly power
-the nodes. It also incorporates a battery that charges from the solar panel
-output and provides power to the nodes when the solar power is not available.
+the nodes and repeater. I also incorporated a battery (not pictured) that
+charges from the solar panel output and provides power to the microcontroller
+when solar power is not available.
 
 \begin{figure}[H]
     \centering
@@ -92,7 +93,7 @@ single GPIO pin as well as the usual power and ground pin.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{contents/part-2/fig2/dht11.jpg}
+    \includegraphics[width=0.6\textwidth]{contents/part-2/fig2/dht11.jpg}
     \caption{Waveshare DHT11 temperature/humidity sensor}
     \label{fig:dht11}
 \end{figure}
@@ -111,7 +112,7 @@ less susceptible to corrosion. For this reason I chose a capacitive sensor
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{contents/part-2/fig2/soil-sensor.jpg}
+    \includegraphics[width=0.6\textwidth]{contents/part-2/fig2/soil-sensor.jpg}
     \caption{The Pi Hut capacitive soil moisture sensor}
     \label{fig:soil-sensor}
 \end{figure}
@@ -136,18 +137,17 @@ devices to communicate.
 A second issue was that the anemometer needed a 7V-24V input voltage to take
 readings while the maximum voltage the Challenger can provide was 5V. To remedy
 this I bought a 9V step up converter to boost the Challenger's voltage to the
-required level.
+required voltage range.
 
 \subsection{Gateway}
 
-The components of the gateway consisted of a Challenger RP2040 with a whip
-antenna. The board was connected to a Raspberry Pi 5 with 8GB of memory and an
-onboard Wi-Fi radio. (Figure~\ref{fig:raspberry-pi}). This Raspberry Pi was
-significantly more powerful than was needed but it was already available from
-the university for use for this project. The Challenger receives and decodes
-messages from the repeater. The Raspberry Pi reads the decoded LoRa message from
-the serial output and then sends a POST response to the backend API which
-inserts the data into a SQL database.
+The components for the gateway consisted of a Challenger RP2040 (with whip
+antenna) connected to a Raspberry Pi (Figure~\ref{fig:raspberry-pi}). This
+Raspberry Pi was significantly more powerful than was needed but it was already
+available from the University for use in this project. The Challenger first
+receives and decodes messages from the repeater. The Raspberry Pi reads the
+decoded LoRa message from the serial output and then sends a POST response to
+the backend API which inserts sensor data into a SQL database.
 
 \begin{figure}[H]
     \centering

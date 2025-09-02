@@ -2,12 +2,12 @@
 
 Before setting up the nodes at the farm it was important to run the equipment in
 an area where repairs and updates could be more easily performed. The nodes were
-therefore placed at different locations in my garden and ran continuously from
-the 15th of August.
+therefore placed at different locations in a private garden and ran continuously
+from the 15th of August.
 
 \subsection{Challenges and solutions from test deployment}
 
-\subsubsection{Battery capacity}
+\subsubsection{Battery capacity}\label{sec:increase-battery-cap}
 
 An initial challenge identified during the test deployment was that the battery
 capacity on the sensor nodes was insufficient for continuous 24/7 operation.
@@ -26,13 +26,13 @@ after the upgrade. Performance of batteries is explored more in Section
 
 \subsubsection {Behaviour on loss of power}
 
-A related problem was that when the node died it did not start working again
-after power was restored. I discovered that when the microcontroller detected a
-brownout - a sudden dip in voltage - the device would enter a safeboot mode. In
-this safeboot mode the default code.py file would not automatically be run and
-instead the device would create and use a safemode.py file that would
-essentially run indefinitely unless the reset button on the device was pressed
-or the device was powered off and on again.
+A related problem was that when the node died it did not start sending LoRa
+packets again even after power was restored. I discovered that when the
+microcontroller detected a brownout - a sudden dip in voltage - the device would
+enter a safeboot mode. In this safeboot mode the default code.py file would not
+automatically be run and instead the device would create and use a safemode.py
+file that would essentially run indefinitely unless the reset button on the
+device was pressed or the device was powered off and on again.
 
 Clearly this behaviour was not appropriate for field deployment where brownouts
 would potentially occur whenever the battery was discharged completely. Even
@@ -48,8 +48,8 @@ easily. Instead of entering an infinite loop this safemode is designed to enter
 a low power mode for a short period and then try to cycle power back on.
 
 Disappointingly, the addition of this new safemode was not reliable and
-occasionally the device would enter a state where a hard manual reset was
-necessary. This problem is discussed further in Section
+occasionally the device would enter an unknown state where a hard manual reset
+was necessary. This problem is discussed further in Section
 \ref{sec:reset-behaviour}.
 
 \subsubsection{Temperature-humidity sensor behaviour in sun}
@@ -62,6 +62,6 @@ sensor readings and local air temperature readings that could not be explained
 with the existence of a microclimate.
 
 To reduce this effect an additional solar shield consisted of a wooden frame and
-aluminium shield was made. This was positioned to surround the sensor to
-block light falling directly on the junction box. This reduced the delta to a
-negligible amount.
+aluminium shield was made. This was positioned to surround the sensor to block
+light falling directly on the junction box. This appeared to fix the issue and
+readings were more in line with the expected amount.

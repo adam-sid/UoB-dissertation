@@ -1,4 +1,4 @@
-\section{Hosting}
+\section{Hosting}\label{sec:hosting-webapp}
 
 Both the backend and frontend were hosted on Render \cite{render}. I chose
 Render as a good low cost option for hosting the web service as it offers a free
@@ -18,7 +18,7 @@ should be sufficient for this project as only small amounts of data are
 involved. Eventually, I aim to migrate the website to a university hosted server
 to remove this ongoing cost.
 
-\section{Backend}
+\section{Backend}\label{sec:backend-all}
 
 \subsection{postgreSQL database}\label{sec:database}
 
@@ -34,8 +34,8 @@ The database has four tables:
 \begin{itemize}
     \item farms: this holds a list of where the nodes are (or have been)
           deployed. The longitude and latitude of the farm is then used in API
-          calls to OpenWeather (more on this below) which is used to fetch
-          current and forecasted weather data.
+          calls to OpenWeather (more on this in Section \ref{sec:weather-api})
+          which is used to fetch current and forecasted weather data.
     \item node\_deployment - This holds the precise longitude and latitude of
           each node as well as information on when the deployment started and
           ended. If the nodes are moved then this table is updated with new
@@ -74,24 +74,25 @@ for this application.
 
 On top of TypeScript I used Node.js and the Express framework. Node.js allows
 JavaScript to run on the server instead of inside a client browser, which lets
-the project share a single language (i.e. JavaScript) across frontend and
-backend development. It is well suited to creating APIs that handle many
-simultaneous HTTP requests while calling on external APIs. This is because Node
-runs asynchronously: when slow database queries are being executed Node will
-continue listening and processing further requests. This non-blocking behaviour
-means Node can handle large numbers of concurrent requests at the same time.
-Additionally the node package manager (called with npm) has a large set of
-useful libraries and allows my project to be rapidly set up on new computers
-without having to retrieve required packages from different sources.
+the project share a single language (i.e. TypeScript/JavaScript which are very
+similar) across frontend and backend development. It is well suited to creating
+APIs that handle many simultaneous HTTP requests while calling on external APIs.
+This is because Node runs asynchronously, so when slow database queries are
+being executed Node will continue listening and processing further requests.
+This non-blocking behaviour means Node can handle large numbers of concurrent
+requests at the same time. Additionally the node package manager (called with
+npm) has a large set of useful libraries and allows my project to be rapidly set
+up on new computers without having to retrieve required packages from different
+sources.
 
-Express is a framework specific to Node.js that gives useful tools for creating
-the API endpoints. I used express to write my request-handling functions for
-each URL endpoint. These functions process incoming HTTP requests to the
-endpoint and then execute the SQL query associated with that endpoint. Instead
-of constantly opening new connections with the database I used the pg.Pool
-library to pool requests together on the same connection. This helped to improve
-the speed of SQL lookups and inserts,which accelerates execution and in turn
-improves the perceived performance of the webapp.
+Express is a framework specific to Node.js that has tools for creating the API
+endpoints. I used express to write my request-handling functions for each URL
+endpoint. These functions process incoming HTTP requests to the endpoint and
+then execute the SQL query associated with that endpoint. Instead of constantly
+opening new connections with the database I used the pg.Pool library
+\cite{pgpool} to pool requests together on the same connection. This helped to
+improve the speed of SQL lookups and inserts, which accelerates execution and in
+turn improves the perceived performance of the webapp.
 
 In total my api has five endpoints:
 
@@ -120,7 +121,7 @@ In total my api has five endpoints:
 
 Security was important in the design of the backend API as the end points are
 exposed to the internet and thus any internet connected device is able to call
-these. Therefore I had to take steps to prevent erroneous calls (such as from
+these. Therefore, I had to take steps to prevent erroneous calls (such as from
 bots) to my API endpoints which could insert data incorrectly or scrape the
 contents.
 
@@ -176,7 +177,7 @@ if (!white_listed_tables.has(httpBody.table_name)
 }
 \end{verbatim}
 
-\subsection{Weather API integration}
+\subsection{Weather API integration}\label{sec:weather-api}
 
 The weather API I settled on using to help build data for the forecasting
 function of the webapp was the One Call API 3.0 by OpenWeather
@@ -345,29 +346,31 @@ summarised below:
 \begin{enumerate}
     \item Dynamic tooltip: The webapp can tell if the viewer is a touch screen
           and if so it will make the tool tip hover slightly away from the point
-          of touch. While on desktop the user will want to hover over a
+          of touch. While on desktop the user will want to hover directly over a
           datapoint and see the tool tip appear where they are hovering, on
-          mobile the digit used to select may cover important tooltip
-          information. By making sure the tooltip hovers slightly away from the
-          selection this is no longer a problem.
+          mobile the user's finger would block this information. I fixed this
+          issue by making sure the tooltip hovers slightly away from the
+          selection point on mobile devices.
     \item Dynamic chart and font size: Echarts comes with no standard method of
           resizing chart data depending on the size of the device viewing the
           chart. So I ensured that the size of the chart (including its font)
           would be drawn smaller on mobile devices and recalculated if the
           viewing size changes (i.e. if a desktop user shrinks the window size)
     \item Dynamic X axis: The interval between X axis ticks on mobile is 6 hours
-          vs 3 hours on desktop, so that on mobiles the view is less crowded.
+          vs 3 hours on desktop, so that on mobile screens the view is less
+          crowded.
     \item Dropdown menu for chart selection: I initially used a radio design for
-          the chart type selection (like a multiple choice question) but quickly
-          realised this was not a mobile friendly design choice as the scaled
-          down buttons were very hard to click. I instead opted to use a drop
-          down box as this was much easier to select on a mobile setting while
-          still a well known element that users should be familiar with.
+          the chart type selection (similar look to multiple choice question
+          buttons) but quickly realised this was not a mobile friendly design
+          choice as the scaled down buttons were very hard to click. I instead
+          opted to use a drop down box as this was much easier to select on a
+          mobile setting while still a well known element that users should be
+          familiar with.
 \end{enumerate}
 
 One of the hardest pages to format well for mobile users was the wind sensor
-comparison page as this is has many different series elements to display (two
-wind averages and two gust averages). However from Figure \ref{fig:mobile-page}
+comparison page as this has many different series elements to display (two
+wind averages and two gust averages). However, from Figure \ref{fig:mobile-page}
 we can see that all elements fit comfortably in frame despite the large number
 of series and legend data.
 

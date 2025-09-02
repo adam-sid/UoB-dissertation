@@ -9,9 +9,9 @@ capability in a range of devices, allowing for cooperation to reach common goals
 IoT has become increasingly common in recent years as a number of technological
 breakthroughs has made deploying these networks more practical. These advances,
 which are referred to as "enabling technologies", provide the foundation for
-modern IoT systems. LoRa is a key example described in Chapter \ref{sec:lora}, a
-further list of enabling technologies is available as a supplement in Appendix
-\ref{app:enabling-tech}.
+modern IoT systems. LoRa is a key example described in Chapter \ref{sec:lora},
+and a further list of enabling technologies is available as a supplement in
+Appendix \ref{app:enabling-tech}.
 
 \subsection{The layers of IoT}
 
@@ -21,19 +21,19 @@ All IoT devices rely on the existence of three fundamental network layers
 \begin{enumerate}
   \item Perception - This layer contains sensors that collect information about
         conditions in the world around them. This layer may perform some
-        transformations on the data it receives (e.g. sorting, formatting) or just
-        transmit raw data. An example of this is a smart car charger collecting data
-        on the charge level of an electric car.
+        transformations on the data it receives (e.g. sorting, formatting) or
+        just transmit raw data. An example of this is a smart car charger
+        collecting data on the charge level of an electric car.
   \item Network - This layer acts as the bridge between the perception layer and
-        the application layer. It is the medium and protocols associated with the
-        transmission of data and the hardware necessary to interpret this. Following
-        the above example this could be the use of WiFi or a mesh protocol such as
-        Zigby to transmit the car's current charge level to a gateway - such as a WiFi
-        router.
+        the application layer. It is the medium and protocols associated with
+        the transmission of data and the hardware necessary to interpret this.
+        Following the above example this could be the use of WiFi or a mesh
+        protocol such as Zigby to transmit the car's current charge level to a
+        gateway - such as a WiFi router.
   \item Application - This encompasses any software that manipulates, displays
-        or otherwise uses data from the perception layer. This could be hosted on the
-        cloud or locally. In the example above this could be an app that shows the
-        current charge status of the car.
+        or otherwise uses data from the perception layer. This could be hosted
+        on the cloud or locally. In the example above this could be an app that
+        shows the current charge status of the car.
 \end{enumerate}
 
 The hardware overview in Chapter \ref{sec:hardware-overview} presents the
@@ -42,15 +42,15 @@ components of my IoT solution in the context of these layers.
 \subsection{Studies using LoRa IoT weather stations in agriculture}
 
 The use of IoT in agriculture has become widespread in recent years as it offers
-the opportunity for farmers to improve yields and cut costs by bringing digital
-solutions that would not have previously been viable without access to power and
-internet connectivity. The use of IoT in agriculture is often wrapped up in the
-moniker of "Smart Farming", which encompasses a range of digital, robotic, and
-internet-enabled approaches to improving efficiency. A 2019 review by Farooq et
-al. \cite{farooq2019iot} reveals the scope of IoT applications in agriculture.
-These include precision farming (IoT weather monitoring), automated irrigation,
-pest and disease prediction with machine learning, and even the deployment of
-agricultural drones for spraying, mapping and imaging.
+the opportunity for farmers to improve yields and reduce costs by bringing
+digital solutions that would not have previously been viable in remote settings.
+The use of IoT in agriculture is often wrapped up in the moniker of "Smart
+Farming", which encompasses a range of digital, robotic, and internet-enabled
+approaches to improving efficiency. A 2019 review by Farooq et al.
+\cite{farooq2019iot} reveals the scope of IoT applications in agriculture. These
+include precision farming (IoT weather monitoring), automated irrigation, pest
+and disease prediction with machine learning, and even the deployment of
+agricultural drones for spraying and imaging.
 
 There have been a few studies around the use of LoRa in smart farming
 applications. In \cite{edgeAiGiaEtAl} LoRa was used in an edge computing
@@ -59,7 +59,7 @@ created and analysed. However, a criticism of this study is that they only
 implement a single sensor and all results are drawn from a computer generated
 sample. Additionally the range used for this single sensor to the gateway is
 only 200m, which is not a realistic distance for most agricultural purposes
-which the study is explicitly targeting.
+which the study is targeting.
 
 The study in \cite{smartFarmKodaliEtAl} implements a LoRa based weather station
 prototype in India. The authors create a fairly simple node with two sensor

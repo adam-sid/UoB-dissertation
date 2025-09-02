@@ -13,7 +13,11 @@ The two main Python versions available are CircuitPython and MicroPython. They
 both have extensive libraries and work with all the sensors I have selected.
 With no major difference in their functionality, I settled on CircuitPython as
 this was the version recommended by iLabs (the makers of the Challenger board)
-and included a library that supports the Challenger as well as example code.
+and included a library that supports the Challenger as well as example code. As
+previously mentioned and explored further in the evaluation (Section
+\ref{sec:reset-behaviour}), CircuitPython seems to have a dysfunctional reset
+behaviour when power drops out, so on reflection perhaps Micropython should have
+been used instead.
 
 The development process for the sensor nodes, repeaters, and gateway was
 similar, so the rest of this section will briefly summarise how the sensor nodes
@@ -46,7 +50,7 @@ The most fundamental part of the program for each of the nodes in the LoRa
 network was that they could communicate with each other. This required the
 careful matching of LoRa configuration settings between them (see top of
 Appendix \ref{app:sensor-code} for full settings). A description of the most
-impactful LoRa parameters are shown below:
+impactful LoRa parameters is shown below:
 
 \begin{enumerate}
       \item \textbf{Spreading factor:} Determines how much the signal is spread
@@ -65,33 +69,37 @@ impactful LoRa parameters are shown below:
       power}\label{sec:lora-limit}
 
 The UK has strict regulations on the usage of radio transmitters under the Ofcom
-ISM band rules. For the 868 Mhz band, the maximum effective radiated power that
-can be used is 25mW. This corresponds to a transmit power of roughly 14dB.
+ISM band rules \cite{OfcomIR2030-2023}. For the 868 Mhz band, the maximum
+effective radiated power that can be used is 25mW. This corresponds to a
+transmit power of roughly 14dBm.
 
 Additionally, the UK has rules on duty cycle rates. This is essentially how long
-radio signals are permitted to be on air. For example at a spreading factor of 7
-a 20 byte message takes approximately 1/15th of a second to send. The duty cycle
-limit in the UK is 1\%, meaning you may only transmit for 1\% of the time on a
-given day. 1\% of a day is 864 seconds. This means to stay in line with UK
-regulations only 864*15 = 12960 messages can be sent on a given day - or roughly
-1 message every 6 seconds. My nodes send a new LoRa packet every minute so are
-well within this limit.
+radio signals are permitted to be on air. For example at a spreading factor of
+7, a 20 byte message takes approximately 1/15th of a second to
+send\footnote{Calculated using this only calculator
+\url{https://www.thethingsnetwork.org/airtime-calculator}}. The duty cycle limit
+in the UK is 1\%, meaning you may only transmit for 1\% of the time on a given
+day. 1\% of a day is 864 seconds. This means to stay in line with UK regulations
+only 864*15 = 12,960 messages can be sent on a given day - or roughly 1 message
+every 6 seconds. My nodes send a new LoRa packet every minute so are well within
+this limit.
 
 \subsection{Remote diagnostics and error handling}
 
-Since the sensors would not be accessible easily errors needed to be reported
+Since the sensors would not be accessible easily, errors needed to be reported
 remotely to diagnose faults and problems. Unfortunately, while the sensor nodes
 and repeater are LoRa enabled, there is no simple way to send software updates
 to them other than manually. Therefore I developed my code (see Appendix
-\ref{app:sensor-code})with \texttt{try/exception} blocks in Python so that if a
+\ref{app:sensor-code}) with \texttt{try/exception} blocks in Python so that if a
 sensor became disconnected or failed, the exception is caught and the program
 continues running. Then before the packet is sent out my \texttt{find\_err()}
 function scans the payload for errors (which would show as None from the error
 catching above) and if an error is found then the string \texttt{ERR} is sent
-with the packet.
+with the packet. As of the 2nd of September I have so far detected none of these
+errors in the LoRa packets received.
 
-Diagnostics on the gateway node was luckily much simpler as this was powered on
-24/7 and network connected. I therefore could remotely access it using Tailscale
-virtual private network (VPN) \cite{tailscale_2025}. This created a secure
-connection, allowing diagnostics from any location without complex firewall
-configuration.
+Diagnostics on the gateway node was luckily much simpler as this was powered
+24/7 and network connected. I therefore could remotely access it using a
+Tailscale virtual private network (VPN) \cite{tailscale_2025}. This created a
+secure connection, allowing diagnostics from any location without complex
+firewall configuration.

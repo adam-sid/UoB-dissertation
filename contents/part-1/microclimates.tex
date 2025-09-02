@@ -1,7 +1,7 @@
 \section{Microclimates}
 
-This section gives the academic background on microclimates with a focus on their
-relevance to agriculture, and then looks at related attempts to predict
+This section gives some academic background on microclimates with a focus on
+their relevance to agriculture, and then looks at related attempts to predict
 microclimate weather.
 
 \subsection{What is a microclimate?}
@@ -14,7 +14,7 @@ hundred metres \cite{wmo2024}.  In practice, microclimates can occur in spaces
 such as gardens, valleys, caves, or fields. Even human-made structures can
 generate their own microclimates; for example, tall buildings can create
 \emph{street valleys} that reduce wind flow and lead to the formation of
-localised pockets of warmer air, which also trap higher concentrations of
+localised pockets of warmer air, which  can trap higher concentrations of
 pollution from vehicle emissions \cite{yang2023}. Vegetation plays a critical
 role in influencing microclimates. The addition of trees to an urban environment
 can reduce air temperature by as much as \SI{2.8}{\degreeCelsius}
@@ -33,22 +33,22 @@ food security.
 
 A Danish study by Haider et al. investigated how agricultural pests and diseases
 are influenced by microclimatic conditions. Temperature sensors were installed
-in six different pathogen habitats (such as hedges and cattle fields). The data
-revealed that the daytime temperature in these microenvironments was
-significantly higher than those predicted by Danish weather forecasts. Using
+in six different areas with distinct microclimates (such as hedges and cattle
+fields). The data revealed that the daytime temperature in these microclimates
+was significantly higher than those predicted by Danish weather forecasts. Using
 these measurements, the researchers then estimated the incubation periods of
 various pests and diseases, demonstrating that elevated temperatures in
 microclimates could shorten incubation times and thus accelerate the risk of
-outbreaks \cite{haider2017}.
+disease outbreaks \cite{haider2017}.
 
 Another important aspect of microclimates for farmers is how it can affect frost
 risk - sudden and unpredictable drops below freezing in crop fields that damage
 plants and are particularly common in spring. A principal factor for this is a
 lack of "cold-air drainage". In areas with depressed topography, cold, dense air
-can accumulate to form pockets where temperatures can be several
-degrees lower than the surrounding landscape \cite{drepper2022}. These local
-conditions are not captured by general weather forecasts highlighting the need for
-more precise monitoring and development of effective early warning systems.
+can accumulate to form pockets where temperatures can be several degrees lower
+than the surrounding landscape \cite{drepper2022}. These local conditions are
+not captured by general weather forecasts highlighting the need for more precise
+monitoring and development of effective early warning systems.
 
 \subsection{Microclimate prediction using machine learning}
 
@@ -58,18 +58,17 @@ weather models operate at magnitudes between 1 and 10 km and microclimate
 predictions require models that operate at scales of roughly 100m or less. Using
 current numerical weather prediction models for micro-scale predictions is
 computationally expensive \cite{blunn2024machine}, and these models have lower
-accuracy rates than predictions using machine learning due to the inherent complexity and
-non-linear nature of microclimates.
+accuracy rates than predictions using machine learning due to the inherent
+complexity and non-linear nature of microclimates.
 
 A number of the studies described here focus on comparing the accuracy achieved
 by different types of machine learning, and highlighted a distinction between
 machine learning (ML) and deep learning (DL).  They are both systems that learn
 from data and make decisions based on datasets provided when the systems are
-trained.  ML techniques include decision trees, regression and
-neural networks.  DL systems are a type of ML that uses
-neural networks with many layers and is used to model more complex patterns with
-larger datasets. The table below provides a summary of the studies included in
-this section
+trained.  ML techniques include decision trees, regression and neural networks.
+DL systems are a type of ML that uses neural networks with many layers and is
+used to model more complex patterns with larger datasets. The table below
+provides a summary of the studies included in this section
 
 
 \begin{table}[ht]
@@ -87,47 +86,58 @@ this section
                   |>{\centering\arraybackslash}m{3.0cm}
                   |>{\centering\arraybackslash}m{3.0cm}|}
                   \hline
-                  \textbf{Study}                                    & \textbf{Location}                         & \textbf{Type of learning}   &
-                  \textbf{Learning framework}                       & \textbf{Source of forecast data}          &
-                  \textbf{Source of training target data}                                                                                                                         \\
+                  \textbf{Study}                                    &
+                  \textbf{Location}                         & \textbf{Type of
+                  learning}   & \textbf{Learning framework} & \textbf{Source of
+                  forecast data}          & \textbf{Source of training target
+                  data} \\
                   \hline
-                  Agriscanner (This work)                           & Outside rural - South Gloucestershire, UK & ML                          &
-                  LightGBM                                          & OpenWeather                               & Sensor readings                                                 \\
+                  Agriscanner (This work)                           & Outside
+                  rural - South Gloucestershire, UK & ML & LightGBM &
+                  OpenWeather                               & Sensor readings \\
                   \hline
-                  Kumar et al.\ (2021)\cite{kumar2021}              & Various                                   & DL                          & LSTM              & Not specified
-                                                                    & Sensor readings                                                                                             \\
+                  Kumar et al.\ (2021)\cite{kumar2021}              & Various &
+                                                                    DL & LSTM &
+                                                                    Not
+                                                                    specified &
+                                                                    Sensor
+                                                                    readings \\
                   \hline
-                  Zanchi et al.\ (2023)\cite{zanchi2023harnessing}  & Outside rural; Italy,
-                  Lombardy                                          & DL                                        & Feed-forward neural network & \makecell[c]{ERA5                 \\ ARPA
-                  }                                                 & Sensor readings                                                                                             \\
+                  Zanchi et al.\ (2023)\cite{zanchi2023harnessing}  & Outside
+                  rural; Italy, Lombardy & DL & Feed-forward neural network &
+                  \makecell[c]{ERA5 \\ ARPA } & Sensor readings \\
                   \hline
-                  Blunn et al.\ (2024)\cite{blunn2024machine}       & Outside urban; London, UK                 &
-                  ML \& DL                                          & \makecell[c]{Multilayer Perceptron                                                                          \\ Random Forest \\
-                  XGBoost}                                          & UKV weather data                          & Citizen weather stations                                        \\
+                  Blunn et al.\ (2024)\cite{blunn2024machine}       & Outside
+                  urban; London, UK                 & ML \& DL &
+                  \makecell[c]{Multilayer Perceptron \\ Random Forest \\
+                  XGBoost}                                          & UKV
+                  weather data                          & Citizen weather
+                  stations                                        \\
                   \hline
-                  Abdelmadjid (2025)\cite{abdelmadjid2025enhancing} & Greenhouse - Unknown                      &
-                  ML \& DL                                          & \makecell[c]{CNN-LSTM                                                                                       \\ LSTM (DL) \\ SVM-RBF \\ Prophet \\
-                  LightGBM                                                                                                                                                        \\
-                  XGBoost}                                          & Public kaggle dataset                     & Public kaggle dataset                                           \\
+                  Abdelmadjid (2025)\cite{abdelmadjid2025enhancing} & Greenhouse
+                  - Unknown                      & ML \& DL &
+                  \makecell[c]{CNN-LSTM \\ LSTM (DL) \\ SVM-RBF \\ Prophet \\
+                  LightGBM \\
+                  XGBoost}                                          & Public
+                  kaggle dataset                     & Public kaggle dataset \\
                   \hline
             \end{tabular}%
       }
 \end{table}
 
-A 2021 study by Kumar et al \cite{kumar2021} developed an ML
-framework called DeepMC as a part of a Microsoft Research initiative. Their
-model is able to predict a variety of climatic variables such as soil moisture,
-wind speed and temperature using inputs from weather station forecasts and IoT
-sensors. They were able to get up to 90\% accuracy with a 12-120 hour forecast
-range.
+A 2021 study by Kumar et al \cite{kumar2021} developed an ML framework called
+DeepMC as a part of a Microsoft Research initiative. Their model is able to
+predict a variety of climatic variables such as soil moisture, wind speed and
+temperature using inputs from weather station forecasts and IoT sensors. They
+were able to get up to 90\% accuracy with a 12-120 hour forecast range.
 
 Zanchi et al \cite{zanchi2023harnessing} used physical modelling of local
-terrain combined with DL to forecast the microclimate in the
-foothills of Lombardy. The objective was to predict the local conditions at the
-meter-scale as opposed to the 10km+ scale of regional and global weather
-forecasts. The initial model combined data about the morphology of the local
-terrain and weather forecast data to provide the input data for two feed-forward
-neural networks. These neural networks were trained to predict the local weather
+terrain combined with DL to forecast the microclimate in the foothills of
+Lombardy. The objective was to predict the local conditions at the meter-scale
+as opposed to the 10km+ scale of regional and global weather forecasts. The
+initial model combined data about the morphology of the local terrain and
+weather forecast data to provide the input data for two feed-forward neural
+networks. These neural networks were trained to predict the local weather
 variables using data from 25 sensors deployed in the region being studied.  The
 study demonstrated that local predictions were more accurate when using forecast
 data from local weather stations (ARPA) as opposed to global climate datasets
@@ -136,13 +146,13 @@ data from local weather stations (ARPA) as opposed to global climate datasets
 This study is of particular interest for this dissertation as it used IoT
 sensors to generate the training targets for the neural networks and in this
 regard is the most similar to my design. The paper also includes a discussion of
-problems with reliability of the sensors - only 4 out of 25 units ran with
+problems with reliability of the sensors - only 4 out of 25 units ran without
 failure over the period of the study - and the need to clean the data to ensure
 these failures were excluded from the training data. In my project, I came to
 appreciate how time consuming the development of hardware is, and how many
 unexpected issues can occur. As this project had a hard end date, this affected
-the quantity and quality of the data I was able to collect and so impacted on
-the training of the machine learning models.
+the quantity of data I was able to collect and therefore ultimately impacted the
+training of the machine learning models.
 
 Blunn et al \cite{blunn2024machine} ran a study focussed on predicting
 temperatures in urban environments during heatwaves, using data from eight
@@ -151,20 +161,25 @@ forecasting model - and from citizen weather stations (CWS), made available via
 the Weather Observations Website - a cloud platform where individuals can upload
 data from their personal weather stations. The study tested a variety of ML
 models including one DL model. The authors used a similar model training design
-to that used in this dissertation. The models were trained on UKV variables and
-CWS variables to bias correct the UKV readings and create a forecast prediction
+to that used in this dissertation. The models were trained on UKV variables
+(i.e. a general forecast as with mine) and CWS variables (i.e. sensor
+information) to bias correct the UKV readings and create a forecast prediction
 model that could predict the CWS readings accurately (mean average error:
 0.12\(^\circ\)C) compared with the general weather readings from UKV (mean
-average error: 0.64\(^\circ\)C).
+average error: 0.64\(^\circ\)C). The main point of difference to my own study
+here is that I am using four different climate variables compared to just
+temperature in the Blunn paper. Also CWS is publically available civilian
+weather stations whereas I am using my own sensor data from a devices I have
+built.
 
 A very recent paper from Abdelmadjid et al 2025 \cite{abdelmadjid2025enhancing}
-used online datasets from Kaggle
-to develop an ML tool to predict changes in temperature and humidity within
-greenhouses in response to changes to external weather conditions.  They used
-this data to test 3 ML models and 3 DL models and selected the LightGBM ML model
-and the LSTM DL model as the best performing models for prediction. The overall
-system design consisted of 4 LSTM models feeding into the LightGBM model. This
-design resulted in 98.45\% accuracy for temperature predictions and 99.61\%
-accuracy for humidity predictions. This study informed my decision to use the
-LightGBM model for my system as they found it  to be reliable and effective in
-capturing underlying data patterns.
+used online datasets from Kaggle to develop an ML tool to predict changes in
+temperature and humidity within greenhouses in response to changes to external
+weather conditions.  They used this data to test three ML models and three DL
+models and selected the LightGBM ML model and the LSTM DL model as the best
+performing models for prediction. The overall system design consisted of four
+LSTM models feeding into the LightGBM model. This design resulted in 98.45\%
+accuracy for temperature predictions and 99.61\% accuracy for humidity
+predictions. This study informed my decision to use the LightGBM model for my
+system as they found it  to be reliable and effective in capturing underlying
+data patterns. 
