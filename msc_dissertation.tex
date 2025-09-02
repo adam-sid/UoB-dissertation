@@ -15,37 +15,42 @@
 
 % Executive summary
 \section*{Executive summary}
-This project aimed to design a system that would provide farmers with much more
-accurate current weather information and forecast predictions for their specific
-locality than is possible from general weather forecasts. It was an ambitious
-project for the timescales involving the design and construction of four
-hardware devices suitable for use in an agricultural setting in addition to the
-development of backend and frontend software to capture the data from the
-devices and provide an easy to use application for farmers to see the
-information.  The system also included the development of machine learning
-models which were trained using historic general weather data and the data
-collected from the hardware devices.  The models were deployed to try and
-provide more accurate localised forecasting.
-\begin{itemize}
-  \item I designed weather proofed, solar powered hardware devices which used
-        low powered long range radio transmitters for data transmission.  Sensor
-        nodes were equipped with temperature, humidity, wind speed and soil
-        sensors and the system included a repeater node which doubled the
-        effective range of the system. I also designed a gateway device which
-        operated inside a WiFi enabled building to transmit the sensor data to
-        the cloud
-  \item I used a variety of language to develop backend software which received
-        and processed the data from the gateway
-  \item I developed a web app which displayed data to the end user and did a
-        usability assessment of this app
-  \item	I captured historical data from an online weather API to train machine
-        learning models and deployed these models to provide local weather
-        forecasts
-  \item I reviewed studies where machine learning has been applied to the
-        problem of forecasting for microclimates
-  \item I compared the features and costs of my system to those of existing
-        commercial systems
-\end{itemize}
+This project report presents the design, development and deployment of a
+complete IoT weather station network for use in agricultural settings. The
+network was built from the ground up with off-the-shelf electronics and a custom
+weather proofed enclosure. The system streams one minute sensor measurements to
+a linked web application also developed in this project called Agriscanner
+(\url{https://agriscanner.onrender.com}).
+
+The Agriscanner webapp provides users with historical, real-time, and forecast
+weather data through an intuitive and accessible interface. The webapp uses a
+machine learning model (LightGBM), to display microclimate specific forecast
+data that is trained by comparing general forecast information to sensor
+readings from the IoT network.
+
+General forecasting models often miss smaller climate variations that exist in
+farms and fields. While commercial weather monitoring stations are often a
+trade-off between the range they can transmit information and their price.
+Because farms are remote, any device collecting information must be
+self-sustaining in power and able to send data over long distances.
+
+The weather stations in this design achieved a measured range of 1,200m from the
+receiver in non-ideal circumstances and the final design is estimated to have
+over double the range of commercial options due to the inclusion of a repeater.
+
+On the software side, the backend was built with a relational database that
+keeps a log of all sensor readings, along with a secure API that facilitates
+these database queries. It serves a front-end web interface that scored highly
+for usability on both mobile and desktop.
+
+The machine learning model's forecast was compared to actual sensor data and
+showed that it was more accurate than the general forecast in most scenarios,
+but more training data is needed to improve its accuracy further.
+
+It was an ambitious project for the timescale - involving the design and
+construction of four hardware devices; the development of a backend database and
+API; the development of frontend web interface and the training and deployment
+of a set of machine learning models.
 
 \addcontentsline{toc}{section}{Executive summary}
 
@@ -53,16 +58,12 @@ provide more accurate localised forecasting.
 % Dedication and acknowledgments
 \newpage
 \section*{Dedication and acknowledgments}
-I would like to thank my parents for the use of their garden and generally being
-brilliant.
+I would like to thank my parents for the use of their garden, their wisdom and
+their near infinite patience; my supervisor for her advice and support
+throughout this project; and my partner, for helping me with range testing the
+network by walking the length of the Downs with a box of electronics, despite
+strange looks from passers-by.
 
-\paragraph{}I would like to thank my partner for helping with range testing the
-antenna by walking the length of the Downs with two boxes of electronics
-
-\paragraph{}I would like to thank my supervisor
-
-\paragraph{}I would like to thank friends and family who filled in a usability
-survey
 
 \addcontentsline{toc}{section}{Dedication and acknowledgments}
 
