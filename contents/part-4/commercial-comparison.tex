@@ -46,21 +46,21 @@ overall robustness.
 
 \subsubsection{Range}\label{sec:range-eval}
 
-As reported in section ~\ref{sec:range-tests} the Challenger microcontrollers
-and antennas used in this configuration are able to reach at least 1200m of
-range in a real world situation. The conditions in that test were not ideal for
-LoRa as both the receiver and transmitter were positioned low to the ground at
-around 1-1.5m. In addition line of sight was broken at around 1000m which
-severely diminishes the performance of any radio communication system. There
-were also buildings between 1200m and 1400m that blocked LoRa signals entirely.
+As reported in Section~\ref{sec:range-tests} the Challenger microcontrollers and
+antennas used in this configuration are able to reach at least 1200m of range in
+a real world situation. The conditions in that test were not ideal for LoRa as
+both the receiver and transmitter were positioned low to the ground at around
+1-1.5m. In addition line of sight was broken at around 1000m which severely
+diminishes the performance of any radio communication system. There were also
+buildings between 1200m and 1400m that blocked LoRa signals entirely.
 
 In the intended deployment of my full weather network, the use of an additional
 repeater would significantly improve range. In a flat terrain setting the use of
-a repeater would double the range. If terrain is hilly a repeater can increase
-range by even larger multiples. The below graphic demonstrates the problem of
-hills when it comes to LoRa. As a LoRa signal propagates from the transmitter
-and collides with a hill the majority of the signals energy is reflected off the
-hill meaning it cannot reach the gateway.
+a repeater would double the range, but if terrain is hilly a repeater can
+increase range by even larger multiples. The below graphic demonstrates the
+problem of hills when it comes to LoRa. As a LoRa signal propagates from the
+transmitter and collides with a hill the majority of the signals energy is
+reflected off the hill meaning it cannot reach the gateway.
 
 \begin{figure}[H]
   \centering
@@ -94,11 +94,12 @@ the fact that I modified the safemode.py behaviour of CircuitPython with the
 recommended code for remote solar power applications. As this ultimately appears
 to be a firmware issue there is not an obvious or easy solution for this.
 
-With enough time I would probably rewrite all of the Challenger software in
-MicroPython and see if that firmware behaves in a more reliable and
-deterministic way on power outage. Unfortunately the issue was picked up fairly
-late in development and it was unrealistic to perform a refactor of this scale
-with the time left.
+My proposed solution is to rewrite all of the Challenger software in Micropython
+and test if that firmware behaves in a more reliable and deterministic way on
+power outage. The reasoning is that Micropython is a simpler firmware and does
+not appear to use a "safemode" state. Unfortunately the issue was picked up
+fairly late in development and it was unrealistic to perform a refactor of this
+scale with before submission.
 
 \subsection{Quantitative comparison with commercial alternatives}
 
@@ -122,9 +123,8 @@ in Appendix~\ref{app:cost-nodes}.
     weather kit\cite{pihut:sparkfun-2025}} \\
 
     \hline
-    Number of sensors                               & 4 & 8
-    & 11\textsuperscript{*}                           & 6
-    & 7                                \\
+    Number of sensors                               & 4 & 8 &
+    11\textsuperscript{*}                           & 6 & 7 \\
     Sensor accuracy                                 & Hobbyist & Hobbyist &
                                                     Professional & Professional
                                                     & Hobbyist \\
@@ -134,32 +134,27 @@ in Appendix~\ref{app:cost-nodes}.
     Update frequency                                & 1 minute & 1 hour & 10
                                                     minutes & 1 hour & 1 minute
                                                     \\
-    Readings per hour                               & 60 & 1
-    & 6                                               & 10
-    & 60                               \\
-    Power source included                           & Yes & Yes
-    & Yes                                             & Yes
-    & No                               \\
+    Readings per hour                               & 60 & 1 & 6 & 10 & 60 \\
+    Power source included                           & Yes & Yes & Yes & Yes & No
+    \\
     Power source                                    & Solar & Solar & Solar &
                                                     Solar                 & --
                                                     \\
-    Batteries recharge?                             & Yes & No
-    & No                                              & Yes
-    & --                               \\
+    Batteries recharge?                             & Yes & No & No & Yes & --
+    \\
     Reported battery life                           & replace $\sim$ 3 years &
     154 days                                        & Several months & replace
     3--5 years                                      & -- \\
-    Reported range                                  & -- & 2--10\,km
-    & 2--10\,km                                       & Anywhere with 4G & -- \\
+    Reported range                                  & -- & 2--10\,km & 2--10\,km
+    & Anywhere with 4G & -- \\
     Estimated range                                 & 2.4--20\,km & 1.2--10\,km
                                                     & 1.2--10\,km & -- &
                                                     10--50\,m \\
     IP rating                                       & $\sim$ IP65 & IPX6 & IP66
                                                     & IP66                  &
                                                     None     \\
-    Ongoing payment?                                & -- & --
-    & --                                              & Yes -- mobile plan
-    & -- \\
+    Ongoing payment?                                & -- & -- & -- & Yes --
+    mobile plan & -- \\
     Ongoing costs p.a                               & \pounds{}0 & \pounds{}0 &
                                                     \pounds{}0 & \pounds{}132 &
                                                     \pounds{}0 \\
@@ -201,11 +196,11 @@ in Appendix~\ref{app:cost-nodes}.
         significantly lower as many components are being used on loan from the
         University of Bristol or purchased through my £150 dissertation
         allowance. The total charge to the DECIDE project is roughly £200. The
-        larger figure here represents the value of components at market
-        price.} the Agriscanner weather stations are the lowest cost option
-        among waterproof, long-range systems. While the SparkFun kit is cheaper,
-        it is not suitable for outdoor deployment due to its exposed electronics
-        and, since it relies on WiFi, its range would be insufficient in an
+        larger figure here represents the value of components at market price.}
+        the Agriscanner weather stations are the lowest cost option among
+        waterproof, long-range systems. While the SparkFun kit is cheaper, it is
+        not suitable for outdoor deployment due to its exposed electronics and,
+        since it relies on WiFi, its range would be insufficient in an
         agricultural setting. It will therefore not be discussed further. The
         two professional systems (DecentLab and HOBO) are over ten times the
         price of my system and are therefore not comparable.
@@ -265,13 +260,13 @@ in Appendix~\ref{app:cost-nodes}.
         directly, it is unlikely that the other units would exhibit the same
         behaviour, especially because their firmware will have been built
         specifically for remote solar powered applications.
-  \item \textbf{Remote Health Diagnostics:} The Agriscanner provides no way to
-        remotely monitor battery health and charging status. Such capabilities
-        would help diagnose issues caused by poor choice of location for
-        effective charging. A location that might have been acceptable at the
-        time of installation might become non-viable as the sun becomes lower in
-        the sky in the autumn and winter, or as vegetation grows and occludes
-        the solar panels.
+  \item \textbf{Remote Health Diagnostics:} The Agriscanner system currently
+        provides no way to remotely monitor battery health and charging status.
+        Such capabilities would help diagnose issues caused by poor choice of
+        location for effective charging. A location that might have been
+        acceptable at the time of installation might become non-viable as the
+        sun becomes lower in the sky in the autumn and winter, or as vegetation
+        grows and occludes the solar panels.
   \item \textbf{Other factors:} The other devices bring other non-tangible
         benefits besides their technical specification. For example, warranties,
         formal testing, vendor support etc. Professional systems commonly offer

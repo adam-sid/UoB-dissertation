@@ -210,17 +210,10 @@ List of tasks for users:
 % \section{Nielsen's nine usability heuristics
 % \cite{nielsen1990heuristic}}\label{app:usability-heuristics}
 
-% \begin{itemize}
-%   \item Simple and natural dialogue
-%   \item Speak the user's language
-%   \item Minimize user memory load
-%   \item Be consistent
-%   \item Provide feedback
-%   \item Provide clearly marked exits
-%   \item Provide shortcuts
-%   \item Good error messages
-%   \item Prevent errors
-% \end{itemize}
+% \begin{itemize} \item Simple and natural dialogue \item Speak the user's
+%   language \item Minimize user memory load \item Be consistent \item Provide
+%   feedback \item Provide clearly marked exits \item Provide shortcuts \item
+%   Good error messages \item Prevent errors \end{itemize}
 
 
 \section{How LoRa works}\label{app:lora-explained}
@@ -338,6 +331,8 @@ are contributed to the viability of my project.
 
 \begin{multicols}{2}
 \begin{lstlisting}
+#Code adapted from iLabs example by Jerry Needle 2021 (the LoRa setup)
+
 import time
 import board
 import busio
@@ -437,6 +432,8 @@ while True:
     min_counter = 0
     w_max = 0
     
+    # Do 10 readings each minute and then average the minute result
+    # If an exception occurs use pass to keep running
     while min_counter < 10:
         if dht_device:
             try:
@@ -466,33 +463,35 @@ while True:
             w_n += 1
             if w_reading > w_max:
                 w_max = w_reading
-        
+        print(f"{t_reading}, {h_reading}, {s_reading}, {w_reading}")
         min_counter += 1
         time.sleep(6)
         
         
     if t_n != 0:    
-        t_avg = t_sum/t_n
+        t_avg = round(t_sum/t_n, 1)
     else:
         t_avg = None
     if h_n != 0:    
-        h_avg = h_sum/h_n
+        h_avg = int(round(h_sum/h_n, 1))
     else:
         h_avg = None
     if s_n != 0:    
-        s_avg = s_sum/s_n
+        s_avg = int(round(s_sum/s_n, 0))
     else:
         s_avg = None
     if w_n != 0:
-        w_avg = w_sum/w_n
+        w_avg = round(w_sum/w_n, 1)
     else:
         w_avg = None
         w_max = None
     
+    #send payload and include errors if found
     payload = f"{DEVICE_ID},{find_err(t_avg)},{find_err(h_avg)},{find_err(s_avg)},{find_err(w_avg)}, {find_err(w_max)},{counter}"
     try:
         rfm9x.send(payload.encode("utf-8"))
         print(f"Sent packet {payload}")
+    #If sending the payload fails then print error
     except Exception as e:
         print("Failed to send packet: ", e)
 
@@ -504,7 +503,9 @@ while True:
 insert}\label{app:api-endpoint}
 \begin{multicols}{2}
 \begin{lstlisting}
+// End point to insert into node_data table
 app.post('/api/database/insert-node-data', async (req: Request, res: Response) => {
+  //Assign JSON body variables
   const {
     device_id,
     packet_id,
@@ -519,6 +520,7 @@ app.post('/api/database/insert-node-data', async (req: Request, res: Response) =
     snr1,
   } = req.body;
 
+  //attempt an insert with values from the json body
   try {
     const query = `INSERT INTO node_data 
       (node_deployment_id, farm_id, packet_id, temperature, humidity, 
@@ -540,13 +542,17 @@ app.post('/api/database/insert-node-data', async (req: Request, res: Response) =
       snr1,
       device_id
     ];
+    //put query into pooled connection
     await pool.query(query, values);
+    //return success if successful
     res.status(200).json({ status: 'success' });
   } catch (error) {
     console.error(error);
+    //return error if error occurs in insert
     res.status(500).json({ error: 'failed to insert to database' });
   }
 });
+
 \end{lstlisting}
 \end{multicols}
 

@@ -1,4 +1,4 @@
-\section{Machine learning model evaluation}
+\section{Machine learning model evaluation}\label{sec:mach-learn-eval}
 
 This chapter evaluates the predictive performance of my machine learning model.
 The model's forecasts are benchmarked against both actual sensor data and the
@@ -29,7 +29,8 @@ specifically for this evaluation.
 
 The alternative model was made by comparing the average temperature, humidity
 and wind speed differences between my raw sensor data and OpenWeather current
-weather readings from my database. An average difference was then calculated
+weather readings from my database\footnote{See Figure \ref{fig:alt-data-ig} in
+Appendix for adjustment factors}. An average difference was then calculated
 between the two datasets and applied to the raw OpenWeather forecast. The aim of
 this was to adjust the forecast readings to be closer to the sensor readings. To
 make the comparison fair with the machine learning model, I used data from
@@ -40,7 +41,7 @@ my more complex machine learning procedure.
 
 \subsection{Charts and results}
 
-As the weather data for the selected period was very similar between both nodes
+As the weather data for the selected period was very similar between both nodes,
 I have decided to only show charts for node 1 as it is representative of node 2
 as well. I have included a table containing the Mean Absolute Error (MAE) and
 Root Mean Squared Error (RMSE) for the data in these charts in Appendix
@@ -75,15 +76,15 @@ temperatures.
     \label{fig:humidity-chart}
 \end{figure}
 
-In Figure \ref{fig:humidity-chart} the machine learning model performed
-particularly poorly on average with an MAE OF 14.9\% (General forecast: 5.5\%).
-The alternative model also performs worse with MAE of 11.1\%. While these
-metrics paint a poor picture of the model, I would point to the section of the
-chart around 12:00 31/08. Here we can see that the machine learning model is the
-only one of the models to successfully predict a spike in humidity at midday.
-While the magnitude of this spike is not correct it does offer some tentative
-evidence that the model can more accurately predict some data patterns that a
-the general forecasts cannot predict.
+In Figure \ref{fig:humidity-chart} the machine learning model performed poorly
+on average with an MAE of 14.9\% (General forecast: 5.5\%). The alternative
+model also performs worse than the general forecast with MAE of 11.1\%. While
+these metrics paint a poor picture of the model, I would point to the section of
+the chart around 12:00 31/08. Here we can see that the machine learning model is
+the only one of the models to successfully predict a spike in humidity at
+midday. While the magnitude of this spike is not correct it does offer some
+tentative evidence that the model can more accurately predict some data patterns
+than general macroclimate forecasts.
 
 \begin{figure}[H]
     \centering
@@ -116,7 +117,7 @@ extremely dry period of time and therefore the model does not adjust soil
 moisture for recent precipitation. The days before the 48 hour period used in
 these charts had included a lot of rain so the soil was still still wet from
 this. However the model still expected dry soil as no connection between
-rainfall and damp soil had been established in the training rounds.
+rainfall and damp soil had been established in the training.
 
 \subsection{Discussion of results}
 
@@ -134,31 +135,31 @@ day~2. Wind speed and soil moisture were clear wins for the model, but mostly
 due to the highly inflated figures for wind in the forecast and the lack of any
 soil moisture forecast data.
 
-Despite this, on average the alternative model marginally outperformed the
-machine learning model in temperature, and both models were surprisingly worse
-than the general forecast in the humidity context. This raises the question of
-whether machine learning is "worth it" if a computationally simpler model
-performed at around the same level.
+Despite these advantages, on average the alternative model marginally
+outperformed the machine learning model in temperature, and both models were
+surprisingly worse than the general forecast in the humidity context. This
+raises the question of whether machine learning is "worth it" if a
+computationally simpler model performed at around the same level.
 
-I would argue that yes, using machine learning was worth it, for two reasons:
-The first is around the training data: the machine learning model here was not
+I would argue that yes, using machine learning is worth it, for two reasons: The
+first is around the training data: the machine learning model here was not
 trained on nearly enough data to provide a fair evaluation of its
 microforecasting abilities compared to the other models. This is most obvious
 from the soil moisture readings, where the model had no prior rain data meaning
 it would have been impossible to predict that soil moisture levels would be
-lower after rainfall. In general weather conditions from the 15th to the 27th
-are not particularly representative of the conditions after this point, as the
-weather has been cooler and cloudier past this point with higher average
+lower after rainfall. The general weather conditions from the 15th to the 27th
+were not particularly representative of the conditions after this point, as the
+weather cooled significantly past this point with higher average cloud cover and
 humidity.
 
 The second point is that the machine learning approach is capable and likely to
 improve, unlike the other solutions which are fundamentally not predicting the
-microclimate. For example the alternative model is essentially a blunt
-correction to the general forecast, as the dataset grows this approach would
-become increasingly poor. If in summer the microclimate tends to be hotter and
-in winter it tends to be cooler then using a simple mean average correction
-would not only result in no change to the forecast but also a poor prediction in
-both seasons.
+microclimate and increased data will likely not improve their accuracy. For
+example, the alternative model is essentially a blunt correction to the general
+forecast: even as the dataset grows this approach would become increasingly poor. If
+in summer the microclimate tends to be hotter and in winter it tends to be
+cooler then using a simple mean average correction would not only result in no
+change to the forecast and therefore no bias correction at all.
 
 Hence I believe that with a longer deployment and more data it is highly likely
 that the machine learning approach would show much greater accuracy than the

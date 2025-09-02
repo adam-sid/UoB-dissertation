@@ -6,20 +6,20 @@ in late August.
 
 \subsection{Procedure}
 
-Before the main section of the survey, participants were asked to consent to
-standard University of Bristol privacy wording (see
-Appendix~\ref{app:sus-survey}). To avoid stricter GDPR handling I did not record
-identifiable information (e.g. name, email, age), which may have also encouraged
-more honest responses. I also made sure to ask what device they were viewing the
+Before answering the main section of the survey, participants were asked to
+consent to some privacy wording (see Appendix~\ref{app:sus-survey}).
+Additionally, to avoid stricter GDPR handling I did not record identifiable
+information (e.g. name, email, age), which I also hoped would encourage more
+honest responses. I also made sure to ask what device they were viewing the
 project on (either mobile or desktop) as I wanted to test whether there was any
 difference in usability between the two.
 
 Participants were then asked to perform a set of four representative tasks in
 the webapp. Each task involved collecting a piece of information from a
 specified chart, such as finding the temperature for a particular node at a a
-specified time (tasks list shown in Appendix~\ref{list-of-tasks}). Once the
-tasks were completed, I asked participants to submit these answers via
-multiple-choice questions.
+specific time (tasks list shown in Appendix~\ref{list-of-tasks}). Once the tasks
+were completed, I asked participants to submit their answers for each task
+activity via multiple-choice questions.
 
 Next, the survey presented a standard 10-question SUS, which is a Likert-scale
 questionnaire commonly used to report on the usability of software systems
@@ -33,10 +33,10 @@ user stories for future development (Section~\ref{sec:user-story}).
 
 By asking participants to perform the same tasks and collecting their answers, I
 ensured everyone completed a valid interaction with the webapp before rating it.
-This helps to standardise the experiment and reduces uncontrolled variance that
-from a more open “try out my website and answer this survey” approach. Because I
-recorded the task responses, I could also compare them to the correct answers,
-providing an additional metric (task success) to complement the SUS.
+This helped to standardise the experiment and reduce uncontrolled variance that
+a more open “try out my website and answer this survey” approach would have.
+Because I recorded the task responses, I could also compare them to the correct
+answers, providing an additional metric (task success) to complement the SUS.
 
 In total, 15 participants completed the survey. Participants were recruited
 mainly from friends, family and other students on my course.
@@ -47,8 +47,8 @@ mainly from friends, family and other students on my course.
 The sample SUS score will be greater than the benchmark value of 68
 
 \textbf{Statistic to test:} One-sample, right-tailed Wilcoxon signed-rank
-test\footnote[1]{For rationale and sources on statistical testing refer to
-Figure \ref{fig:appendix-note-1} in the Appendix}.
+test\footnote{For rationale and sources on statistical testing refer to Figure
+\ref{fig:appendix-note-1} in the Appendix}.
 
 \textbf{Null and alternative hypotheses:}
 \[
@@ -60,8 +60,7 @@ where \(m\) is the population median.
 The SUS scores for users on mobile will not differ significantly from those on
 desktop.
 
-\textbf{Statistic to test:} Two-sample, two-tailed Mann-Whitney U
-Test\footnotemark[1].
+\textbf{Statistic to test:} Two-sample, two-tailed Mann-Whitney U Test
 
 \textbf{Null and alternative hypotheses:}
 \[
@@ -158,7 +157,7 @@ Performance in the assigned tasks was generally good
 participants, with only one participant failing on 2 and 3. The first question
 proved the most difficult to perform accurately with 3 candidates failing. I
 decided to plot the SUS score given against the percentage of correct answers
-(see~\ref{app:correlation-sus}) however with an $R^2$ value of 0.0066 there was
+(see~\ref{app:correlation-sus}), however with an $R^2$ value of 0.0066 there was
 effectively zero correlation between the two; even if there was some correlation
 the small sample size and ceiling effect from so many respondents getting
 perfect scores would make this difficult to detect.
@@ -174,13 +173,14 @@ quantitative evidence that the frontend development choices I have taken
 usability. This point is further reinforced by the very high task completion
 rate (92\%). The fact that users could not only perceive the system as easy to
 use but could also operate it efficiently with minimal guidance validates the
-chosen design approach—particularly the emphasis on a minimal, low-distraction
-interface.
+chosen design approach — particularly the emphasis on a minimal tile based
+interface that follows user experience norms.
 
 Additionally, the data suggest that usability on mobile devices is no different
 to that on desktop devices. A two-sample Mann-Whitney U test revealed no
 statistically significant difference in usability ratings between mobile and
-desktop users with \(p>0.05\).
+desktop users with \(p>0.05\). This is evidence that the steps I took to improve
+mobile user experience had the desired effect.
 
 Not all the data were positive however: Two participants gave scores close to
 the benchmark level of 68 and one respondent gave a score below this point. With
@@ -209,7 +209,8 @@ broadly generalised, they still provide a strong, positive indication of the
 webapp's usability. An exceptionally high SUS score and a high task completion
 rate demonstrate that the core design of the application succeeded in its aims.
 Further, the evaluation has successfully identified specific feedback from
-users, which provides a clear path to improving usability further.
+users, which provides a clear path to improving usability in future development
+cycles.
 
 \subsection{User stories from SUS survey} \label{sec:user-story}
 

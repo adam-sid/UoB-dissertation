@@ -1,28 +1,28 @@
 \section{Future work}\label{sec:future-work}
 
 Ultimately the main objective of this work is to deploy the system in an apple
-farm to assist the farmers with the management of their orchard. Before the
-system can be deployed, the Challenger's firmware must be able to reliably
-restart after a power outage.  As suggested in section \ref{sec:reset-behaviour}
-I would first recommend experimenting with MicroPython to see if this can
-provide a more robust solution to coping with this scenario. The worst case
-scenario would be to have to use an alternative embedded processor that can
-handle power fluctuations.
+farm to assist farmers with the management of their orchard. Before the system
+can be deployed, the Challenger's firmware must be able to reliably restart
+after a power outage.  As suggested in section \ref{sec:reset-behaviour} I would
+first recommend experimenting with MicroPython to see if this can provide a more
+robust solution to coping with this scenario. The worst case scenario would be
+to have to use an alternative embedded processor that can handle power
+fluctuations.
 
-Additionally, it may be of value to add more sensor to the nodes as this is a
-noticeable weakness of the current system architecture compared to existing
-alternatives. Considering the addition of sensors would result in increased
-power requirements I believe it would be inadvisable to add any more for time
-being. Once the system has been deployed for an extended period and shows that
-it can operate with minimal outages then the adding sensors would be a
-worthwhile improvement to the current design.
+Additionally, down the line it may be of value to add more sensor to the nodes
+as this is a noticeable weakness of the current system architecture compared to
+existing alternatives. Considering the addition of sensors would result in
+increased power requirements I believe it would be inadvisable to add any more
+for time being. Once the system has been deployed for an extended period and
+shows that it can operate with minimal outages then the adding sensors would be
+a worthwhile improvement to the current design.
 
-Once the reliability issue has been resolved, the next stage will be to deploy
-the system onto a farm.  The siting of the sensor nodes and repeater will need
-careful consideration, so a thorough site survey should be undertaken prior to
-this. It would be advisable to allow a few days for the installation, so there
-is someone on hand to deal with any issues that might arise once the nodes have
-been installed and to make sure the farmers are comfortable with using the
+Once the reset behaviour issue has been resolved, the next stage will be to
+deploy the system onto a farm.  The siting of the sensor nodes and repeater will
+need careful consideration, so a thorough site survey should be undertaken prior
+to this. It would be advisable to allow a few days for the installation, so
+there is someone on hand to deal with any issues that might arise once the nodes
+have been installed and to make sure the farmers are comfortable with using the
 webapp.
 
 I would recommend that the forecasting feature continues to be developed using
@@ -30,22 +30,23 @@ machine learning. Furthermore instead of training the model offline and manually
 inserting models into the webapp, future work could focus on moving model
 training online. This would allow the model to continually update and improve as
 new data from the nodes is produced. After a few months of data is collected
-then a repeated comparison should be performed to 
+then the evaluation in Chapter \ref{sec:mach-learn-eval} should be performed
+again to analyse if the prediction quality has improved.
 
 
 \section{Closing remarks}
 
 This dissertation has shown the process of developing a complete IoT weather
 station network with an accompanying webapp. In the hardware evaluation it was
-shown that the system designed here offers superior range at lower cost. With
-some extra time and effort put into fixing the reset behaviour the system has
-demonstrated sufficient ruggedness to be deployed in field. 
+shown that the system designed here offers superior range at lower cost compared
+to commercial options. The system has continued operating despite rainfall and
+high temperatures, suggesting the design here is relatively well weather proofed.
 
 The webapp designed here scored well in terms of usability, achieving a far
 higher SUS score than the benchmark level of 68. The user stories developed from
-survey responses also offers a clear roadmap to future development.
+survey responses also offer a clear roadmap to future development.
 
 Finally the machine learning evaluation explored the accuracy of the current
-machine learning system against a simpler model. With additional training data,
-there should be a much higher degree of accuracy - and this was discussed as an
-important area of future development. 
+machine learning system against a simpler model. With additional time in the
+field and training data, it is expected that the models accuracy will see large
+improvements.
