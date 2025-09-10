@@ -1,3 +1,7 @@
+# UoB-dissertation
+
+A pdf copy of the dissertation is available as a pdf in the main directory - see msc_dissertation_readable.pdf
+
 ## How to run (Mac/linux)
 
 1) Install VSCode
